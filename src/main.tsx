@@ -6,7 +6,7 @@ import SideBar from "./SideBar.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <div className={"grid lg:grid-cols-[320px_1fr] poppins"}>
+    <div className={"grid lg:grid-cols-[320px_1fr] font-poppins"}>
       <SideBar />
       <App />
     </div>

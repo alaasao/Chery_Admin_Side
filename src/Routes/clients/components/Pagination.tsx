@@ -2,11 +2,12 @@
 import React, { FC } from "react";
 import { useEffect, Dispatch, SetStateAction } from "react";
 import { userType } from "./Main";
+import { CarsProps } from "../../cars/components/Main";
 interface PaginationProps {
   article_per_page: number;
-  arr: userType[];
+  arr: userType[]|CarsProps[] ;
   
-  setShowList: Dispatch<SetStateAction<userType[]>>;
+  setShowList: Dispatch<SetStateAction<userType[]|CarsProps[] >>;
   searchKey: string;
 }
 const Pagination: FC<PaginationProps> = ({
@@ -25,7 +26,7 @@ const Pagination: FC<PaginationProps> = ({
     Array.from(Array(Math.ceil(arr.length / article_per_page)).keys())
   );
 
-  const [filteredArr, setFilteredArr] = React.useState<userType[]>(arr);
+  const [filteredArr, setFilteredArr] = React.useState<userType[]|CarsProps[] >(arr);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredArr.length / article_per_page);
@@ -41,6 +42,7 @@ const Pagination: FC<PaginationProps> = ({
 
   useEffect(() => {
     const filteredData = arr.filter((e) => {
+
       return e.Name.toLowerCase().includes(searchKey);
     });
     setFilteredArr(filteredData);

@@ -2,19 +2,19 @@ import { useParams } from "react-router-dom";
 import Title from "../components/Title";
 import data from "../components/data";
 const ClientPage = () => {
-  const { id } = useParams()
+  const { id } = useParams();
   const client = data.find((e) => e.id == id);
   return (
     <div>
       <Title title="Informations" />
-      <div className="w-full flex justify-between  pt-[20px] pb-[50px] border-b-[1.5px] border-[#494545] max-md:flex-col max-md:items-center">
+      <div className="w-full flex  px-[5%] max-sm:px-[10px] justify-between  pt-[20px] pb-[50px] border-b-[1.5px] border-[#494545] max-md:flex-col max-md:items-center">
         <img
           src={client?.img}
           alt=""
           className="rounded-full w-[142px]  h-[142px] md:order-2 max-md:mb-[50px] mr-[40px]"
         />
-        <div className="md:order-1 text-3xl max-sm:text-xl max-md:w-full px-[5%] max-sm:px-[10px]">
-          <div className="text-3xl text-[#878181] underline mb-[12px]">
+        <div className="text-3xl md:order-1 max-sm:text-xl max-md:w-full ">
+          <div className="text-3xl text-[#878181] underline mb-[12px] max-md:text-xl">
             Coordonnées du client :
           </div>
           <div className="pl-[11%] max-sm:pl-[20px] flex flex-col gap-[10px]">
@@ -41,11 +41,11 @@ const ClientPage = () => {
           </div>
         </div>
       </div>
-      <div className="md:order-1 text-3xl max-sm:text-xl mt-[40px] pb-[50px] border-b-[1.5px] border-[#494545]">
-        <div className="text-3xl text-[#878181] underline mb-[12px] px-[5%] max-sm:px-[10px]">
+      <div className="md:order-1 text-3xl max-md:text-xl max-sm:text-xl mt-[40px] pb-[50px] border-b-[1.5px] border-[#494545]">
+        <div className="text-3xl max-md:text-xl text-[#878181] underline mb-[12px] px-[5%] max-sm:px-[10px]  ">
           Détails du véhicule acheté :
         </div>
-        <div className="pl-[10%] max-sm:pl-[20px] flex flex-col gap-[10px]">
+        <div className="pl-[11%] max-sm:pl-[20px] flex flex-col gap-[10px] max-md:text-xl ">
           <div>
             Modèle : <span className="text-[#878181]">{client?.Model}</span>
           </div>
@@ -59,11 +59,11 @@ const ClientPage = () => {
           </div>
         </div>
       </div>
-      <div className="md:order-1 text-3xl max-sm:text-xl mt-[40px]">
-        <div className="text-3xl text-[#878181] underline mb-[12px] px-[5%] max-sm:px-[10px]">
+      <div className="md:order-1 text-3xl max-sm:text-xl mt-[40px] max-md:text-xl">
+        <div className="text-3xl text-[#878181] underline mb-[12px] px-[5%] max-sm:px-[10px] max-md:text-xl">
           Informations sur la garantie :
         </div>
-        <div className="pl-[10%] max-sm:pl-[20px] flex flex-col gap-[10px]">
+        <div className="  max-sm:pl-[20px] flex flex-col gap-[10px] pl-[11%] ">
           <div>
             Durée de la garantie : <span className="text-[#878181]">000</span>
           </div>
