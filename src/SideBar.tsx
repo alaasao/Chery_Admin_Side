@@ -2,8 +2,6 @@ import { Link, NavLink } from "react-router-dom";
 
 import React, { useEffect } from "react";
 import { CiMenuBurger } from "react-icons/ci";
-import { DiVim } from "react-icons/di";
-import { IoHomeOutline } from "react-icons/io5";
 
 const pages: Array<{ to: string; title: string; img: string }> = [
   { to: "/dashboard", title: "Tableau de bord", img: "home" },

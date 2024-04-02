@@ -5,14 +5,14 @@ import { userType } from "./Main";
 interface PaginationProps {
   article_per_page: number;
   arr: userType[];
-  showList: userType[];
+  
   setShowList: Dispatch<SetStateAction<userType[]>>;
   searchKey: string;
 }
 const Pagination: FC<PaginationProps> = ({
   article_per_page,
   arr,
-  showList,
+ 
   searchKey,
   setShowList,
 }: PaginationProps) => {
