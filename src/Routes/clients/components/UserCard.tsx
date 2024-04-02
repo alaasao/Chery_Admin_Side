@@ -1,5 +1,5 @@
 
-import React, { FC } from "react";
+import  { FC } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 interface UserCardProps {

@@ -1,5 +1,5 @@
-"use client";
-import React, { FC, useEffect } from "react";
+
+import React, { FC } from "react";
 import { CiSearch } from "react-icons/ci";
 import { TiUserAddOutline } from "react-icons/ti";
 import Pagination from "./Pagination";
@@ -11,7 +11,7 @@ interface MainProps {
 const Main: FC<MainProps> = ({ data }: MainProps) => {
   const [searchKey, setSearchKey] = React.useState("");
   const [showList, setShowList] = React.useState<userType[]>([]);
-  const [usersList, setUsersList] = React.useState<userType[]>(data);
+  const [usersList] = React.useState<userType[]>(data);
 
   return (
     <div className="w-full pt-[37px] font-poppins">
@@ -58,7 +58,7 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
         <Pagination
           article_per_page={8}
           arr={usersList}
-          showList={showList}
+         
           setShowList={setShowList}
           searchKey={searchKey}
         />
