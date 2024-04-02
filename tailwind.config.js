@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
+        poppins: ["Inter", "sans-serif"],
         // Define additional font configurations
-        mont: ['var(--font-mont)', 'sans-serif'],
+        mont: ["var(--font-mont)", "sans-serif"],
       },
     },
   },

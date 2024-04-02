@@ -1,4 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/good-times-2");
+@import url("https://fonts.cdnfonts.com/css/Inter");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,10 +8,10 @@
   font-family: "Good Times Rg";
 }
 @font-face {
-    font-family: 'Poppins';
-    src: url('./font/Poppins/Poppins-Regular.ttf') format('truetype');
-    /* Add other font styles if needed (e.g., font-weight, font-style) */
-  }
-    .poppins {
-        font-family: 'Poppins';
-    }
+  font-family: "Inter";
+  src: url("./font/Inter/Inter-Regular.ttf") format("truetype");
+  /* Add other font styles if needed (e.g., font-weight, font-style) */
+}
+.Inter {
+  font-family: "Inter";
+}
