@@ -6,3 +6,11 @@
 .good {
   font-family: "Good Times Rg";
 }
+@font-face {
+    font-family: 'Poppins';
+    src: url('./font/Poppins/Poppins-Regular.ttf') format('truetype');
+    /* Add other font styles if needed (e.g., font-weight, font-style) */
+  }
+    .poppins {
+        font-family: 'Poppins';
+    }
