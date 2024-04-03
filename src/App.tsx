@@ -5,6 +5,7 @@ import Clients from "./Routes/clients/Clinets";
 import ClientPage from "./Routes/clients/clientPage/ClientPage";
 import AddClient from "./Routes/clients/AddClient/AddClient";
 import Cars from "./Routes/cars/Cars";
+import Events from "./Routes/events/Events";
 
 function App() {
   const routes = [
@@ -32,6 +33,11 @@ function App() {
       name: "cars",
       link: "/produits/cars",
       component: Cars,
+    },
+    {
+      name: "events",
+      link: "/events",
+      component: Events,
     },
   ];
 

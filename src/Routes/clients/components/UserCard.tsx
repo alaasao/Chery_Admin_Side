@@ -1,6 +1,7 @@
 
 import  { FC } from "react";
 import { IoTrashOutline } from "react-icons/io5";
+import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router-dom";
 interface UserCardProps {
   Name: string;
@@ -27,7 +28,10 @@ const UserCard: FC<UserCardProps> = ({
       >
         Informations
       </Link>
-      <IoTrashOutline className="text-[#D12621]" />
+      <div className="flex gap-[5px] md:gap-[15px] ">
+        <LuPencil className="text-[#494545]" />
+        <IoTrashOutline className="text-[#D12621]" />
+      </div>
     </div>
   );
 };
