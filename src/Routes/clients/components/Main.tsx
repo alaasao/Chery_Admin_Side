@@ -1,17 +1,28 @@
-
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { TiUserAddOutline } from "react-icons/ti";
 import Pagination from "./Pagination";
 
 import UserCard from "./UserCard";
+import { CarsProps } from "../../cars/Cars";
+import CarCard from "../../cars/components/CarCard";
+
+import { EventType } from "../../events/Events";
+import EventCard from "../../events/components/EventCard";
 interface MainProps {
-  data: userType[];
+  data: (userType | CarsProps | EventType)[];
 }
 const Main: FC<MainProps> = ({ data }: MainProps) => {
   const [searchKey, setSearchKey] = React.useState("");
-  const [showList, setShowList] = React.useState<userType[]>([]);
-  const [usersList] = React.useState<userType[]>(data);
+  const [showList, setShowList] = React.useState<
+    (userType | CarsProps | EventType)[]
+  >([]);
+  const [usersList, setUsersList] =
+    React.useState<(userType | CarsProps | EventType)[]>(data);
+  useEffect(() => {
+    setUsersList(data);
+    console.log(data);
+  }, [data]);
 
   return (
     <div className="w-full pt-[37px] font-poppins">
@@ -42,7 +53,8 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
 
       <div>
         {showList.map((e, i) => {
-          return (
+        
+          return "Name" in e ? (
             <UserCard
               Name={e.Name}
               Email={e.Email}
@@ -50,7 +62,21 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               id={e.id}
               key={e.id + i}
             />
-          );
+          ) : "Modele" in e ? (
+            <CarCard
+              _id={e._id}
+              Modele={e.Modele}
+              Disponabilite={e.Disponabilite}
+              key={e._id + i}
+            />
+          ) : "Title" in e ? (
+            <EventCard
+              Title={e.Title}
+              Description={e.Description}
+              Date={e.Date}
+              key={i + e.Title}
+            />
+          ) : null;
         })}
       </div>
       <div className="flex items-center justify-center w-full ">
@@ -58,7 +84,6 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
         <Pagination
           article_per_page={8}
           arr={usersList}
-         
           setShowList={setShowList}
           searchKey={searchKey}
         />
