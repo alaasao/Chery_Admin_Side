@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { userType } from "../clients/components/Main";
 import Title from "../clients/components/Title";
+import React from 'react';
 
 import axios from "axios";
 import Main from "../clients/components/Main";
 import { EventType } from "../events/Events";
+import { Link, useLocation } from "react-router-dom";
 
 const Cars = () => {
-  const [data, setData] = useState<(userType | CarsProps|EventType)[]>([]);
+  const [data, setData] = useState<(userType | CarsProps | EventType)[]>([]);
+  const path = useLocation().pathname;
   useEffect(() => {
     axios.get("https://axeiny.tech:4004/car/").then((response) => {
       response.data;
@@ -20,7 +23,25 @@ const Cars = () => {
   return (
     <div className="w-full ">
       <Title title="produits" />
-
+      <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] grid grid-cols-2 ">
+        <Link to="/produits/cars"
+          className={`${
+            path === "/produits/cars" ? "shadow-xl" : ""
+          } flex justify-center items-center h-[53px]`}
+        >
+          Véhicules
+        </Link>
+        <Link to="/produits/pieces"
+          className={`${
+            path === "/produits/pieces" ? "shadow-xl" : ""
+          } flex justify-center items-center h-[53px] `}
+        >
+          Pièces
+        </Link>
+      </div>
+      <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] ">
+        Liste des {path === "/produits/cars" ? "Véhicules" : "Pièces"}
+      </div>
       <Main data={data} />
     </div>
   );
@@ -93,6 +114,12 @@ export interface ConfortObj {
   Autoradio: string;
   bluetooth: boolean;
 }
+export  interface PromoObj{
+  IsPromo: boolean;
+  Start: string;
+  End: string;
+  Value: number;
+}
 export interface CarsProps {
   _id: string;
 
@@ -102,12 +129,7 @@ export interface CarsProps {
   Disponabilite: string;
   Prix_TTC: number;
   Moteur: string;
-  PromoObj: {
-    IsPromo: boolean;
-    Start: string;
-    End: string;
-    Value: number;
-  };
+  PromoObj: PromoObj;
   MoteurObj: MoteurObj;
   ConfortObj: ConfortObj;
   SecurityObj: SecurityObj;

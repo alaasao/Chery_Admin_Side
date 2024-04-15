@@ -1,5 +1,6 @@
 
 import Title from "../components/Title";
+import React from 'react';
 
 const AddClient = () => {
   return (

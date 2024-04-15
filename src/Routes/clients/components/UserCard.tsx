@@ -1,8 +1,10 @@
+import { FC } from "react";
 
-import  { FC } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import React from "react";
+
 interface UserCardProps {
   Name: string;
   Email: string;
@@ -19,8 +21,9 @@ const UserCard: FC<UserCardProps> = ({
     <div
       className={`w-full h-[83px] flex items-center text-2xl font-semibold justify-around `}
     >
-      <Link
-        to={`/clients/${id}`} className="">{Name}</Link>
+      <Link to={`/clients/${id}`} className="">
+        {Name}
+      </Link>
       <div className="max-md:hidden">{Email}</div>
       <Link
         to={`/clients/${id}`}

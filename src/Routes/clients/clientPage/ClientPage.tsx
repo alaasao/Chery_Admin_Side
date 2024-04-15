@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import Title from "../components/Title";
 import data from "../components/data";
+import React from 'react';
+
 const ClientPage = () => {
   const { id } = useParams();
   const client = data.find((e) => e.id == id);
