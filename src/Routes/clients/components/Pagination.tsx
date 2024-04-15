@@ -31,7 +31,7 @@ const Pagination: FC<PaginationProps> = ({
   );
 
   const [filteredArr, setFilteredArr] =
-    React.useState<(userType | CarsProps | EventType)[]>(arr);
+    React.useState<(userType | CarsProps | EventType|FaqType)[]>(arr);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredArr.length / article_per_page);
