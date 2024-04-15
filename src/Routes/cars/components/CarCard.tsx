@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { FC } from "react";import React from 'react';
+
 import { IoClose, IoTrashOutline } from "react-icons/io5";
 import { LuPencil } from "react-icons/lu";
 import { MdDone } from "react-icons/md";
@@ -17,7 +18,7 @@ const CarCard: FC<CarCardProps> = ({
     <div
       className={`w-full h-[83px] flex items-center text-2xl font-semibold justify-around `}
     >
-      <Link to={`/clients/${_id}`} className="">
+      <Link to={`/produits/cars/${_id}`} className="">
         {Modele}
       </Link>
       <div className="max-sm:hidden">

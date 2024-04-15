@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+
 import "./App.css";
 import Dashboard from "./Routes/Dashboard/Dashboard";
 import Clients from "./Routes/clients/Clinets";
@@ -6,6 +7,8 @@ import ClientPage from "./Routes/clients/clientPage/ClientPage";
 import AddClient from "./Routes/clients/AddClient/AddClient";
 import Cars from "./Routes/cars/Cars";
 import Events from "./Routes/events/Events";
+import Faq from "./Routes/faq/Faq";
+import Car from "./Routes/cars/components/Car";
 
 function App() {
   const routes = [
@@ -35,10 +38,20 @@ function App() {
       component: Cars,
     },
     {
+      name: "cars",
+      link: "/produits/cars/:id",
+      component: Car,
+    },
+    {
       name: "events",
       link: "/events",
       component: Events,
     },
+    {
+      name: "faq",
+      link: "/faq",
+      component: Faq,
+    }
   ];
 
   return (

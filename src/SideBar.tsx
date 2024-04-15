@@ -32,7 +32,7 @@ const SideBar = () => {
     <div>
       {" "}
       <div
-        className={`w-[320px] h-full  max-lg:w-screen max-lg:absolute min-h-screen  z-[999] bg-[#1E1E1E] py-[40px] flex flex-col items-center transition-all duration-700 origin-left ${
+        className={`w-[320px] h-full  max-lg:w-screen max-lg:absolute min-h-screen  z-[10] bg-[#1E1E1E] py-[40px] flex flex-col items-center transition-all duration-700 origin-left ${
           open ? "" : "scale-x-0"
         }`}
       >
@@ -44,7 +44,7 @@ const SideBar = () => {
 
           <div className="good text-[#D12621] text-xl ">Speed Motors</div>
         </Link>
-        <div className="w-[80%] h-[0.5px] bg-[#FFFFFF] mb-[60px] gap-[10px"></div>
+        <div className="w-[80%] h-[0.5px] bg-[#FFFFFF] mb-[60px] gap-[10px]"></div>
         {pages.map((e, i) => {
           return (
             <div className="w-full " key={i + e.title}>

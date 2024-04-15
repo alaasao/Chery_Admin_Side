@@ -1,4 +1,5 @@
 import  { FC } from "react";
+import React from 'react';
 
 import { FaRegBell, FaRegUser } from "react-icons/fa";
 interface TitleProps {

@@ -9,26 +9,25 @@ import CarCard from "../../cars/components/CarCard";
 
 import { EventType } from "../../events/Events";
 import EventCard from "../../events/components/EventCard";
+import { FaqType } from "../../faq/Faq";
+import FaqCard from "../../faq/components/FaqCard";
 interface MainProps {
-  data: (userType | CarsProps | EventType)[];
+  data: (userType | CarsProps | EventType |FaqType)[];
 }
 const Main: FC<MainProps> = ({ data }: MainProps) => {
   const [searchKey, setSearchKey] = React.useState("");
   const [showList, setShowList] = React.useState<
-    (userType | CarsProps | EventType)[]
+    (userType | CarsProps | EventType |FaqType)[]
   >([]);
   const [usersList, setUsersList] =
-    React.useState<(userType | CarsProps | EventType)[]>(data);
+    React.useState<(userType | CarsProps | EventType |FaqType)[]>(data);
   useEffect(() => {
     setUsersList(data);
     console.log(data);
   }, [data]);
 
   return (
-    <div className="w-full pt-[37px] font-poppins">
-      <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] ">
-        Liste des clients
-      </div>
+    <div className="w-full font-poppins">
       <div className="w-full pl-[4%] pr-[11%] max-md:pr-[4%] flex items-center justify-between gap-[10px]">
         <div className="relative w-[370px] max-sm:w-[90%]  h-[45px] rounded-2xl  ">
           <input
@@ -53,7 +52,6 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
 
       <div>
         {showList.map((e, i) => {
-        
           return "Name" in e ? (
             <UserCard
               Name={e.Name}
@@ -76,7 +74,15 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               Date={e.Date}
               key={i + e.Title}
             />
-          ) : null;
+          ) :
+            "answer" in e ? (
+                  <FaqCard
+                    id={e.id}
+                    question={e.question}
+                  
+                  
+                  />
+            ) : null;
         })}
       </div>
       <div className="flex items-center justify-center w-full ">
