@@ -3,14 +3,7 @@ import { useParams } from "react-router-dom";
 import React from "react";
 
 import axios from "axios";
-import {
-  ConfortObj,
-  LookObj,
-  MoteurObj,
-  PromoObj,
-  SecurityObj,
-  VehiculeObj,
-} from "../Cars";
+
 import { CarsProps } from "../Cars";
 import { FaArrowRight } from "react-icons/fa";
 import FormSec from "./FormSec.jsx";
