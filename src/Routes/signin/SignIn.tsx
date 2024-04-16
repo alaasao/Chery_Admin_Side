@@ -7,7 +7,7 @@ const SignIn = () => {
   return (
     <div className='flex w-screen'>
           <img src="../assets/signin.png" alt=""  className='w-[50%] h-screen max-md:hidden' />
-          <div className='flex flex-col items-center w-[50%] max-md:w-full max-md:justify-between max-md:h-screen max-md:py-[100px]'>
+          <div className='flex flex-col items-center w-[50%] max-md:w-full max-md:justify-between max-md:h-screen max-md:py-[50px]'>
               <h1 className='capitalize good text-[#D12621] text-4xl mt-[110px] max-md:mt-0 '>bienvenue</h1>
               <h3 className='text-3xl mt-[120px] max-sm:mt-[0px] max-lg:text-xl'>Veuillez entrer vos coordonnées :</h3>
           <div className='flex flex-col items-center w-full max-md:gap-[67px]'> 
@@ -34,7 +34,7 @@ const SignIn = () => {
                   <div>Restez connecté</div>
               </div>
               <div className='w-[80%] h-[71px] bg-black text-white mt-[93px] max-sm:mt-[0px] rounded-lg flex justify-center items-center text-3xl '>Se connecter</div>
-              <a href="" className='mt-[100px] underline text-xl'>Mot de passe oublié?</a>
+              <a href="" className='mt-[100px] max-md:mt-0 underline text-xl'>Mot de passe oublié?</a>
           </div>
     </div>
   )
