@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import React, { useEffect } from "react";
 import { CiMenuBurger } from "react-icons/ci";
