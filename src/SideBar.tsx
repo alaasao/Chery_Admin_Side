@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 
 import React, { useEffect } from "react";
 import { CiMenuBurger } from "react-icons/ci";
@@ -15,6 +15,8 @@ const pages: Array<{ to: string; title: string; img: string }> = [
   { to: "statistiques", title: "Statistiques", img: "stats" },
 ];
 const SideBar = () => {
+  const location = useLocation();
+  const { pathname } = location;
   const [open, setOpen] = React.useState(
     window.innerWidth > 1024 ? true : false
   );
@@ -27,9 +29,9 @@ const SideBar = () => {
       }
     });
   }, []);
-
+console.log(pathname)
   return (
-    <div>
+    <div className={`${pathname==="/signin"?"hidden":""}`}>
       {" "}
       <div
         className={`w-[320px] h-full  max-lg:w-screen max-lg:absolute min-h-screen  z-[10] bg-[#1E1E1E] py-[40px] flex flex-col items-center transition-all duration-700 origin-left ${

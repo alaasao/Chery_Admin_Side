@@ -10,6 +10,7 @@ import Cars from "./Routes/cars/Cars";
 import Events from "./Routes/events/Events";
 import Faq from "./Routes/faq/Faq";
 import Car from "./Routes/cars/components/Car";
+import SignIn from "./Routes/signin/SignIn";
 
 function App() {
   const routes = [
@@ -52,7 +53,12 @@ function App() {
       name: "faq",
       link: "/faq",
       component: Faq,
-    }
+    },
+    {
+      name: "siginin",
+      link: "/signin",
+      component: SignIn,
+    },
   ];
 
   return (
