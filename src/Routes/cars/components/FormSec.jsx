@@ -32,7 +32,7 @@ const FormSec = ({ data, setData, readonly, title }) => {
                       [key]: !prev[key],
                     }))
                   }
-                  className=" outline-none bg-[#F6F7F9] h-[30px] w-[40px] cursor-pointer rounded-xl border border-black"
+                  className="  flex outline-none bg-[#F6F7F9] h-[30px] w-[40px] cursor-pointer rounded-xl border border-black"
                 />
                 Disponible
               </div>
@@ -55,7 +55,7 @@ const FormSec = ({ data, setData, readonly, title }) => {
                   }
                   setList((prev) => ({ ...prev, [key]: inputValue }));
                 }}
-                className=" outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
               />
             </div>
           ) : typeof value == "string" ? (
@@ -72,7 +72,7 @@ const FormSec = ({ data, setData, readonly, title }) => {
                 onChange={(e) =>
                   setList((prev) => ({ ...prev, [key]: e.target.value }))
                 }
-                className=" outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
               />
             </div>
           ) : (
@@ -89,7 +89,7 @@ const FormSec = ({ data, setData, readonly, title }) => {
                 onChange={(e) =>
                   setData((prev) => ({ ...prev, [key]: e.target.value }))
                 }
-                className=" outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl"
+                className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl"
               />
             </div>
           );
