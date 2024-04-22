@@ -49,7 +49,8 @@ const questions = [
   },
   {
     id: "7",
-    question: "Offrez-vous une garantie sur les véhicules neufs ? Offrez-vous une garantie sur les véhicules neufs ?Offrez-vous une garantie sur les véhicules neufs ?",
+    question:
+      "Offrez-vous une garantie sur les véhicules neufs ? Offrez-vous une garantie sur les véhicules neufs ?Offrez-vous une garantie sur les véhicules neufs ?",
     answer:
       "Oui, nous proposons des services d'entretien et de réparation pour tous les types de véhicules. Notre équipe qualifiée de techniciens est là pour vous aider à garder votre voiture en parfait état de fonctionnement.",
   },
