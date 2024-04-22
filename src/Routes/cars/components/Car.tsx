@@ -7,7 +7,6 @@ import axios from "axios";
 import { CarsProps } from "../Cars";
 import { FaArrowRight } from "react-icons/fa";
 import FormSec from "./FormSec.jsx";
-import Title from "../../clients/components/Title.js";
 import ImageForm from "./ImageForm.jsx";
 const Car = () => {
   const { id } = useParams();
@@ -146,7 +145,6 @@ const Car = () => {
 
   return (
     <div>
-      <Title title="information de Vehicule" />
       <form action="">
         <div className=" py-[50px] rounded-2xl flex flex-col">
           <div className=" py-[50px] rounded-2xl flex flex-col">
