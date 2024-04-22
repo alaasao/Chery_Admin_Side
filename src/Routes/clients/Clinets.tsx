@@ -1,6 +1,6 @@
 import Title from "./components/Title";
 import Main from "./components/Main";
-import React from 'react';
+import React from "react";
 
 import data from "./components/data";
 const Clients = () => {

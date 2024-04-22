@@ -13,11 +13,13 @@ const Car = () => {
   const { id } = useParams();
   const [car, setCar] = useState<CarsProps>();
   const [data, setData] = useState<CarsProps[]>([]);
-  const [modele, setModele] = useState(car?.Modele||"");
-  const [moteur, setMoteur] = useState(car?.Moteur||"");
-  const [Garentie, setGarentie] = useState(car?.Garentie||"");
-  const [Prix_TTC, setPrix_TTC] = useState(car?.Prix_TTC||0);
-  const [Disponabilite, setDisponabilite] = useState(car?.Disponabilite||"Non Disponible");
+  const [modele, setModele] = useState(car?.Modele || "");
+  const [moteur, setMoteur] = useState(car?.Moteur || "");
+  const [Garentie, setGarentie] = useState(car?.Garentie || "");
+  const [Prix_TTC, setPrix_TTC] = useState(car?.Prix_TTC || 0);
+  const [Disponabilite, setDisponabilite] = useState(
+    car?.Disponabilite || "Non Disponible",
+  );
   const [moteurObj, setMoteurObj] = useState({
     Energie: "",
     Motricite: "",
@@ -191,8 +193,8 @@ const Car = () => {
                   value={Prix_TTC}
                   onChange={(e) => {
                     const inputValue = Number(e.target.value);
-                    if (inputValue < 0)  return;
-                    
+                    if (inputValue < 0) return;
+
                     setPrix_TTC(inputValue);
                   }}
                   className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
@@ -207,16 +209,14 @@ const Car = () => {
                     defaultChecked={
                       Disponabilite === "Disponible" ? true : false
                     }
-                    onChange={(e) =>
-                      
-                    {
-                      console.log(e.target.checked)
+                    onChange={(e) => {
+                      console.log(e.target.checked);
                       setDisponabilite(() => {
                         return e.target.checked
                           ? "Disponible"
                           : "Non Disponible";
-                      })}
-                    }
+                      });
+                    }}
                     className="  flex outline-none bg-[#F6F7F9] h-[30px] w-[40px] cursor-pointer rounded-xl border border-black"
                   />
                   Disponible
@@ -262,7 +262,7 @@ const Car = () => {
               setData={setVehiculeObj}
               readonly={true}
               title="vehicule"
-            /> 
+            />
           )}
           {promoObj && (
             <FormSec

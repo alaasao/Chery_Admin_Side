@@ -9,9 +9,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -22,9 +22,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -35,9 +35,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -48,9 +48,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -61,9 +61,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -74,9 +74,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -87,9 +87,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -100,9 +100,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -113,9 +113,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -126,9 +126,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -139,9 +139,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -152,9 +152,9 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
   {
     Name: "alaa",
     Phone: "0677889900",
@@ -165,9 +165,8 @@ const data = [
     Adresse: "msila",
     Data_Achat: "15-03-2024",
     Documents: ["document1", "document2", "document3"],
-        img: "../assets/clients/profile.png",
-    id:"first"
-    },
-
+    img: "../assets/clients/profile.png",
+    id: "first",
+  },
 ];
 export default data;

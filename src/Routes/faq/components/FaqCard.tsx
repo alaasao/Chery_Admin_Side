@@ -2,8 +2,7 @@ import { FC } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import React from 'react';
-
+import React from "react";
 
 const FaqCard: FC<FaqCardProps> = ({ id, question }: FaqCardProps) => {
   return (
