@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { userType } from "../clients/components/Main";
-import Title from "../clients/components/Title";
 import React from "react";
 
 import axios from "axios";
@@ -22,7 +21,6 @@ const Cars = () => {
   }, []);
   return (
     <div className="w-full ">
-      <Title title="produits" />
       <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] grid grid-cols-2 ">
         <Link
           to="/produits/cars"
