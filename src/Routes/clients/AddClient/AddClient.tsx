@@ -1,10 +1,8 @@
-import Title from "../components/Title";
 import React from "react";
 
 const AddClient = () => {
   return (
     <div>
-      <Title title="Ajouter un client" />
       <div className="w-full mt-[60px] text-[#49454] text-2xl pl-[40px]">
         Veuillez remplir ces champs concernant le client que vous souhaitez
         ajouter :{" "}
