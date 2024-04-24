@@ -7,88 +7,40 @@ import axios from "axios";
 import { CarsProps } from "../Cars";
 import { FaArrowRight } from "react-icons/fa";
 import FormSec from "./FormSec.jsx";
+// import Title from "../../clients/components/Title.js";
 import ImageForm from "./ImageForm.jsx";
-const Car = () => {
-  const { id } = useParams();
-  const [car, setCar] = useState<CarsProps>();
-  const [data, setData] = useState<CarsProps[]>([]);
-  const [modele, setModele] = useState(car?.Modele||"");
-  const [moteur, setMoteur] = useState(car?.Moteur||"");
-  const [Garentie, setGarentie] = useState(car?.Garentie||"");
-  const [Prix_TTC, setPrix_TTC] = useState(car?.Prix_TTC||0);
-  const [Disponabilite, setDisponabilite] = useState(car?.Disponabilite||"Non Disponible");
-  const [moteurObj, setMoteurObj] = useState({
-    Energie: "",
-    Motricite: "",
-    Type_Moteur: "",
-    Cylidree: 0,
-    Boite: "",
-    Consomation: "",
-    Puissance: 0,
-    Nombre_Cylindres: "",
-    Soupapes: 0,
-    Accelaration: 0,
-    Puissance_Tr: 0,
-    Turbo: false,
-    Nombre_Rapport_Boite: 0,
-    Vitesse_Max: 0,
-    Couple: 0,
-  });
-  const [vehiculeObj, setVehiculeObj] = useState({
-    Volume_Coffre: 0,
-    Longueur: 0,
-    Largeur: 0,
-    Hauteur: 0,
-    Empattement: 0,
-    Suspension_Avant: "",
-    Suspension_Arriere: "",
-    Nombre_Places: 0,
-    Nombre_Portes: 0,
-    Reservoir: 0,
-  });
-  const [LookObj, setLookObj] = useState({
-    Feux_Anti_Arouillard: ["", ""],
-    Feux_Avant: "",
-    Peinture_Metalisee: false,
-    Toit: false,
-    Vitres_Teintees: false,
-    Feux_Jour: "",
-    Feux_Arriere: "",
-    Jantes: 0,
-    Couleur_Poignees: "",
-    Dimension_Pneumatique: "",
-  });
-  const [ConfortObj, setConfortObj] = useState({
-    Climatisation: "",
-    Direction: "",
-    Ecran: "",
-    Accoudoir: "",
-    Sieges_Chauffants: false,
-    Boire_A_Gants_Refrigerante: false,
-    Ordinateur_De__Bord: false,
-    Radar_De_Recul: false,
-    Autoradio: "",
-    bluetooth: false,
-  });
-  const [SecurityObj, setSecurityObj] = useState({
-    Airbag: 0,
-    Regulateur_Limiteur_de_Vitesse: "",
-    Abs: false,
-    Keyless: "",
-    Esp: false,
-    Détecteur_Angle_Mort: false,
-    Aide_Demarrage_Cote: false,
-    Anti_Demarrage: false,
-    Verrouillage_Centralise: "",
-    Alarme: "",
-  });
-  const [promoObj, setPromoObj] = useState({
-    IsPromo: false,
-    Start: "",
-    End: "",
-    Value: 0,
-  });
-  const [Images, setImages] = useState<string[]>([]);
+interface CarProps {
+  carDefault: CarsProps;
+  readOnly: boolean;
+}
+const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
+  console.log("########");
+  console.log(carDefault);
+  console.log("########");
+  const [car, setCar] = useState<CarsProps>(carDefault);
+
+  const [modele, setModele] = useState(car?.Modele || "");
+  const [moteur, setMoteur] = useState(car?.Moteur || "");
+  const [Garentie, setGarentie] = useState(car?.Garentie || "");
+  const [Prix_TTC, setPrix_TTC] = useState(car?.Prix_TTC || 0);
+  const [Disponabilite, setDisponabilite] = useState(
+    car?.Disponabilite || "Non Disponible"
+  );
+
+  const [moteurObj, setMoteurObj] = useState(car?.MoteurObj);
+  const [vehiculeObj, setVehiculeObj] = useState(car?.VehiculeObj);
+  const [LookObj, setLookObj] = useState(car?.LookObj);
+  const [ConfortObj, setConfortObj] = useState(car?.ConfortObj);
+  const [SecurityObj, setSecurityObj] = useState(car?.SecurityObj);
+  const [promoObj, setPromoObj] = useState(car?.PromoObj);
+  const [Images, setImages] = useState<{ Images: string[]; Color: string }[]>(
+    []
+  );
+  const [redImages, setRedImages] = useState<string[]>([]);
+  const [blackImages, setBlackImages] = useState<string[]>([]);
+  const [blueImages, setBlueImages] = useState<string[]>([]);
+  const [grisImages, setGrisImages] = useState<string[]>([]);
+  const [whiteImages, setWhiteImages] = useState<string[]>([]);
 
   useEffect(() => {
     setModele(car?.Modele || "");
@@ -151,8 +103,8 @@ const Car = () => {
 
   return (
     <div>
-      <Title title="information de Vehicule" />
-      <form action="">
+    
+      <form action="" className="flex flex-col w-full">
         <div className=" py-[50px] rounded-2xl flex flex-col">
           <div className=" py-[50px] rounded-2xl flex flex-col">
             <div className="  text-4xl pl-[20px] mb-[20px] text-[#494545] mb-[40px]">
@@ -218,16 +170,18 @@ const Car = () => {
                     defaultChecked={
                       Disponabilite === "Disponible" ? true : false
                     }
-                    onChange={(e) =>
-                      
-                    {
-                      console.log(e.target.checked)
-                      setDisponabilite(() => {
-                        return e.target.checked
-                          ? "Disponible"
-                          : "Non Disponible";
-                      })}
-                    }
+                    onChange={(e) => {
+                      console.log(e.target.checked);
+                      if (read === "11") {
+                        return;
+                      } else {
+                        setDisponabilite(() => {
+                          return e.target.checked
+                            ? "Disponible"
+                            : "Non Disponible";
+                        });
+                      }
+                    }}
                     className="  flex outline-none bg-[#F6F7F9] h-[30px] w-[40px] cursor-pointer rounded-xl border border-black"
                   />
                   Disponible
