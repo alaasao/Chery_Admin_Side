@@ -9,8 +9,11 @@ import AddClient from "./Routes/clients/AddClient/AddClient";
 import Cars from "./Routes/cars/Cars";
 import Events from "./Routes/events/Events";
 import Faq from "./Routes/faq/Faq";
-import Car from "./Routes/cars/components/Car";
+
 import SignIn from "./Routes/signin/SignIn";
+import AddCar from "./Routes/cars/components/AddCar";
+import ShowCar from "./Routes/cars/components/ShowCar";
+import EditCar from "./Routes/cars/components/EditCar";
 
 function App() {
   const routes = [
@@ -39,10 +42,26 @@ function App() {
       link: "/produits/cars",
       component: Cars,
     },
+
     {
       name: "cars",
-      link: "/produits/cars/:id",
-      component: Car,
+      link: "/produits/AddCar",
+      component: AddCar,
+    },
+    {
+      name: "cars",
+      link: "/produits/car/:id",
+      component: ShowCar,
+    },
+    {
+      name: "cars",
+      link: "/produits/editcar/:id",
+      component: EditCar,
+    },
+    {
+      name: "cars",
+      link: "/produits/AddCar",
+      component: AddCar,
     },
     {
       name: "events",
