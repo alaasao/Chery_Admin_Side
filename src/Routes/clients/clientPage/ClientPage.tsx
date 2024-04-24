@@ -1,14 +1,12 @@
 import { useParams } from "react-router-dom";
-import Title from "../components/Title";
 import data from "../components/data";
-import React from 'react';
+import React from "react";
 
 const ClientPage = () => {
   const { id } = useParams();
   const client = data.find((e) => e.id == id);
   return (
     <div>
-      <Title title="Informations" />
       <div className="w-full flex  px-[5%] max-sm:px-[10px] justify-between  pt-[20px] pb-[50px] border-b-[1.5px] border-[#494545] max-md:flex-col max-md:items-center">
         <img
           src={client?.img}

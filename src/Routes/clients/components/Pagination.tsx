@@ -23,15 +23,15 @@ const Pagination: FC<PaginationProps> = ({
 }: PaginationProps) => {
   const [startIndex, setStartIndex] = React.useState(0); //ift needs to be fetched from api
   const [endIndex, setEndIndex] = React.useState(
-    Math.min(article_per_page, arr.length)
+    Math.min(article_per_page, arr.length),
   ); //ift needs to be fetched from api
 
   const [pages, SetPages] = React.useState(
-    Array.from(Array(Math.ceil(arr.length / article_per_page)).keys())
+    Array.from(Array(Math.ceil(arr.length / article_per_page)).keys()),
   );
 
   const [filteredArr, setFilteredArr] =
-    React.useState<(userType | CarsProps | EventType|FaqType)[]>(arr);
+    React.useState<(userType | CarsProps | EventType | FaqType)[]>(arr);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredArr.length / article_per_page);
@@ -69,7 +69,7 @@ const Pagination: FC<PaginationProps> = ({
             setEndIndex((prev) =>
               prev > article_per_page - 1
                 ? prev - article_per_page
-                : article_per_page - 1
+                : article_per_page - 1,
             );
           }}
         >
@@ -103,10 +103,10 @@ const Pagination: FC<PaginationProps> = ({
             setStartIndex((prev) =>
               prev < arr.length - article_per_page - 1
                 ? prev + article_per_page
-                : arr.length - article_per_page
+                : arr.length - article_per_page,
             );
             setEndIndex((prev) =>
-              prev < arr.length ? prev + article_per_page : arr.length
+              prev < arr.length ? prev + article_per_page : arr.length,
             );
           }}
         >

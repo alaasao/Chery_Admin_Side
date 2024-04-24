@@ -31,7 +31,7 @@ const ImageForm = ({ Images, setImages }) => {
         } else {
           return e;
         }
-      })
+      }),
     );
 
     Images.splice(a, 1);
