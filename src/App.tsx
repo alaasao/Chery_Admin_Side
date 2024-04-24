@@ -1,9 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-
-import "./App.css";
 import React from "react";
 import Dashboard from "./Routes/Dashboard/Dashboard";
-import Clients from "./Routes/clients/Clinets";
+import Clients from "./Routes/clients/Client";
 import ClientPage from "./Routes/clients/clientPage/ClientPage";
 import AddClient from "./Routes/clients/AddClient/AddClient";
 import Cars from "./Routes/cars/Cars";

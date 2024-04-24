@@ -1,4 +1,5 @@
-import { FC } from "react";import React from 'react';
+import { FC } from "react";
+import React from "react";
 
 import { IoClose, IoTrashOutline } from "react-icons/io5";
 import { LuPencil } from "react-icons/lu";

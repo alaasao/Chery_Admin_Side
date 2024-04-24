@@ -12,15 +12,15 @@ import EventCard from "../../events/components/EventCard";
 import { FaqType } from "../../faq/Faq";
 import FaqCard from "../../faq/components/FaqCard";
 interface MainProps {
-  data: (userType | CarsProps | EventType |FaqType)[];
+  data: (userType | CarsProps | EventType | FaqType)[];
 }
 const Main: FC<MainProps> = ({ data }: MainProps) => {
   const [searchKey, setSearchKey] = React.useState("");
   const [showList, setShowList] = React.useState<
-    (userType | CarsProps | EventType |FaqType)[]
+    (userType | CarsProps | EventType | FaqType)[]
   >([]);
   const [usersList, setUsersList] =
-    React.useState<(userType | CarsProps | EventType |FaqType)[]>(data);
+    React.useState<(userType | CarsProps | EventType | FaqType)[]>(data);
   useEffect(() => {
     setUsersList(data);
     console.log(data);
@@ -74,15 +74,9 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               Date={e.Date}
               key={i + e.Title}
             />
-          ) :
-            "answer" in e ? (
-                  <FaqCard
-                    id={e.id}
-                    question={e.question}
-                  
-                  
-                  />
-            ) : null;
+          ) : "answer" in e ? (
+            <FaqCard id={e.id} question={e.question} />
+          ) : null;
         })}
       </div>
       <div className="flex items-center justify-center w-full ">
