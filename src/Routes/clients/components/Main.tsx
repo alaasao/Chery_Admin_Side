@@ -35,7 +35,7 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
             name=""
             id=""
             placeholder="Search something here"
-            className="h-full w-full pl-[8px] text-[#827D7D] rounded-xl  outline-none bg-white drop-shadow-xl"
+            className="h-full flex w-full pl-[8px] text-[#827D7D] rounded-xl  outline-none bg-white drop-shadow-xl"
             onChange={(e) => {
               setSearchKey(e.target.value.toLowerCase());
             }}

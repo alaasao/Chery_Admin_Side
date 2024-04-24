@@ -91,6 +91,21 @@ const ImageForm = ({ Images, setImages }) => {
               </div>
             );
           })}
+        {
+          !selectedImages && (
+            Images.map((image, index) => {
+              return (
+                <div key={image} className="image">
+                  <img src={image} className="h-[300px] w-[300px]" alt="upload" />
+                  <button onClick={() => deleteHandler(image)}>
+                    delete image
+                  </button>
+                  <p>{index + 1}</p>
+                </div>
+              );
+            }))
+          }
+        
       </div>
     </section>
   );
