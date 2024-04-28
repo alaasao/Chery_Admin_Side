@@ -19,7 +19,7 @@ const CarCard: FC<CarCardProps> = ({
     <div
       className={`w-full h-[83px] flex items-center text-2xl font-semibold justify-around `}
     >
-      <Link to={`/produits/cars/11${_id}`} className="">
+      <Link to={`/produits/cars/${_id}`} className="">
         {Modele}
       </Link>
       <div className="max-sm:hidden">
