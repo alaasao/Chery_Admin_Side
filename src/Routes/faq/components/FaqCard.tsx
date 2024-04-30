@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 
 const FaqCard: FC<FaqCardProps> = ({ id, question }: FaqCardProps) => {
+  console.log(id);  
   return (
     <div
       className={`w-ful h-max min-h-[56px]  flex items-center text-2xl font-semibold justify-between px-[4%] `}
@@ -14,7 +15,7 @@ const FaqCard: FC<FaqCardProps> = ({ id, question }: FaqCardProps) => {
       </Link>
 
       <div className="flex gap-[5px] md:gap-[15px] ">
-        <LuPencil className="text-[#494545]" />
+      <Link to={`/faq/editfaq/${id}`}>  <LuPencil className="text-[#494545] cursor-pointer"   /></Link>
         <IoTrashOutline className="text-[#D12621]" />
       </div>
     </div>

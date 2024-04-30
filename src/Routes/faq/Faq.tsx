@@ -1,6 +1,6 @@
 import React from "react";
 
-import Main from "../clients/components/Main.tsx";
+import Main from "../../utils/Main.tsx";
 import data from "./components/data.ts";
 const Faq = () => {
   return (
@@ -17,6 +17,6 @@ export default Faq;
 
 export interface FaqType {
   id: string;
-  question: string;
-  answer: string;
+  Question: string;
+  Answer: string;
 }

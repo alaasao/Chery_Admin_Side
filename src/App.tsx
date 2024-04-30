@@ -12,6 +12,9 @@ import SignIn from "./Routes/signin/SignIn";
 import AddCar from "./Routes/cars/components/AddCar";
 import ShowCar from "./Routes/cars/components/ShowCar";
 import EditCar from "./Routes/cars/components/EditCar";
+import FaqDetails from "./Routes/faq/components/FaqDetails";
+import AddFaq from "./Routes/faq/components/AddFaq";
+import EditFaq from "./Routes/faq/components/EditFaq";
 
 function App() {
   const routes = [
@@ -48,7 +51,7 @@ function App() {
     },
     {
       name: "cars",
-      link: "/produits/car/:id",
+      link: "/produits/cars/:id",
       component: ShowCar,
     },
     {
@@ -70,6 +73,21 @@ function App() {
       name: "faq",
       link: "/faq",
       component: Faq,
+    },
+    {
+      name: "faq",
+      link: "/faq/:id",
+      component: FaqDetails,
+    },
+    {
+      name: "faq",
+      link: "/faq/addfaq",
+      component: AddFaq,
+    },
+    {
+      name: "faq",
+      link: "/faq/editFaq/:id",
+      component: EditFaq,
     },
     {
       name: "siginin",
