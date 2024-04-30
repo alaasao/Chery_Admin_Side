@@ -1,4 +1,4 @@
-import axios from 'axios'
+// import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Questions from './data'
@@ -15,7 +15,7 @@ const FaqDetails = () => {
     if (f) {
       setFaq(f)
     }
-  })
+  },[id])
 
   // useEffect(() => {
   //   axios.get("https://axeiny.tech:4004/faq/").then((response) => {
