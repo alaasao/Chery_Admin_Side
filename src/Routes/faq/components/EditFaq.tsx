@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { useParams } from "react-router-dom";
 import Questions from "./data";
-import axios from "axios";
+// import axios from "axios";
 const EditFaq = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState("");
@@ -23,7 +23,7 @@ const EditFaq = () => {
       setQuestion(faq.Question);
       setAnswer(faq.Answer);
     }
-  }, []);
+  }, [id]);
 
   async function submit(e: { preventDefault: () => void; }) {
     e.preventDefault();

@@ -2,7 +2,7 @@
 import { FaArrowRight } from 'react-icons/fa'
 import { useState } from 'react';
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 const AddFaq = () => {
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
