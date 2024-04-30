@@ -17,12 +17,13 @@ const CarCard: FC<CarCardProps> = ({
 }: CarCardProps) => {
   return (
     <div
-      className={`w-full h-[83px] flex items-center text-2xl font-semibold justify-around `}
+      className={`w-full h-[83px] grid grid-cols-10 text-2xl font-semibold items-center `}
     >
-      <Link to={`/produits/cars/${_id}`} className="">
-        {Modele}
-      </Link>
-      <div className="max-sm:hidden">
+      <div className="col-span-3 truncate max-sm:col-span-4" >
+        <Link to={`/produits/cars/${_id}`} className="pl-[10px] ">
+   {Modele}
+      </Link></div>
+      <div className="flex items-center col-span-3 max-sm:hidden">
         {Disponabilite ? (
           <div className="text-[#39A63D] flex items-center gap-[20px] max-md:gap-[5px] ">
             <div className="rounded-full flex w-[30px] h-[30px] max-md:w-[15px] max-md:h-[15px] justify-center items-center border-2 border-[#39A63D] ">
@@ -39,13 +40,14 @@ const CarCard: FC<CarCardProps> = ({
           </div>
         )}
       </div>
+      <div className="flex items-center justify-center col-span-3 max-sm:col-span-4">
       <Link
         to={`/produits/cars/${_id}`}
-        className="text-white bg-[#494545] rounded-full w-[214px] h-[46px] flex justify-center items-center max-sm:text-xl max-sm:w-auto max-sm:px-[10px]"
+        className="text-white  bg-[#494545] rounded-full w-[214px] h-[46px] flex justify-center items-center max-sm:text-xl max-sm:w-auto max-sm:px-[10px]"
       >
         Informations
-      </Link>
-      <div className="flex gap-[5px] md:gap-[15px] ">
+      </Link></div>
+      <div className="flex gap-[5px] md:gap-[15px] col-span-1 max-sm:col-span-2 items-center ">
         <LuPencil className="text-[#494545]" />
         <IoTrashOutline className="text-[#D12621]" />
       </div>

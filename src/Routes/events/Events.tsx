@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "../clients/components/Main";
+import Main from "../../utils/Main";
 
 import data from "./components/data";
 const Events = () => {

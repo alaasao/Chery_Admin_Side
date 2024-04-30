@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { useEffect, Dispatch, SetStateAction } from "react";
 import { userType } from "./Main";
-import { CarsProps } from "../../cars/Cars";
-import { EventType } from "../../events/Events";
-import { FaqType } from "../../faq/Faq";
+import { CarsProps } from "../Routes/cars/Cars";
+import { EventType } from "../Routes/events/Events";
+import { FaqType } from "../Routes/faq/Faq";
 interface PaginationProps {
   article_per_page: number;
   arr: (userType | CarsProps | EventType | FaqType)[];
@@ -23,11 +23,11 @@ const Pagination: FC<PaginationProps> = ({
 }: PaginationProps) => {
   const [startIndex, setStartIndex] = React.useState(0); //ift needs to be fetched from api
   const [endIndex, setEndIndex] = React.useState(
-    Math.min(article_per_page, arr.length),
+    Math.min(article_per_page, arr.length)
   ); //ift needs to be fetched from api
 
   const [pages, SetPages] = React.useState(
-    Array.from(Array(Math.ceil(arr.length / article_per_page)).keys()),
+    Array.from(Array(Math.ceil(arr.length / article_per_page)).keys())
   );
 
   const [filteredArr, setFilteredArr] =
@@ -53,8 +53,8 @@ const Pagination: FC<PaginationProps> = ({
         return e.Modele.toLowerCase().includes(searchKey);
       } else if ("Title" in e) {
         return e.Title.toLowerCase().includes(searchKey);
-      } else if ("question" in e) {
-        return e.question.toLowerCase().includes(searchKey);
+      } else if ("Question" in e) {
+        return e.Question.toLowerCase().includes(searchKey);
       }
     });
     setFilteredArr(filteredData);
@@ -69,7 +69,7 @@ const Pagination: FC<PaginationProps> = ({
             setEndIndex((prev) =>
               prev > article_per_page - 1
                 ? prev - article_per_page
-                : article_per_page - 1,
+                : article_per_page - 1
             );
           }}
         >
@@ -103,10 +103,10 @@ const Pagination: FC<PaginationProps> = ({
             setStartIndex((prev) =>
               prev < arr.length - article_per_page - 1
                 ? prev + article_per_page
-                : arr.length - article_per_page,
+                : arr.length - article_per_page
             );
             setEndIndex((prev) =>
-              prev < arr.length ? prev + article_per_page : arr.length,
+              prev < arr.length ? prev + article_per_page : arr.length
             );
           }}
         >

@@ -35,12 +35,13 @@ const SideBar = () => {
       {" "}
       <div
         className={`h-full  max-lg:w-screen max-lg:absolute min-h-screen  z-[10] bg-[#1E1E1E] py-[40px] flex flex-col items-center transition-all duration-700 origin-left ${
-          open ? "" : "scale-x-0"
+          open ? "scale-x-1" : "scale-x-0"
         }`}
       >
         <Link
-          to="/"
+          to=""
           className="flex flex-col  cursor-pointer items-center mb-[40px]"
+          onClick={()=>setOpen(false)}
         >
           <img src="../assets/logo.png" alt="" className="" />
 
@@ -52,6 +53,7 @@ const SideBar = () => {
             <div className="w-full " key={i + e.title}>
               <NavLink
                 to={e.to}
+       onClick={()=>setOpen(window.innerWidth > 1024?true:false)}
                 // className={`   w-full flex justify-center text-white cursor-pointer  ${
                 //   path === e.to
                 //     ? "bg-gradient-to-r from-[#1E1E1E] to-[#737373]"
@@ -75,10 +77,7 @@ const SideBar = () => {
             </div>
           );
         })}
-        <div
-          className="max-lg:absolute max-lg:w-full max-lg:h-full z-[10] cursor-pointer"
-          onClick={() => setOpen(false)}
-        ></div>
+     
       </div>
       <div
         className={`lg:hidden  absolute top-[35px] left-[10px] text-4xl cursor-pointer text-[#D12621] ${

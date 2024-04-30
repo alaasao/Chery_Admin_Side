@@ -1,4 +1,4 @@
-import Main from "./components/Main";
+import Main from "../../utils/Main";
 import React from "react";
 
 import data from "./components/data";

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { userType } from "../clients/components/Main";
+import { userType } from "../../utils/Main";
 import React from "react";
 
 import axios from "axios";
-import Main from "../clients/components/Main";
+import Main from "../../utils/Main";
 import { EventType } from "../events/Events";
 import { Link, useLocation } from "react-router-dom";
 

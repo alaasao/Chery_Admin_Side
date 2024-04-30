@@ -1,6 +1,6 @@
 const data = [
   {
-    Name: "alaa",
+    Name: "souchi ala eddine",
     Phone: "0677889900",
     Email: "client@client.dz",
     Model: "tiggo 8 pro",
@@ -13,9 +13,9 @@ const data = [
     id: "first",
   },
   {
-    Name: "alaa",
+    Name: "zerkhef abd arraoufbe=",
     Phone: "0677889900",
-    Email: "client@client.dz",
+    Email: "clieddddddddddddddddddddddddddddddddddnt@client.dz",
     Model: "tiggo 8 pro",
     Vin: "fqsfldsjflqsmdjf",
     Prix_Vente: 150000,
@@ -26,7 +26,7 @@ const data = [
     id: "first",
   },
   {
-    Name: "alaa",
+    Name: "benferhat mohamed ouelhadj aymen",
     Phone: "0677889900",
     Email: "client@client.dz",
     Model: "tiggo 8 pro",
