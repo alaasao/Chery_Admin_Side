@@ -12,17 +12,21 @@ import EventCard from "../Routes/events/components/EventCard";
 import { FaqType } from "../Routes/faq/Faq";
 import FaqCard from "../Routes/faq/components/FaqCard";
 import { Link } from "react-router-dom";
+import { RdvType } from "../Routes/Rdv/Rdv";
+import RdvCard from "../Routes/Rdv/components/RdvCard";
 
 interface MainProps {
-  data: (userType | CarsProps | EventType | FaqType)[];
+  data: (userType | CarsProps | EventType | FaqType | RdvType)[];
 }
 const Main: FC<MainProps> = ({ data }: MainProps) => {
   const [searchKey, setSearchKey] = React.useState("");
   const [showList, setShowList] = React.useState<
-    (userType | CarsProps | EventType | FaqType)[]
+    (userType | CarsProps | EventType | FaqType | RdvType)[]
   >([]);
   const [usersList, setUsersList] =
-    React.useState<(userType | CarsProps | EventType | FaqType)[]>(data);
+    React.useState<(userType | CarsProps | EventType | FaqType | RdvType)[]>(
+      data
+    );
   useEffect(() => {
     setUsersList(data);
     console.log(data);
@@ -46,40 +50,52 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
             <CiSearch className="  text-[#827D7D] text-2xl " />
           </div>
         </div>
-        <Link to={pathname.includes("faq")?"/faq/addfaq":pathname.includes("car")?"/produits/AddCar":""} className="flex w-[214px] max-sm:w-[50px] justify-center gap-[30px] bg-green-600 text-white items-center rounded-lg py-[6px] font-medium">
+        <Link
+          to={
+            pathname.includes("faq")
+              ? "/faq/addfaq"
+              : pathname.includes("car")
+              ? "/produits/AddCar"
+              : ""
+          }
+          className="flex w-[214px] max-sm:w-[50px] justify-center gap-[30px] bg-green-600 text-white items-center rounded-lg py-[6px] font-medium"
+        >
           <div className="max-sm:hidden"> Ajouter</div>
           <TiUserAddOutline className="text-3xl" />
         </Link>
       </div>
-
-      {showList.map((e, i) => {
-        return "Name" in e ? (
-          <UserCard
-            Name={e.Name}
-            Email={e.Email}
-            searchKey={searchKey}
-            id={e.id}
-            key={e.id + i}
-          />
-        ) : "Modele" in e ? (
-          <CarCard
-            _id={e._id}
-            Modele={e.Modele}
-            Disponabilite={e.Disponabilite}
-            key={e._id + i}
-          />
-        ) : "Title" in e ? (
-          <EventCard
-            Title={e.Title}
-            Description={e.Description}
-            Date={e.Date}
-            key={i + e.Title}
-          />
-        ) : "Answer" in e ? (
-          <FaqCard id={e.id} question={e.Question} key={e.id + 66} />
-        ) : null;
-      })}
-
+      <div className="flex flex-col gap-y-[20px] pt-[20px]">
+        {showList.map((e, i) => {
+          return "Answer" in e ? (
+            <FaqCard id={e.id} question={e.Question} key={e.id + 66} />
+          ) : "Etat" in e ? (
+    
+            <RdvCard {...e} key={e.id + 66} />
+          ) : "Modele" in e ? (
+            <CarCard
+              _id={e._id}
+              Modele={e.Modele}
+              Disponabilite={e.Disponabilite}
+              key={e._id + i}
+            />
+          ) : "Title" in e ? (
+            <EventCard
+              Title={e.Title}
+              Description={e.Description}
+              Date={e.Date}
+              key={i + e.Title}
+            />
+          ) : "Name" in e ? (
+            <UserCard
+              Name={e.Name}
+              Email={e.Email}
+              searchKey={searchKey}
+              id={e.id}
+              key={e.id + i}
+            />
+          ) : null;
+        })}
+      </div>
       <div className="flex items-center justify-center w-full ">
         {" "}
         <Pagination

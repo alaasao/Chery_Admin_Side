@@ -7,7 +7,7 @@ const NavBar = () => {
   const { pathname } = location;
   return (
     <div className="w-full h-[103px] flex justify-between items-center px-[37px] shadow-lg max-lg:pl-[50px]">
-      <div className="text-4xl good text-[#D12621] max-sm:text-xl">{pathname.replace('/','')}</div>
+      <div className="text-4xl font-good text-[#D12621] max-sm:text-xl">{pathname.replace('/','')}</div>
       <div className="flex gap-[15px] items-center text-2xl text-black">
         <FaRegBell />
         <FaRegUser />

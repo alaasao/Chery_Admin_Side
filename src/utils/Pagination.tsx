@@ -4,12 +4,13 @@ import { userType } from "./Main";
 import { CarsProps } from "../Routes/cars/Cars";
 import { EventType } from "../Routes/events/Events";
 import { FaqType } from "../Routes/faq/Faq";
+import {  RdvType } from "../Routes/Rdv/Rdv";
 interface PaginationProps {
   article_per_page: number;
-  arr: (userType | CarsProps | EventType | FaqType)[];
+  arr: (userType | CarsProps | EventType |FaqType |RdvType)[];
 
   setShowList: Dispatch<
-    SetStateAction<(userType | CarsProps | EventType | FaqType)[]>
+    SetStateAction<(userType | CarsProps | EventType |FaqType |RdvType)[]>
   >;
   searchKey: string;
 }
@@ -31,7 +32,7 @@ const Pagination: FC<PaginationProps> = ({
   );
 
   const [filteredArr, setFilteredArr] =
-    React.useState<(userType | CarsProps | EventType | FaqType)[]>(arr);
+    React.useState<(userType | CarsProps | EventType |FaqType |RdvType)[]>(arr);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredArr.length / article_per_page);
@@ -47,7 +48,9 @@ const Pagination: FC<PaginationProps> = ({
 
   useEffect(() => {
     const filteredData = arr.filter((e) => {
-      if ("Name" in e) {
+      if ("Etat" in e) {
+        return e.Etat.toLowerCase().includes(searchKey);
+      }else  if ("Name" in e) {
         return e.Name.toLowerCase().includes(searchKey);
       } else if ("Modele" in e) {
         return e.Modele.toLowerCase().includes(searchKey);
