@@ -15,7 +15,7 @@ interface RdvCardProps {
     
 }
 const RdvCard: FC<RdvCardProps> = (
-    { id, Name, Adresse, Phone, Email, Date_Choisie, Model, Etat, Reponse }: RdvCardProps
+    { id, Name, Phone,Date_Choisie }: RdvCardProps
 ) => {
   return (
     <div
