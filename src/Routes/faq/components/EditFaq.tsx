@@ -7,10 +7,10 @@ import Questions from "./data";
 const EditFaq = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState("");
-    const [answer, setAnswer] = useState("");
-    // const [loading, setLoading] = useState(false); // set this to false
+  const [answer, setAnswer] = useState("");
+  // const [loading, setLoading] = useState(false); // set this to false
   useEffect(() => {
-      const faq = Questions.filter((e) => e.id === id)[0];
+    const faq = Questions.filter((e) => e.id === id)[0];
 
     //   async function fetchData() {
     //     const response = await axios.get(`https://axeiny.tech:4004/car/${id}`);
@@ -25,11 +25,11 @@ const EditFaq = () => {
     }
   }, [id]);
 
-  async function submit(e: { preventDefault: () => void; }) {
+  async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
     // const response = await axios.put('YOUR_API_URL', {
-     
+
     //     headers: {
     //         'Content-Type': 'application/json'
     //     },
@@ -39,10 +39,10 @@ const EditFaq = () => {
     // const data = await response.data;
     // console.log(data);
   }
-    
-//   if (loading) {
-//     return <div>Loading...</div>;
-// }
+
+  //   if (loading) {
+  //     return <div>Loading...</div>;
+  // }
   return (
     <form className="w-full px-[30px] flex flex-col" onSubmit={submit}>
       <div className="my-[50px] text-3xl max-md:text-[16px]">
@@ -50,7 +50,9 @@ const EditFaq = () => {
         ajouter :{" "}
       </div>
       <div className="w-full ">
-        <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">Question : </div>
+        <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">
+          Question :{" "}
+        </div>
         <textarea
           name="question"
           value={question}
@@ -60,12 +62,14 @@ const EditFaq = () => {
         />
       </div>
       <div className="w-full">
-        <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">Answer : </div>
+        <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">
+          Answer :{" "}
+        </div>
         <textarea
           name="answer"
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
-          className="w-full  outline-none  border-[0.5px] border-black rounded-lg pl-[10px] "
+          className="w-full  outline-none  border-[0.5px] border-black rounded-lg pl-[10px]  min-h-[100px] "
           placeholder="Entrez la réponse correspandante a la question   "
         />
       </div>

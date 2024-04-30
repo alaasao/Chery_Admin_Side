@@ -15,6 +15,7 @@ import EditCar from "./Routes/cars/components/EditCar";
 import FaqDetails from "./Routes/faq/components/FaqDetails";
 import AddFaq from "./Routes/faq/components/AddFaq";
 import EditFaq from "./Routes/faq/components/EditFaq";
+import Rdv from "./Routes/Rdv/Rdv";
 
 function App() {
   const routes = [
@@ -68,6 +69,11 @@ function App() {
       name: "events",
       link: "/events",
       component: Events,
+    },
+    {
+      name: "rdv",
+      link: "/rdv",
+      component: Rdv,
     },
     {
       name: "faq",
