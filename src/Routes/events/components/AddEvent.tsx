@@ -71,7 +71,7 @@ const AddEvent = () => {
         </div>
         <div className="flex flex-col w-full ">
           <div className="text-xl font-bold pl-[16px]">Images </div>
-          <input type="file" onChange={handleImages} multiple />
+          <input type="file" multiple />
         </div>
 
         <button
