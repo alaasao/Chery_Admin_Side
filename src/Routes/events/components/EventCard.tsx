@@ -19,18 +19,20 @@ const EventCard: FC<EventCardProps> = ({ Title, Description, Date }) => {
   console.log("event card", Title, Description);
   return (
     <div
-      className={`w-full h-[83px] flex items-center text-2xl font-semibold justify-around `}
+      className={`w-full h-[83px]  grid grid-cols-10 items-center text-2xl font-semibold `}
     >
-      <Link to={`/events/${Title}`} className="">
+      <Link to={`/events/${Title}`} className="col-span-3 truncate max-md:col-span-4 pl-[10px]">
         {Title}
       </Link>
-      <div className="max-md:hidden">{formattedDate}</div>
-      <Link
-        to={`/events/${Title}`}
-        className="text-white bg-[#494545] rounded-full w-[214px] h-[46px] flex justify-center items-center max-sm:text-xl max-sm:w-auto max-sm:px-[10px]"
-      >
-        Informations
-      </Link>
+      <div className="col-span-3 truncate max-md:hidden">{formattedDate}</div>
+      <div className="flex justify-center col-span-3 truncate max-md:col-span-4 ">
+        <Link
+          to={`/clients/`}
+          className="text-white bg-[#494545] rounded-full  w-[214px] h-[46px] max-md:w-[100px] max-md:text-[16px] max-md:mx-auto flex justify-center items-center"
+        >
+          Informations
+        </Link>
+      </div>
       <div className="flex gap-[5px] md:gap-[15px] ">
         <LuPencil className="text-[#494545]" />
         <IoTrashOutline className="text-[#D12621]" />

@@ -20,6 +20,8 @@ import RdvDetails from "./Routes/Rdv/components/RdvDetails";
 import AddRdv from "./Routes/Rdv/components/AddRdv";
 import EditRdv from "./Routes/Rdv/components/EditRdv";
 import ClientDetails from "./Routes/clients/components/ClientDetails";
+import EditClient from "./Routes/clients/components/EditClient";
+import AddEvent from "./Routes/events/components/AddEvent";
 
 function App() {
   const routes = [
@@ -42,6 +44,16 @@ function App() {
       name: "addClient",
       link: "/clients/AddClient",
       component: AddClient,
+    },
+    {
+      name: "addClient",
+      link: "/clients/:id",
+      component: ClientDetails,
+    },
+    {
+      name: "addClient",
+      link: "/clients/editclient/:id",
+      component: EditClient,
     },
     {
       name: "cars",
@@ -73,6 +85,11 @@ function App() {
       name: "events",
       link: "/events",
       component: Events,
+    },
+    {
+      name: "events",
+      link: "/events/addevent",
+      component: AddEvent,
     },
     {
       name: "rdv",
