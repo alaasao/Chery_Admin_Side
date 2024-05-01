@@ -1,20 +1,52 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { FaArrowRight } from "react-icons/fa";
+export interface userType {
+  Name: string;
+  Phone: string;
+  Email: string;
+  Model: string;
+  Vin: string;
+  Prix_Vente: number;
+  Adresse: string;
+  Data_Achat: string;
+  Documents: string[];
+  img: string;
+  id: string;
+}
 const AddClient = () => {
-  
+  const [client, setClient] = useState({ Name: "", Phone: "", Email: "", Adresse: "" })
+  async function submit(e: { preventDefault: () => void; }) {
+    e.preventDefault();
+
+    // const response = await axios.post('YOUR_API_URL', {
+     
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify()
+    // });
+
+    // const data = await response.data;
+    // console.log(data);
+}
+
   return (
     <div>
       <div className="w-full my-[60px] text-[#49454] text-2xl pl-[40px]">
         Veuillez remplir ces champs concernant le client que vous souhaitez
         ajouter :{" "}
       </div>
-      <form className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]">
+      <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]">
      
           <div className="flex flex-col w-full ">
             <div className="text-xl font-bold pl-[16px]">Nom et prénom*</div>
             <input
               type="text"
-              name="name"
+             
+            value={client.Name}
+            onChange={(e) => {
+              setClient({...client,Name:e.target.value})
+            }}
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
               placeholder="Entrez le nom et prénom du client"
             />
@@ -23,39 +55,50 @@ const AddClient = () => {
             <div className="text-xl font-bold pl-[16px]">Num de téléphone*</div>
             <input
               type="text"
-              name="name"
+             
+            value={client.Phone}
+            onChange={(e) => {
+              setClient({...client,Phone:e.target.value})
+            }}
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
               placeholder="Entrez le numéro du client"
             />
           </div>
           <div className="flex flex-col w-full ">
-            <div className="text-xl font-bold pl-[16px]">Adresse mail*</div>
+            <div className="text-xl font-bold pl-[16px]">Adresse </div>
             <input
               type="text"
-              name="name"
+             
+            value={client.Adresse}
+            onChange={(e) => {
+              setClient({...client,Adresse:e.target.value})
+            }}
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
               placeholder="Entrez l’adresse mail du client"
             />
           </div>
           <div className="flex flex-col w-full ">
-            <div className="text-xl font-bold pl-[16px]">Nom et prénom*</div>
+            <div className="text-xl font-bold pl-[16px]">Email</div>
             <input
-              type="text"
-              name="name"
+            type="email"
+            value={client.Email}
+            onChange={(e) => {
+              setClient({...client,Email:e.target.value})
+            }}
+               
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-              placeholder="Entrez le nom et prénom du client"
+              placeholder="Entrez l'email de client"
             />
           </div>
-          <div className="flex flex-col w-full ">
-            <div className="text-xl font-bold pl-[16px]">Nom et prénom*</div>
-            <input
-              type="text"
-              name="name"
-              className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-              placeholder="Entrez le nom et prénom du client"
-            />
-          </div>
-    
+       
+          <button
+              type="submit"
+              className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+            >
+              {" "}
+              envoyer
+              <FaArrowRight />
+            </button>
       </form>
     </div>
   );

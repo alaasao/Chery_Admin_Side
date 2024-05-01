@@ -15,13 +15,27 @@ export interface userType {
   img: string;
   id: string;
 }
-const ClientDetails = () => {
+const EditClient = () => {
     const {id}=useParams()
     const [client, setClient] = useState({ Name: "", Phone: "", Email: "", Adresse: "" ,id:""})
     useEffect(() => {
         setClient(data.filter((e) => e.id === id)[0])
-    })
-
+    },[])
+    async function submit(e: { preventDefault: () => void; }) {
+        e.preventDefault();
+    
+        // const response = await axios.post('YOUR_API_URL', {
+         
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify()
+        // });
+    
+        // const data = await response.data;
+        // console.log(data);
+    }
+    
 
   return (
     <div>
@@ -29,7 +43,7 @@ const ClientDetails = () => {
         Veuillez remplir ces champs concernant le client que vous souhaitez
         ajouter :{" "}
       </div>
-      <form className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]">
+      <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]">
      
           <div className="flex flex-col w-full ">
             <div className="text-xl font-bold pl-[16px]">Nom et prénom*</div>
@@ -39,7 +53,7 @@ const ClientDetails = () => {
             value={client.Name}
             onChange={(e) => {
               setClient({...client,Name:e.target.value})
-            }} readOnly
+            }}  
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
               placeholder="Entrez le nom et prénom du client"
             />
@@ -52,7 +66,7 @@ const ClientDetails = () => {
             value={client.Phone}
             onChange={(e) => {
               setClient({...client,Phone:e.target.value})
-            }} readOnly
+            }}  
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
               placeholder="Entrez le numéro du client"
             />
@@ -65,7 +79,7 @@ const ClientDetails = () => {
             value={client.Adresse}
             onChange={(e) => {
               setClient({...client,Adresse:e.target.value})
-            }} readOnly
+            }}  
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
               placeholder="Entrez l’adresse mail du client"
             />
@@ -73,11 +87,12 @@ const ClientDetails = () => {
           <div className="flex flex-col w-full ">
             <div className="text-xl font-bold pl-[16px]">Id</div>
             <input
-            type="email"
-            value={client.id}
+            type="text"
+                      value={client.id}
+                      readOnly
             onChange={(e) => {
               setClient({...client,Email:e.target.value})
-            }} readOnly
+            }}  
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
               placeholder="Entrez l'email de client"
             />
@@ -96,10 +111,17 @@ const ClientDetails = () => {
             />
           </div>
        
-       
+          <button
+              type="submit"
+              className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+            >
+              {" "}
+              envoyer
+              <FaArrowRight />
+            </button>
       </form>
     </div>
   );
 };
 
-export default ClientDetails;
+export default EditClient;
