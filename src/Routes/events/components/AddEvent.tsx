@@ -1,4 +1,3 @@
-import { title } from "process";
 import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 export interface EventType {
@@ -18,12 +17,13 @@ const AddEvent = () => {
   });
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    }
-    function handleImages(e) {
-        const filesArray = Array.from(e.target.files);
-        setImages(filesArray.map(file => URL.createObjectURL(file)));
-       
-    }
+    setImages([""]);
+  }
+  // function handleImages(e:React.FormEvent) {
+  //     const filesArray = Array.from(e.target.files);
+  //     setImages(filesArray.map(file => URL.createObjectURL(file)));
+
+  // }
   return (
     <div>
       <div className="w-full my-[60px] text-[#49454] text-2xl pl-[40px]">
@@ -71,8 +71,7 @@ const AddEvent = () => {
         </div>
         <div className="flex flex-col w-full ">
           <div className="text-xl font-bold pl-[16px]">Images </div>
-                  <input type="file" onChange={handleImages} multiple />
-            
+          <input type="file" onChange={handleImages} multiple />
         </div>
 
         <button
@@ -83,9 +82,13 @@ const AddEvent = () => {
           envoyer
           <FaArrowRight />
         </button>
-          </form>
-          <div className="flex gap-10">          {images.map(img=><img src={img} className="w-[300px] h-[300px]"/>)}</div>
-
+      </form>
+      <div className="flex gap-10">
+        {" "}
+        {images.map((img) => (
+          <img src={img} className="w-[300px] h-[300px]" />
+        ))}
+      </div>
     </div>
   );
 };
