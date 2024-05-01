@@ -56,7 +56,8 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               ? "/faq/addfaq"
               : pathname.includes("car")
               ? "/produits/AddCar"
-              : ""
+                : pathname.toLocaleLowerCase().includes("rdv") ?
+                  "/rdv/addrdv":""
           }
           className="flex w-[214px] max-sm:w-[50px] justify-center gap-[30px] bg-green-600 text-white items-center rounded-lg py-[6px] font-medium"
         >

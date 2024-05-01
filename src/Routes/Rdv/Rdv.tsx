@@ -6,8 +6,9 @@ const Rdv = () => {
   return (
     <div>
       <div className="w-full pl-[4%] text-3xl font-medium mb-[40px] mt-[36px] ">
-        Liste des quetions
+      Liste des demandes
       </div>
+      
       <Main data={data} />
     </div>
   );

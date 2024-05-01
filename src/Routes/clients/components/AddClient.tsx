@@ -1,14 +1,15 @@
 import React from "react";
 
 const AddClient = () => {
+  
   return (
     <div>
-      <div className="w-full mt-[60px] text-[#49454] text-2xl pl-[40px]">
+      <div className="w-full my-[60px] text-[#49454] text-2xl pl-[40px]">
         Veuillez remplir ces champs concernant le client que vous souhaitez
         ajouter :{" "}
       </div>
-      <form className="w-full px-[75px] grid grid-cols-[1fr_1fr]  gap-x-[15%] mt-[40px]">
-        <div className="flex flex-col w-full gap-y-[40px]">
+      <form className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]">
+     
           <div className="flex flex-col w-full ">
             <div className="text-xl font-bold pl-[16px]">Nom et prénom*</div>
             <input
@@ -54,7 +55,7 @@ const AddClient = () => {
               placeholder="Entrez le nom et prénom du client"
             />
           </div>
-        </div>
+    
       </form>
     </div>
   );

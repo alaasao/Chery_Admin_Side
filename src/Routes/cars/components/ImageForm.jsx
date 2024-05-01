@@ -49,6 +49,7 @@ const ImageForm = ({ Images, setImages }) => {
         <input
           type="file"
           name="images"
+          className="hidden"
           onChange={onSelectFile}
           multiple
           accept="image/png , image/jpeg, image/webp"
@@ -56,7 +57,7 @@ const ImageForm = ({ Images, setImages }) => {
       </label>
       <br />
 
-      <input type="file" multiple />
+      <input type="file" multiple className="hidden" />
 
       {/* {selectedImages.length > 0 &&
         (selectedImages.length > 10 ? (
