@@ -104,49 +104,49 @@ const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
   return (
     <div>
     
-      <form action="" className="flex flex-col w-full">
+      <form action="" className="flex flex-col w-screen">
         <div className=" py-[50px] rounded-2xl flex flex-col">
           <div className=" py-[50px] rounded-2xl flex flex-col">
-            <div className="  text-4xl pl-[20px] mb-[20px] text-[#494545] mb-[40px]">
+            <div className="  text-4xl max-md:text-xl pl-[20px] text-[#494545] mb-[40px]">
               Veuillez remplir ces champs concernant le véhicule que vous
               souhaitez ajouter :{" "}
             </div>
             <div className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
-                <div className="text-3xl font-bold">Modele</div>
+                <div className="text-3xl font-bold max-md:text-xl">Modele</div>
                 <input
                   type="string"
                   placeholder="Nom de modele"
                   value={modele}
                   readOnly={readOnly}
                   onChange={(e) => setModele(e.target.value)}
-                  className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                  className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
                 />
               </div>
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
-                <div className="text-3xl font-bold">Moteur</div>
+                <div className="text-3xl font-bold max-md:text-xl">Moteur</div>
                 <input
                   type="string"
                   placeholder="Nom de modele"
                   value={moteur}
                   readOnly={readOnly}
                   onChange={(e) => setModele(e.target.value)}
-                  className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                  className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
                 />
               </div>
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
-                <div className="text-3xl font-bold">Garentie</div>
+                <div className="text-3xl font-bold max-md:text-xl">Garentie</div>
                 <input
                   type="string"
                   placeholder="Nom de modele"
                   value={Garentie}
                   readOnly={readOnly}
                   onChange={(e) => setGarentie(e.target.value)}
-                  className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                  className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
                 />
               </div>
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
-                <div className="text-3xl font-bold">Prix_TTC</div>
+                <div className="text-3xl font-bold max-md:text-xl">Prix_TTC</div>
                 <input
                   type="number"
                   placeholder="Prix_TTC"
@@ -158,11 +158,11 @@ const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
 
                     setPrix_TTC(inputValue);
                   }}
-                  className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                  className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
                 />
               </div>
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
-                <div className="text-3xl font-bold"> Disponabilite</div>
+                <div className="text-3xl font-bold max-md:text-xl"> Disponabilite</div>
                 <div className="flex h-[56px]  gap-[10] items-center pl-[30px] mt-[16px] text-2xl ">
                   <input
                     type="checkbox"
@@ -240,23 +240,23 @@ const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
         </div>
 
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold">Black Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">Black Images</div>
           <ImageForm Images={blackImages} setImages={setBlackImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold">white Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">white Images</div>
           <ImageForm Images={whiteImages} setImages={setWhiteImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold">red Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">red Images</div>
           <ImageForm Images={redImages} setImages={setRedImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold">gray Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">gray Images</div>
           <ImageForm Images={grisImages} setImages={setGrisImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold">blure Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">blure Images</div>
           <ImageForm Images={blueImages} setImages={setBlueImages} />
         </div>
         <div
