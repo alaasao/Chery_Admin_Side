@@ -17,7 +17,7 @@ return (
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
             >
-              <div className="text-3xl font-bold"> {titles[key]}</div>
+              <div className="text-3xl font-bold max-md:text-xl"> {titles[key]}</div>
               <div className="flex h-[56px]  gap-[10] items-center pl-[30px] mt-[16px] text-2xl ">
                 <input
                   type="checkbox"
@@ -30,7 +30,7 @@ return (
                       [key]: !prev[key],
                     }))
                   }
-                  className="  flex outline-none bg-[#F6F7F9] h-[30px] w-[40px] cursor-pointer rounded-xl border border-black"
+                  className="  flex outline-none bg-[#F6F7F9] h-[30px] w-[40px] cursor-pointer rounded-xl border border-black max-md:text[16px]"
                 />
                 Disponible
               </div>
@@ -40,7 +40,7 @@ return (
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
             >
-              <div className="text-3xl font-bold">{titles[key]}</div>
+              <div className="text-3xl font-bold max-md:text-xl">{titles[key]}</div>
               <input
                 type={"number"}
                 placeholder={`Entre le ${key}`}
@@ -53,7 +53,7 @@ return (
                   }
                   setList((prev) => ({ ...prev, [key]: inputValue }));
                 }}
-                className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
               />
             </div>
           ) : typeof value == "string" ? (
@@ -61,7 +61,7 @@ return (
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
             >
-              <div className="text-3xl font-bold">{titles[key]}</div>
+              <div className="text-3xl font-bold max-md:text-xl">{titles[key]}</div>
               <input
                 type={"text"}
                 placeholder={`Entre le ${key}`}
@@ -70,7 +70,7 @@ return (
                 onChange={(e) =>
                   setList((prev) => ({ ...prev, [key]: e.target.value }))
                 }
-                className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                className=" flex outline-none text-2xl bg-[#F6F7F9] max-md:text[16px] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
               />
             </div>
           ) : (
@@ -78,7 +78,7 @@ return (
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
             >
-              <div className="text-3xl font-bold">{titles[key]}</div>
+              <div className="text-3xl font-bold max-md:text-xl">{titles[key]}</div>
               <input
                 type={"text"}
                 placeholder={`Entre le ${key}`}
@@ -87,7 +87,7 @@ return (
                 onChange={(e) =>
                   setData((prev) => ({ ...prev, [key]: e.target.value }))
                 }
-                className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl"
+                className=" flex outline-none bg-[#F6F7F9] h-[56px]  pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-md:text[16px]"
               />
             </div>
           );
