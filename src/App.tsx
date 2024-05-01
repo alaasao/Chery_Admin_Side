@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import React from "react";
 import Dashboard from "./Routes/Dashboard/Dashboard";
 import Clients from "./Routes/clients/Client";
-import ClientPage from "./Routes/clients/clientPage/ClientPage";
-import AddClient from "./Routes/clients/AddClient/AddClient";
+
+import AddClient from "./Routes/clients/components/AddClient";
 import Cars from "./Routes/cars/Cars";
 import Events from "./Routes/events/Events";
 import Faq from "./Routes/faq/Faq";
@@ -16,6 +16,10 @@ import FaqDetails from "./Routes/faq/components/FaqDetails";
 import AddFaq from "./Routes/faq/components/AddFaq";
 import EditFaq from "./Routes/faq/components/EditFaq";
 import Rdv from "./Routes/Rdv/Rdv";
+import RdvDetails from "./Routes/Rdv/components/RdvDetails";
+import AddRdv from "./Routes/Rdv/components/AddRdv";
+import EditRdv from "./Routes/Rdv/components/EditRdv";
+import ClientDetails from "./Routes/clients/components/ClientDetails";
 
 function App() {
   const routes = [
@@ -32,7 +36,7 @@ function App() {
     {
       name: "clientPage",
       link: "/clients/:id",
-      component: ClientPage,
+      component: ClientDetails,
     },
     {
       name: "addClient",
@@ -74,6 +78,21 @@ function App() {
       name: "rdv",
       link: "/rdv",
       component: Rdv,
+    },
+    {
+      name: "rdv",
+      link: "/rdv/:id",
+      component: RdvDetails,
+    },
+    {
+      name: "rdv",
+      link: "/rdv/addRdv",
+      component: AddRdv,
+    },
+    {
+      name: "rdv",
+      link: "/rdv/editrdv/:id",
+      component: EditRdv,
     },
     {
       name: "faq",

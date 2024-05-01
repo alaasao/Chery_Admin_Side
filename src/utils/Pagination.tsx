@@ -49,7 +49,7 @@ const Pagination: FC<PaginationProps> = ({
   useEffect(() => {
     const filteredData = arr.filter((e) => {
       if ("Etat" in e) {
-        return e.Etat.toLowerCase().includes(searchKey);
+        return e.Name.toLowerCase().includes(searchKey);
       }else  if ("Name" in e) {
         return e.Name.toLowerCase().includes(searchKey);
       } else if ("Modele" in e) {
