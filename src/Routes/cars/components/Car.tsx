@@ -104,7 +104,7 @@ const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
   return (
     <div>
     
-      <form action="" className="flex flex-col w-screen">
+      <form action="" className="flex flex-col w-full">
         <div className=" py-[50px] rounded-2xl flex flex-col">
           <div className=" py-[50px] rounded-2xl flex flex-col">
             <div className="  text-4xl max-md:text-xl pl-[20px] text-[#494545] mb-[40px]">
