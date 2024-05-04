@@ -1,7 +1,8 @@
 // import axios from 'axios'
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Questions from "./data";
+import axios from "axios";
 interface FaqType {
   id: string;
   Question: string;
@@ -9,27 +10,27 @@ interface FaqType {
 }
 const FaqDetails = () => {
   const { id } = useParams();
+  const [loading,setLoading]=useState(true)
   const [faq, setFaq] = React.useState<FaqType>({
     Answer: "",
     Question: "",
     id: "",
   });
+
+
   useEffect(() => {
-    const f = Questions.filter((e) => e.id === id)[0] as FaqType;
-    if (f) {
-      setFaq(f);
-    }
+    axios.get("https://axeiny.tech:4004/faq/"+id).then((response) => {
+      response.data;
+      setFaq(response.data);
+      setLoading(false)
+    });
+
   }, [id]);
-
-  // useEffect(() => {
-  //   axios.get("https://axeiny.tech:4004/faq/").then((response) => {
-  //     response.data;
-  //     setFaq(response.data);
-  //   });
-
-  // }, []);
   return (
-    <div className="w-full px-[30px]">
+  <div>    {
+      loading?
+        <div>...Loading</div>
+      : <div className="w-full px-[30px]">
       <div className="my-[50px] text-3xl max-md:text-[16px]">
         Veuillez remplir ces champs concernant la question que vous souhaitez
         ajouter :{" "}
@@ -55,6 +56,9 @@ const FaqDetails = () => {
         />
       </div>
     </div>
+    }
+    </div>
+
   );
 };
 

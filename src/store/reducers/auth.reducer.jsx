@@ -45,6 +45,7 @@ const authSlice = createSlice({
       localStorage.removeItem("token");
       toastFNC("logged out", "success");
     },
+  
   },
   extraReducers: (builder) => {
     builder.addCase(Login.pending, (state) => {

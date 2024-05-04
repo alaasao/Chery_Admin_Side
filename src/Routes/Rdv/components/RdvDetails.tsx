@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import { Listbox } from "@headlessui/react";
 import data from "./data";
 import { RdvType } from "../Rdv";
-import { RdvEtat} from "./data";
-
+import { RdvEtat,Rdv_Type } from "../Rdv";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import axios from "axios";
 const models = [
   { id: 1, name: "arrizo 8", unavailable: false },
   { id: 2, name: "tiggo 8 pro", unavailable: false },
@@ -17,15 +17,17 @@ const models = [
 const RdvDetails = () => {
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
+  const [loading,setLoading]=useState(true)
     const { id } = useParams();
     const [etatOpen, setEtatOpen] = useState(false)
     const [modelOpen, setModelOpen] = useState(false)
   const [rdv, setRdv] = useState<RdvType>({
-    id: "",
+    _id: "",
     Name: "",
     Adresse: "",
     Phone: "",
     Email: "",
+    Rdv_Type:Rdv_Type.RDV_VENTE,
     Date_Choisie: new Date(),
     Model: "",
     Etat: RdvEtat.EN_ATTENTE,
@@ -38,8 +40,19 @@ const RdvDetails = () => {
     setRdv({ ...rdv, Model: selectedModel.name });
   }, [selectedModel]);
   useEffect(() => {
-    setRdv(data.filter((e) => e.id === id)[0]);
+    axios.get(import.meta.env.VITE_Main_ENDPOINT + "rdv/" + id, {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
+      }
+    }).then((response) => { 
+      
+      setRdv(response.data)
+      setLoading(false)
+    })
   }, []);
+  if (loading) {
+    return <div>... loading</div>
+  }
   return (
     <div>
       <div className="my-[50px] text-3xl ml-[20px]">
@@ -98,7 +111,7 @@ const RdvDetails = () => {
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
             readOnly   />
         </div>
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        {/* <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
           <div className="text-3xl font-bold max-sm:text-xl"> la Date</div>
           <input
             type={"date"}
@@ -107,12 +120,12 @@ const RdvDetails = () => {
             onChange={(e) => {
               setRdv((prev) => ({
                 ...prev,
-                Date_Choisie: new Date(e.target.value),
+                Date_Choisie: new (e.target.value),
               }));
             }}
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
             readOnly  />
-        </div>
+        </div> */}
 
         <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
           <div className="text-3xl font-bold max-sm:text-xl"> Model</div>
