@@ -56,8 +56,9 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               ? "/faq/addfaq"
               : pathname.includes("car")
               ? "/produits/AddCar"
-                : pathname.toLocaleLowerCase().includes("rdv") ?
-                  "/rdv/addrdv":""
+              : pathname.toLocaleLowerCase().includes("rdv")
+              ? "/rdv/addrdv"
+              : ""
           }
           className="flex w-[214px] max-sm:w-[50px] justify-center gap-[30px] bg-green-600 text-white items-center rounded-lg py-[6px] font-medium"
         >
@@ -68,10 +69,16 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
       <div className="flex flex-col gap-y-[20px] pt-[20px]">
         {showList.map((e, i) => {
           return "Answer" in e ? (
-            <FaqCard id={e.id} question={e.Question} key={e.id + 66} />
+            <FaqCard id={e._id} question={e.Question} key={e._id + 66} />
           ) : "Etat" in e ? (
-    
-            <RdvCard {...e} key={e.id + 66} />
+            <RdvCard
+              _id={e._id}
+              Date_Choisie={e.Date_Choisie}
+              Name={e.Name}
+              Etat={e.Etat}
+              Phone={e.Phone}
+              key={e._id + 66}
+            />
           ) : "Modele" in e ? (
             <CarCard
               _id={e._id}

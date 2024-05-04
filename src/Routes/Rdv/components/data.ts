@@ -1,8 +1,18 @@
+
+
 export enum RdvEtat {
-    EN_ATTENTE = "EN_ATTENTE",
-    CONFIRMER = "CONFIRMER",
-    ANNULE = "ANNULE",
-  }
+  EN_ATTENTE = "EN_ATTENTE",
+  CONFIRMER = "CONFIRMER",
+  ANNULE = "ANNULE",
+}
+export enum Rdv_Type {
+  RDV_VENTE = "RDV_VENTE",
+  RDV_REPARATION = "RDV_REPARATION",
+  RDV_ENTRETIEN = "RDV_ENTRETIEN",
+  RDV_DIAGNOSTIC = "RDV_DIAGNOSTIC",
+  RDV_REMORQUAGE = "RDV_REMORQUAGE",
+  RDV_AUTRE = "RDV_AUTRE",
+}
 const data = [
     {
         id:"0",
@@ -13,7 +23,8 @@ const data = [
       Date_Choisie: new Date(),
       Model: 'Model X',
       Etat: RdvEtat.EN_ATTENTE,
-      Reponse: 'Pending',
+    Reponse: 'Pending',
+      Rdv_Type:Rdv_Type.RDV_VENTE
     },
     {
         id:"1",
@@ -24,7 +35,7 @@ const data = [
       Date_Choisie: new Date(),
       Model: 'Model Y',
       Etat: RdvEtat.CONFIRMER,
-      Reponse: 'Confirmed',
+      Reponse: 'Confirmed',  Rdv_Type:Rdv_Type.RDV_VENTE
     },
     {
         id:"2",
@@ -35,7 +46,7 @@ const data = [
       Date_Choisie: new Date(),
       Model: 'Model Z',
       Etat: RdvEtat.ANNULE,
-      Reponse: 'Cancelled',
+      Reponse: 'Cancelled',  Rdv_Type:Rdv_Type.RDV_VENTE
     },
 ];
-  export default data;
+export default data;

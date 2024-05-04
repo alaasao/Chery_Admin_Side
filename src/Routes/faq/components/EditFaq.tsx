@@ -2,47 +2,45 @@ import { FaArrowRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import React from "react";
 import { useParams } from "react-router-dom";
-import Questions from "./data";
+import axios from "axios";
+
 // import axios from "axios";
 const EditFaq = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  // const [loading, setLoading] = useState(false); // set this to false
-  useEffect(() => {
-    const faq = Questions.filter((e) => e.id === id)[0];
 
-    //   async function fetchData() {
-    //     const response = await axios.get(`https://axeiny.tech:4004/car/${id}`);
-    //       setQuestion(response.data.Question);
-    //         setAnswer(response.data.Answer)
-    //     setLoading(false);
-    //   }
-    //   fetchData();
-    if (faq) {
-      setQuestion(faq.Question);
-      setAnswer(faq.Answer);
+   const [loading, setLoading] = useState(true); // set this to false
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get(`https://axeiny.tech:4004/faq/${id}`);
+      setQuestion(response.data.Question);
+      setAnswer(response.data.Answer);
+      setLoading(false);
     }
+    fetchData();
   }, [id]);
 
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    // const response = await axios.put('YOUR_API_URL', {
+    const response = await axios.put(
+      `https://axeiny.tech:4004/faq/${id}`,
+      { Question: question, Answer: answer },
+      {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
+        },
+      }
+    );
 
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ question, answer })
-    // });
-
-    // const data = await response.data;
-    // console.log(data);
+    const data = await response.data;
+    console.log(data);
   }
 
-  //   if (loading) {
-  //     return <div>Loading...</div>;
-  // }
+    if (loading) {
+      return <div>Loading...</div>;
+  }
   return (
     <form className="w-full px-[30px] flex flex-col" onSubmit={submit}>
       <div className="my-[50px] text-3xl max-md:text-[16px]">

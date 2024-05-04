@@ -1,22 +1,25 @@
 import React, { FC } from 'react'
 
 import { Link } from 'react-router-dom';
+import { Rdv_Type } from '../Rdv';
 interface RdvCardProps { 
-    id: string;
+   _id: string;
     Name: string;
-    Adresse: string;
+
     Phone: string;
-    Email: string;
+
     Date_Choisie: Date;
-    Model: string;
-    Etat: string;
-    Reponse: string;
+
+  Etat: string;
+
     
 }
 const RdvCard: FC<RdvCardProps> = (
-    { id, Name, Phone,Date_Choisie,Etat }: RdvCardProps
+  { _id, Name, Phone, Date_Choisie, Etat,
+   
+     }: RdvCardProps
 ) => {
-  console.log(Etat)
+  console.log(Name)
   return (
     <div
       className={`w-full h-[83px]  items-center text-2xl font-semibold  grid grid-cols-10 gap-[10px] `}
@@ -24,7 +27,7 @@ const RdvCard: FC<RdvCardProps> = (
       <div className="col-span-3 truncate max-md:col-span-4" >
         {" "}
         <Link
-          to={`/rdv/${id}`}
+          to={`/rdv/${_id}`}
           className=" pl-[20px]    "
         >
           {Name}
@@ -39,7 +42,7 @@ const RdvCard: FC<RdvCardProps> = (
   
           className="  max-md:w-[100px]  max-md:mx-auto flex justify-center items-center"
         >
-          {Date_Choisie.toISOString().slice(0,10)}
+          {Date_Choisie.toString().split("T")[0]}
         </div>
       </div>
 
