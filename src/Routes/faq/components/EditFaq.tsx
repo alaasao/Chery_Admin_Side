@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import DelButt from "../../../utils/DelButt";
 
 // import axios from "axios";
 const EditFaq = () => {
@@ -24,7 +25,7 @@ const EditFaq = () => {
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    const response = await axios.put(
+     await axios.put(
       `https://axeiny.tech:4004/faq/${id}`,
       { Question: question, Answer: answer },
       {
@@ -32,10 +33,10 @@ const EditFaq = () => {
           Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
         },
       }
+   
     );
-
-    const data = await response.data;
-    console.log(data);
+    window.location.href = "/faq/"+id;
+   
   }
 
     if (loading) {
@@ -71,14 +72,18 @@ const EditFaq = () => {
           placeholder="Entrez la réponse correspandante a la question   "
         />
       </div>
-      <button
+      <div className="flex items-end justify-end gap-[20px] " >
+        <DelButt id={id||""} deleteRoute="faq"/>
+        <button
         type="submit"
-        className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+        className="w-[140px] cursor-pointer bg-green-600 flex justify-center items-center h-[50px] text-white  gap-[10px] rounded-xl"
       >
         {" "}
         envoyer
         <FaArrowRight />
       </button>
+        </div>
+    
     </form>
   );
 };

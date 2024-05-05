@@ -7,16 +7,36 @@ import { Rdv_Type, RdvEtat } from "../Rdv";
 
 import { FaAngleDown, FaAngleUp, FaArrowRight } from "react-icons/fa";
 import axios from "axios";
-import { Input } from "@chakra-ui/react";
-const models = [
-  { id: 1, name: "arrizo 8", unavailable: false },
-  { id: 2, name: "tiggo 8 pro", unavailable: false },
-  { id: 3, name: "tiggo 6 pro", unavailable: false },
-  { id: 4, name: "Benedict Kessler", unavailable: true },
-  { id: 5, name: "Katelyn Rohan", unavailable: false },
-];
+import DelButt from "../../../utils/DelButt";
+
+import { CarsProps } from "../../cars/Cars";
+
 const EditRdv = () => {
-  const [selectedModel, setSelectedModel] = useState(models[0]);
+  const [models, setModels] = useState([
+    { id: 1, name: "arrizo 8", unavailable: false },
+    { id: 2, name: "tiggo 8 pro", unavailable: false },
+    { id: 3, name: "tiggo 6 pro", unavailable: false },
+    { id: 4, name: "Benedict Kessler", unavailable: true },
+    { id: 5, name: "Katelyn Rohan", unavailable: false },
+  ]);
+
+  useEffect(() => {
+
+    const res = axios.get(`https://axeiny.tech:4004/car`);
+    res.then((res) => {
+      setModels(
+        res.data.map((e:CarsProps) => {
+          return {
+            id: e._id,
+            name: e.Modele,
+            unavailable: e.Disponabilite === "Disponible",
+          };
+        })
+      );
+    });
+    console.log(models);
+  }, []);
+  const [selectedModel, setSelectedModel] = useState({ id: 1, name: "", unavailable: false });
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
   const { id } = useParams();
   const [etatOpen, setEtatOpen] = useState(false);
@@ -52,10 +72,22 @@ const EditRdv = () => {
       setLoading(false)
     })
   }, []);
+  
+  useEffect(() => {
+  
+    const model = models.filter((e)=>e.name===rdv.Model)[0]
+    if (model) {
+      setSelectedModel(model)
+    }
+
+  }, [models, rdv])
+  useEffect(() => {
+    setEtat(rdv.Etat)
+  },[rdv])
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    const response = await axios.put(
+  await axios.put(
       `https://axeiny.tech:4004/rdv/${id}`,
     rdv,
       {
@@ -64,8 +96,9 @@ const EditRdv = () => {
         },
       }
     );
+    window.location.href = "/rdv/"+id;
 
- window.location.href = "/rdv"; 
+
   }
 
   if (loading) {
@@ -138,14 +171,7 @@ const EditRdv = () => {
         </div>
         <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
           <div className="text-3xl font-bold max-sm:text-xl"> la Date</div>
-          {/* <Input placeholder='Select Date and Time' size='lg' type='datetime' value={rdv.Date_Choisie}    className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
-           
-           onChange={(e) => {
-            setRdv((prev) => ({
-              ...prev,
-              Date_Choisie: new Date(e.target.value),
-            }));
-          }} /> */}
+   
           <input
             type={"date"}
             placeholder={`  `}
@@ -175,21 +201,22 @@ const EditRdv = () => {
               )}
             </Listbox.Button>
             <Listbox.Options
-              className={"absolute max-md:w-[80%] w-full   mt-[120px]"}
+             
             >
-              {models.map((person) => (
+              {models.map((model) => (
                 <Listbox.Option
-                  key={person.id}
-                  value={person}
-                  disabled={person.unavailable}
+                  key={model.id}
+                  value={model}
+                  disabled={!model.unavailable}
                   className="cursor-pointer h-[56px] flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                 >
-                  {person.name}
+                  {model.name}
                 </Listbox.Option>
               ))}
             </Listbox.Options>
           </Listbox>
-        </div>
+
+      </div>
         <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
           <div className="text-3xl font-bold max-sm:text-xl"> Etat</div>
           <Listbox value={etat} onChange={setEtat}>
@@ -205,11 +232,12 @@ const EditRdv = () => {
               )}
             </Listbox.Button>
             <Listbox.Options
-              className={"absolute max-md:w-[80%] w-full   mt-[120px]"}
+             
             >
               {RdvEtatList.map((etat) => (
                 <Listbox.Option
                   value={etat}
+                  key={etat}
                   className="cursor-pointer h-[56px] flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                 >
                   {etat}{" "}
@@ -225,16 +253,21 @@ const EditRdv = () => {
                 </Listbox.Option>
               ))}
             </Listbox.Options>
-          </Listbox>
+          </Listbox> 
+          
         </div>
+        <div className="flex items-end justify-end gap-[20px] " >
+        <DelButt id={rdv._id} deleteRoute="rdv"/>
         <button
         type="submit"
-        className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+        className="w-[140px] cursor-pointer bg-green-600 flex justify-center items-center h-[50px] text-white  gap-[10px] rounded-xl"
       >
         {" "}
         envoyer
         <FaArrowRight />
       </button>
+        </div>
+    
       </form>
     </div>
   );

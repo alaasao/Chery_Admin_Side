@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { Link } from 'react-router-dom';
-import { Rdv_Type } from '../Rdv';
+
 interface RdvCardProps { 
    _id: string;
     Name: string;
