@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 export interface userType {
@@ -15,20 +16,18 @@ export interface userType {
 }
 const AddClient = () => {
   const [client, setClient] = useState({ Name: "", Phone: "", Email: "", Adresse: "" })
-  async function submit(e: { preventDefault: () => void; }) {
+  async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
-
-    // const response = await axios.post('YOUR_API_URL', {
-     
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify()
-    // });
-
-    // const data = await response.data;
-    // console.log(data);
-}
+    axios.post(
+      "https://axeiny.tech:4004/client",
+   client,
+      {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
+        },
+      }
+    )
+  }
 
   return (
     <div>

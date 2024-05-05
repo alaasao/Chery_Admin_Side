@@ -3,7 +3,6 @@ import { FC } from "react";
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import React from "react";
-import DelButt from "../../../utils/DelButt";
 
 const FaqCard: FC<FaqCardProps> = ({ id, question }: FaqCardProps) => {
   console.log(id);  
@@ -17,7 +16,7 @@ const FaqCard: FC<FaqCardProps> = ({ id, question }: FaqCardProps) => {
 
       <div className="flex gap-[5px] md:gap-[15px] ">
       <Link to={`/faq/editfaq/${id}`}>  <LuPencil className="text-[#494545] cursor-pointer"   /></Link>
-      <DelButt id={id||""} deleteRoute="faq" />
+
       </div>
     </div>
   );
