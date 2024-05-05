@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IoTrashOutline } from "react-icons/io5";
+
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import React from "react";
@@ -16,7 +16,7 @@ const FaqCard: FC<FaqCardProps> = ({ id, question }: FaqCardProps) => {
 
       <div className="flex gap-[5px] md:gap-[15px] ">
       <Link to={`/faq/editfaq/${id}`}>  <LuPencil className="text-[#494545] cursor-pointer"   /></Link>
-        <IoTrashOutline className="text-[#D12621]" />
+       
       </div>
     </div>
   );

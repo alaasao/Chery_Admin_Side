@@ -2,45 +2,52 @@ import React, { useEffect, useState } from "react";
 
 import { Listbox } from "@headlessui/react";
 
-import { RdvType } from "../Rdv";
+
 import { RdvEtat, Rdv_Type } from "../Rdv";
 
 import { FaAngleDown, FaAngleUp, FaArrowRight } from "react-icons/fa";
 import axios from "axios";
+import { CarsProps } from "../../cars/Cars";
+
 
 const AddRdv = () => {
   const [models, setModels] = useState([
-    { id: 1, name: "arrizo 8", unavailable: false },
-    { id: 2, name: "tiggo 8 pro", unavailable: false },
-    { id: 3, name: "tiggo 6 pro", unavailable: false },
-    { id: 4, name: "Benedict Kessler", unavailable: true },
-    { id: 5, name: "Katelyn Rohan", unavailable: false },
+    { id: "1", name: "arrizo 8", unavailable: false },
+    { id: "2", name: "tiggo 8 pro", unavailable: false },
+    { id: "3", name: "tiggo 6 pro", unavailable: false },
+    { id: "4", name: "Benedict Kessler", unavailable: true },
+    { id: "5", name: "Katelyn Rohan", unavailable: false },
   ]);
 
   useEffect(() => {
     const res = axios.get(`https://axeiny.tech:4004/car`);
     res.then((res) => {
       setModels(
-        res.data.map((e) => {
-          
-          return {
+        res.data.map((e:CarsProps) => {
+         
+          return( {
             id: e._id,
             name: e.Modele,
-            unavailable: e.Disponabilite === "Disponible",
-          };
+            unavailable: e.Disponabilite === "Disponible" 
+          });
         })
       );
     });
-    console.log(models)
+    console.log(models);
   }, []);
-
+  useEffect(() => {
+   setSelectedModel(models[0])
+   },[models])
+  useEffect(() => {
+    setSelectedModel(models[0])
+  },[])
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
 
   const [etatOpen, setEtatOpen] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
-  const [rdv, setRdv] = useState<RdvType>({
-    _id: "",
+  const [rdv, setRdv] = useState({
+    
     Name: "",
     Adresse: "",
     Phone: "",
@@ -49,7 +56,7 @@ const AddRdv = () => {
     Date_Choisie: new Date(),
     Model: "",
     Etat: RdvEtat.EN_ATTENTE,
-    Reponse: "",
+   
   });
   useEffect(() => {
     setRdv({ ...rdv, Etat: etat });
@@ -60,12 +67,12 @@ const AddRdv = () => {
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    const response = await axios.post(`https://axeiny.tech:4004/rdv/`, rdv, {
+   await axios.post(`https://axeiny.tech:4004/rdv/`, rdv, {
       headers: {
         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
       },
     });
-
+     
     window.location.href = "/rdv";
   }
   return (
@@ -152,7 +159,7 @@ const AddRdv = () => {
         </div>
 
         <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
-          <div className="text-3xl font-bold max-sm:text-xl"> Model</div>
+          <div className="text-3xl font-bold max-sm:text-xl "> Model</div>
           <Listbox value={selectedModel} onChange={setSelectedModel}>
             <Listbox.Button
               onClick={() => setModelOpen((prev) => !prev)}
@@ -170,7 +177,8 @@ const AddRdv = () => {
                 <Listbox.Option
                   key={model.id}
                   value={model}
-                  disabled={model.unavailable}
+                  disabled={!model.unavailable}
+      
                   className="cursor-pointer h-[56px]  bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                 >
                   {model.name}
@@ -178,6 +186,7 @@ const AddRdv = () => {
               ))}
             </Listbox.Options>
           </Listbox>
+       
         </div>
         <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
           <div className="text-3xl font-bold max-sm:text-xl"> Etat</div>
@@ -213,6 +222,7 @@ const AddRdv = () => {
               ))}
             </Listbox.Options>
           </Listbox>
+        
         </div>
         <div className="w-full">
           <button

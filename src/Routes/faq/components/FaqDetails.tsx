@@ -1,8 +1,10 @@
 // import axios from 'axios'
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Questions from "./data";
+
 import axios from "axios";
+import DelButt from "../../../utils/DelButt";
+import EditButt from "../../../utils/EditButt";
 interface FaqType {
   id: string;
   Question: string;
@@ -26,11 +28,11 @@ const FaqDetails = () => {
     });
 
   }, [id]);
+  if (loading) {
+    return <div>... Loading</div>
+  }
   return (
-  <div>    {
-      loading?
-        <div>...Loading</div>
-      : <div className="w-full px-[30px]">
+  <div>     <div className="w-full px-[30px]">
       <div className="my-[50px] text-3xl max-md:text-[16px]">
         Veuillez remplir ces champs concernant la question que vous souhaitez
         ajouter :{" "}
@@ -55,8 +57,12 @@ const FaqDetails = () => {
           value={faq.Answer}
         />
       </div>
+        </div>
+      
+        <div className="flex justify-center w-full mt-[50px] gap-[20px] ">
+        <DelButt id={id||""} deleteRoute="faq" />
+        <EditButt id={id||""} editRoute="/faq/editfaq" />
     </div>
-    }
     </div>
 
   );
