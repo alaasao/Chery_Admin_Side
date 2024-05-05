@@ -61,7 +61,8 @@ const FaqDetails = () => {
       
         <div className="flex justify-center w-full mt-[50px] gap-[20px] ">
         <DelButt id={id||""} deleteRoute="faq" />
-        <EditButt id={id||""} editRoute="/faq/editfaq" />
+        <EditButt id={id || ""} editRoute="/faq/editfaq" />
+        
     </div>
     </div>
 
