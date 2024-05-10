@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import data from "./data";
 export interface userType {
   Name: string;
