@@ -22,6 +22,7 @@ import EditRdv from "./Routes/Rdv/components/EditRdv";
 import ClientDetails from "./Routes/clients/components/ClientDetails";
 import EditClient from "./Routes/clients/components/EditClient";
 import AddEvent from "./Routes/events/components/AddEvent";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const routes = [

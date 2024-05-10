@@ -9,6 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 import FormSec from "./FormSec.jsx";
 // import Title from "../../clients/components/Title.js";
 import ImageForm from "./ImageForm.jsx";
+import { uploadImages } from "../../../config/firebase/Upload_Images.jsx";
 interface CarProps {
   carDefault: CarsProps;
   readOnly: boolean;
@@ -41,7 +42,6 @@ const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
   const [blueImages, setBlueImages] = useState<string[]>([]);
   const [grisImages, setGrisImages] = useState<string[]>([]);
   const [whiteImages, setWhiteImages] = useState<string[]>([]);
-
   useEffect(() => {
     setModele(car?.Modele || "");
     setMoteur(car?.Moteur || "");
@@ -56,7 +56,14 @@ const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
   //   console.log(id, real_id);
   //   setCar( data.filter((e) => e._id == real_id)[0]||CarModel);
   // }, [data, real_id, id]);
- 
+
+  const uploadImage = async (e : any) => {
+    setBlackImages([...blackImages , ...Array.from<string>(e.target.files)])
+  }
+  const uploadd = async(e : any) => {
+    e.preventDefault();
+    console.log(await uploadImages(blackImages))
+  }
   function submit() {
     const form = new FormData();
     form.append("MoteurObj", JSON.stringify(moteurObj));
@@ -239,6 +246,8 @@ const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
           )}
         </div>
 
+          <input type="file" multiple onChange={uploadImage} />
+          <button onClick={uploadd}>qd</button>
         <div className="w-full pl-[20px]">
           <div className="text-3xl font-bold max-md:text-xl">Black Images</div>
           <ImageForm Images={blackImages} setImages={setBlackImages} />
