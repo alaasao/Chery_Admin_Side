@@ -3,7 +3,6 @@ import { storage } from "./config";
 import { toastFNC } from "../toast";
 
 export async function uploadImages(files) {
-
     const uploadPromises = files.map(async file => {
     const storageRef = ref(storage, 'images/' + file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -11,6 +10,7 @@ export async function uploadImages(files) {
     return new Promise((resolve, reject) => {
       uploadTask.on('state_changed',
         (snapshot) => {
+            // Handle progress 
             console.log('uploading')
         },
         (error) => {

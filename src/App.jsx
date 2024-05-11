@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "./Routes/Dashboard/Dashboard";
 import Clients from "./Routes/clients/Client";
 
@@ -7,7 +7,6 @@ import AddClient from "./Routes/clients/components/AddClient";
 import Cars from "./Routes/cars/Cars";
 import Events from "./Routes/events/Events";
 import Faq from "./Routes/faq/Faq";
-
 import SignIn from "./Routes/signin/SignIn";
 import AddCar from "./Routes/cars/components/AddCar";
 import ShowCar from "./Routes/cars/components/ShowCar";
@@ -23,13 +22,24 @@ import ClientDetails from "./Routes/clients/components/ClientDetails";
 import EditClient from "./Routes/clients/components/EditClient";
 import AddEvent from "./Routes/events/components/AddEvent";
 import { Toaster } from "react-hot-toast";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "./store/reducers/auth.reducer";
+import AuthWrapper from "./config/auth/wrapper";
 function App() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.Auth.user);
+  useEffect(() => {
+    if (!user && localStorage.getItem("token")) {
+      console.log("get user")
+      dispatch(getUser());
+    }
+  }, []);
   const routes = [
     {
       name: "Dashboard",
       link: "/",
       component: Dashboard,
+
     },
     {
       name: "Clients",
@@ -132,20 +142,18 @@ function App() {
       link: "/faq/editFaq/:id",
       component: EditFaq,
     },
-    {
-      name: "siginin",
-      link: "/signin",
-      component: SignIn,
-    },
   ];
 
   return (
     <>
+      <Toaster />
+    <AuthWrapper>
       <Routes>
         {routes.map((route, index) => (
           <Route path={route.link} element={<route.component />} key={index} />
         ))}
       </Routes>
+      </AuthWrapper>
     </>
   );
 }
