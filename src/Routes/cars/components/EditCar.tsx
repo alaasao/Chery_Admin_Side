@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Car from "./Car";
+
 import { CarModel } from "./data";
 import axios from "axios";
 import { CarsProps } from "../Cars";
+import Cared from "./Cared";
 
 const EditCar = () => {
   const { id } = useParams();
-  const [car, setCar] = useState<CarsProps>(CarModel);
+  const [car, setCar] = useState<CarsProps  >(CarModel);
   const [loading, setLoading] = useState(true);
-  const [sub, setSub] = useState(false);
+  const [submit, setSubmit] = useState(false);
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(`https://axeiny.tech:4004/car/${id}`);
@@ -19,17 +20,17 @@ const EditCar = () => {
     fetchData();
   }, [id]);
   useEffect(() => {
-    submit();
-  }, [sub]);
-    function submit() {
+    update();
+  }, [submit]);
+    function update() {
    localStorage.setItem("car", JSON.stringify(car));
     axios
-      .put(`https://axeiny.tech:4004/car/` + car._id, car, {
+      .put(`https://axeiny.tech:4004/car/` +  car._id, car, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
-        },
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+       },
       })
-      .then((res) => {
+      .then(() => {
         window.location.href = "/produits/cars";
       });
   }
@@ -39,7 +40,7 @@ const EditCar = () => {
 
   return (
     <div>
-      <Car car={car} setCar={setCar}  readOnly={false} setSub={setSub} />
+      <Cared carDefault={car} setCar={setCar}  readOnly={false} submit={submit} setSubmit={setSubmit} />
     </div>
   );
 };

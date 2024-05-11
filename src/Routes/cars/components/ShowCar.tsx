@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import Car from './Car';
+
 import {CarModel} from './data';
 import axios from 'axios';
 import { CarsProps } from '../Cars';
+import Cared from './Cared';
 
 const ShowCar = () => {
     const { id } = useParams();
@@ -25,7 +26,7 @@ const ShowCar = () => {
 
     return (
         <div>
-              <Car carDefault={car} readOnly={true}/>
+            <Cared carDefault={car} readOnly={true} submit={sub} setSubmit={setSub} setCar={setCar} />
         </div>
     )
 }

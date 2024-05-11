@@ -88,10 +88,7 @@ export const CarModel =   {
   __v: 0,
 }
 export const emptyCarModel = {
-  createdAt: "2024-03-26T22:40:55.502Z",
-  updatedAt: "2024-03-26T22:40:55.502Z",
-  __v: 0,
-  _id: "",
+
   Images: [
     {
       Color: "",
