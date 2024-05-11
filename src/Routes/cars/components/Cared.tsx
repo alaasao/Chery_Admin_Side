@@ -11,7 +11,7 @@ import FormSec from "./FormSec.jsx";
 import ImageForm from "./ImageForm.jsx";
 import { uploadImages } from "../../../config/firebase/Upload_Images.jsx";
 import DelButt from "../../../utils/DelButt.js";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 interface CarProps {
   carDefault: CarsProps;

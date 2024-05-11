@@ -1,7 +1,7 @@
 import { FC } from "react";
 import React from "react";
 
-import { IoClose, IoTrashOutline } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 import { LuPencil } from "react-icons/lu";
 import { MdDone } from "react-icons/md";
 import { Link } from "react-router-dom";
