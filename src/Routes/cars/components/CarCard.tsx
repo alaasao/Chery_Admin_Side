@@ -42,13 +42,13 @@ const CarCard: FC<CarCardProps> = ({
       </div>
       <div className="flex items-center justify-center col-span-3 max-sm:col-span-4">
       <Link
-        to={`/produits/cars/${_id}`}
+        to={`/produits/ cars/${_id}`}
         className="text-white  bg-[#494545] rounded-full w-[214px] h-[46px] flex justify-center items-center max-sm:text-xl max-sm:w-auto max-sm:px-[10px]"
       >
         Informations
       </Link></div>
       <div className="flex gap-[5px] md:gap-[15px] col-span-1 max-sm:col-span-2 items-center ">
-        <LuPencil className="text-[#494545]" />
+      <Link to={`/produits/editcar/${_id}`}> <LuPencil className="text-[#494545]"  /></Link> 
         <IoTrashOutline className="text-[#D12621]" />
       </div>
     </div>

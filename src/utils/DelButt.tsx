@@ -15,8 +15,11 @@ const DelButt: FC<DelButtProps> = ({
     console.log(import.meta.env.VITE_Main_ENDPOINT + deleteRoute + "/" + id)
     axios.delete(import.meta.env.VITE_Main_ENDPOINT + deleteRoute + "/" + id, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       }
+    
+    }).then(() => {
+      window.location.href = "/produits/cars";
     
     })
   

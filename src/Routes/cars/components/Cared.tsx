@@ -4,23 +4,24 @@ import React from "react";
 
 
 
-import { CarsProps, EmptyCarModel } from "../Cars";
+import { CarsProps } from "../Cars.js";
 import { FaArrowRight } from "react-icons/fa";
 import FormSec from "./FormSec.jsx";
 // import Title from "../../clients/components/Title.js";
 import ImageForm from "./ImageForm.jsx";
 import { uploadImages } from "../../../config/firebase/Upload_Images.jsx";
+import DelButt from "../../../utils/DelButt.js";
 
 interface CarProps {
-  carDefault: EmptyCarModel|CarsProps;
-  setCar: React.Dispatch<React.SetStateAction<EmptyCarModel|CarsProps>>;
+  carDefault: CarsProps;
+  setCar: React.Dispatch<React.SetStateAction<CarsProps>>;
   readOnly: boolean;
   submit: boolean;
   setSubmit: React.Dispatch<React.SetStateAction<boolean>>
 }
-const Car: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) => {
+const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) => {
 
-  const [car] = useState<EmptyCarModel>(carDefault);
+  const [car] = useState<CarsProps>(carDefault);
 
   const [modele, setModele] = useState(car?.Modele || "");
   const [moteur, setMoteur] = useState(car?.Moteur || "");
@@ -89,6 +90,11 @@ const Car: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) 
       SecurityObj: SecurityObj,
       PromoObj: promoObj,
       Images: images,
+      _id: car._id,
+      createdAt: car.createdAt,
+      updatedAt: car.updatedAt,
+      __v:car.__v
+      
     };
   
     setCar(data);
@@ -256,18 +262,20 @@ const Car: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) 
           <div className="text-3xl font-bold max-md:text-xl">blure Images</div>
           <ImageForm Images={blueImages} setImages={setBlueImages} />
         </div>
+        <div className="flex items-end justify-center gap-[20px] " >
+        <DelButt id={car._id||""} deleteRoute="car"/>
         <div
-          onClick={createData}
-          className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
-        >
-          {" "}
-          envoyer
-          <FaArrowRight />
-        </div>
-   
+     onClick={createData}
+        className="w-[140px] cursor-pointer bg-green-600 flex justify-center items-center h-[50px] text-white  gap-[10px] rounded-xl"
+      >
+        {" "}
+        envoyer
+        <FaArrowRight />
+          </div>
+          </div>
       </form>
     </div>
   );
 };
 
-export default Car;
+export default Cared;

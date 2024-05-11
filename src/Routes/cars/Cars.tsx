@@ -138,3 +138,20 @@ export interface CarsProps {
   updatedAt: string;
   __v: number;
 }
+export interface EmptyCarModel {
+  
+
+  Images: { Images: string[]; Color: string }[];
+  Modele: string;
+  Garentie: string;
+  Disponabilite: string;
+  Prix_TTC: number;
+  Moteur: string;
+  PromoObj: PromoObj;
+  MoteurObj: MoteurObj;
+  ConfortObj: ConfortObj;
+  SecurityObj: SecurityObj;
+  LookObj: LookObj;
+  VehiculeObj: VehiculeObj;
+
+}

@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 
 import Main from "../../utils/Main.tsx";
 import axios from "axios";
-import { div } from "react-router-dom";
 
 const Rdv = () => {
   const [data, setData] = useState([])
-  const [objType,setObjType] = useState<Rdv_Type>(Rdv_Type.RDV_VENTE)
+  const [objType] = useState<Rdv_Type>(Rdv_Type.RDV_VENTE)
   const path = window.location.pathname;
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "rdv", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+     }
     })
     res.then((response) => {
     
