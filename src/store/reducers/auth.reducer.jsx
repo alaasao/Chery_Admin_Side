@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toastFNC } from "../../config/toast";
-const api = "http://localhost:4004/"
+const api = "https://axeiny.tech:4004/"
 
 
 // login thunk
