@@ -54,7 +54,7 @@ const AddFaq = () => {
       </div>
       <button
         type="submit"
-        className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+        className="w-[180px] col-span-2 cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
       >
         {" "}
         envoyer

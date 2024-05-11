@@ -21,7 +21,7 @@ const RdvDetails = () => {
     Adresse: "",
     Phone: "",
     Email: "",
-    Rdv_Type:Rdv_Type.RDV_VENTE,
+    Rdv_Type:Rdv_Type.RDV_VENTE_PIECE,
     Date_Choisie: new Date(),
     Model: "",
     Etat: RdvEtat.EN_ATTENTE,
@@ -119,8 +119,16 @@ const RdvDetails = () => {
          className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
             readOnly   />
         </div>
-        <div className="flex justify-center w-full mt-[50px] gap-[20px] ">
-        <DelButt id={rdv._id} deleteRoute="rdv" />
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+          <div className="text-3xl font-bold max-sm:text-xl"> Type</div>
+          <input  type={"text"}
+            placeholder={`Entre l'email  `}
+            value={rdv.Rdv_Type}
+         className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
+            readOnly   />
+        </div>
+        <div className="flex justify-center w-full mt-[50px] gap-[20px]  col-span-2">
+        <DelButt id={rdv._id} deleteRoute="rdv" back="/rdv" name="rdv" icon={false} />
         <EditButt id={rdv._id} editRoute="/rdv/editrdv" />
     </div>
       </form>

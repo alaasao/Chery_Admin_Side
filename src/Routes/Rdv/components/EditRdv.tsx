@@ -39,8 +39,10 @@ const EditRdv = () => {
   const [selectedModel, setSelectedModel] = useState({ id: 1, name: "", unavailable: false });
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
   const { id } = useParams();
+  const [rdvtype,setRdvtype]=useState(Rdv_Type.RDV_VENTE_VOITURE)
   const [etatOpen, setEtatOpen] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
+  const [rdvOpen,setRdvOpen]=useState(false)
   const [loading, setLoading] = useState(true);
  
   const [rdv, setRdv] = useState<RdvType>({
@@ -49,7 +51,7 @@ const EditRdv = () => {
     Adresse: "",
     Phone: "",
     Email: "",
-    Rdv_Type: Rdv_Type.RDV_VENTE,
+    Rdv_Type: Rdv_Type.RDV_VENTE_VOITURE,
     Date_Choisie: new Date(),
     Model: "",
     Etat: RdvEtat.EN_ATTENTE,
@@ -256,11 +258,39 @@ const EditRdv = () => {
           </Listbox> 
           
         </div>
-        <div className="flex items-end justify-end gap-[20px] " >
-        <DelButt id={rdv._id} deleteRoute="rdv"/>
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+          <div className="text-3xl font-bold max-sm:text-xl"> Type</div>
+          <Listbox value={rdvtype} onChange={setRdvtype}>
+            <Listbox.Button
+              onClick={() => setRdvOpen((prev) => !prev)}
+              className=" flex justify-between outline-none bg-[#F6F7F9] h-[56px] px-[30px] mt-[16px] w-full cursor-pointer rounded-xl border items-center border-black text-2xl max-sm:text-[16px]"
+            >
+              {rdvtype}{" "}
+              {rdvOpen ? (
+                <FaAngleDown className="text-2xl" />
+              ) : (
+                <FaAngleUp className="text-2xl" />
+              )}
+            </Listbox.Button>
+            <Listbox.Options className={""}>
+              {RdvTypeList.map((rdv) => (
+                <Listbox.Option
+                  value={rdv}
+                  className="cursor-pointer h-[56px] bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  {rdv}{" "}
+              
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Listbox>
+        
+        </div>
+        <div className="flex items-end justify-center gap-[20px] col-span-2  " >
+          <DelButt id={rdv._id} deleteRoute="rdv" back="/rdv" name={rdv.Model} icon={false} />
         <button
         type="submit"
-        className="w-[140px] cursor-pointer bg-green-600 flex justify-center items-center h-[50px] text-white  gap-[10px] rounded-xl"
+        className="w-[140px] cursor-pointer bg-green-600 flex justify-center  items-center h-[50px] text-white  gap-[10px] rounded-xl"
       >
         {" "}
         envoyer
@@ -276,3 +306,4 @@ const EditRdv = () => {
 export default EditRdv;
 
 const RdvEtatList = ["EN_ATTENTE", "CONFIRMER", "ANNULE"];
+const RdvTypeList=["RDV_VENTE_VOITURE","RDV_VENTE_PIECE","RDV_REPARATION","RDV_AUTRE"]

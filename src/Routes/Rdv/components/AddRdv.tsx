@@ -43,16 +43,17 @@ const AddRdv = () => {
   },[])
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
-
+  const [rdvtype,setRdvtype]=useState(Rdv_Type.RDV_VENTE_VOITURE)
   const [etatOpen, setEtatOpen] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
+  const [rdvOpen,setRdvOpen]=useState(false)
   const [rdv, setRdv] = useState({
     
     Name: "",
     Adresse: "",
     Phone: "",
     Email: "",
-    Rdv_Type: Rdv_Type.RDV_VENTE,
+    Rdv_Type: Rdv_Type.RDV_VENTE_VOITURE,
     Date_Choisie: new Date(),
     Model: "",
     Etat: RdvEtat.EN_ATTENTE,
@@ -62,11 +63,14 @@ const AddRdv = () => {
     setRdv({ ...rdv, Etat: etat });
   }, [etat]);
   useEffect(() => {
+    setRdv({...rdv,Rdv_Type:rdvtype})
+  },[rdvtype])
+  useEffect(() => {
     setRdv({ ...rdv, Model: selectedModel.name });
   }, [selectedModel]);
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
-
+console.log(JSON.stringify(rdv))
    await axios.post(`https://axeiny.tech:4004/rdv/`, rdv, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -224,7 +228,35 @@ const AddRdv = () => {
           </Listbox>
         
         </div>
-        <div className="w-full">
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+          <div className="text-3xl font-bold max-sm:text-xl"> Type</div>
+          <Listbox value={rdvtype} onChange={setRdvtype}>
+            <Listbox.Button
+              onClick={() => setRdvOpen((prev) => !prev)}
+              className=" flex justify-between outline-none bg-[#F6F7F9] h-[56px] px-[30px] mt-[16px] w-full cursor-pointer rounded-xl border items-center border-black text-2xl max-sm:text-[16px]"
+            >
+              {rdvtype}{" "}
+              {rdvOpen ? (
+                <FaAngleDown className="text-2xl" />
+              ) : (
+                <FaAngleUp className="text-2xl" />
+              )}
+            </Listbox.Button>
+            <Listbox.Options className={""}>
+              {RdvTypeList.map((rdv) => (
+                <Listbox.Option
+                  value={rdv}
+                  className="cursor-pointer h-[56px] bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  {rdv}{" "}
+              
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Listbox>
+        
+        </div>
+        <div className="w-full col-span-2">
           <button
             type="submit"
             className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] mx-auto flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
@@ -241,3 +273,4 @@ const AddRdv = () => {
 
 export default AddRdv;
 const RdvEtatList = ["EN_ATTENTE", "CONFIRMER", "ANNULE"];
+const RdvTypeList=["RDV_VENTE_VOITURE","RDV_VENTE_PIECE","RDV_REPARATION","RDV_AUTRE"]
