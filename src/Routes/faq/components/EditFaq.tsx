@@ -72,8 +72,8 @@ const EditFaq = () => {
           placeholder="Entrez la réponse correspandante a la question   "
         />
       </div>
-      <div className="flex items-end justify-end gap-[20px] " >
-        <DelButt id={id||""} deleteRoute="faq"/>
+      <div className="flex items-end justify-end gap-[20px] col-span-2 " >
+        <DelButt id={id || ""} deleteRoute="faq" icon={false} back="faq" name="question" />
         <button
         type="submit"
         className="w-[140px] cursor-pointer bg-green-600 flex justify-center items-center h-[50px] text-white  gap-[10px] rounded-xl"

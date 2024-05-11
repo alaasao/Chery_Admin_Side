@@ -5,8 +5,9 @@ import axios from "axios";
 
 const Rdv = () => {
   const [data, setData] = useState([])
-  const [objType] = useState<Rdv_Type>(Rdv_Type.RDV_VENTE)
-  const path = window.location.pathname;
+  const [allData,setAllData]=useState([])
+  const [objType,setObjType] = useState<Rdv_Type>(Rdv_Type.RDV_VENTE_VOITURE)
+
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "rdv", {
       headers: {
@@ -15,38 +16,42 @@ const Rdv = () => {
     })
     res.then((response) => {
     
-      setData(response.data.filter((obj: RdvType) => obj.Rdv_Type === objType))
+      setAllData(response.data)
      
     })
 
   }, [])
+  useEffect(() => {
+ setData(allData.filter((el:RdvType)=>el.Rdv_Type===objType)  )
+  },[allData,objType])
   
   return (
     <div>
        <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] grid grid-cols-3 ">
         <div
-          
+           onClick={()=>{setObjType(Rdv_Type["RDV_VENTE_VOITURE"])}}
           className={`${
-            objType ? "shadow-xl" : ""
-          } flex justify-center items-center h-[53px]`}
+            objType==="RDV_VENTE_VOITURE" ? "shadow-xl" : ""
+          } flex justify-center items-center h-[53px] cursor-pointer`}
         >
           Véhicules
         </div>
-        <div
+        <div    onClick={()=>{setObjType(Rdv_Type["RDV_VENTE_PIECE"])}}
+   
  
           className={`${
-            path === "/produits/pieces" ? "shadow-xl" : ""
-          } flex justify-center items-center h-[53px] `}
+            objType==="RDV_VENTE_PIECE" ? "shadow-xl" : ""
+          } flex justify-center items-center h-[53px] cursor-pointer `}
         >
           Pièces
         </div>
         <div
-      
+      onClick={()=>{setObjType(Rdv_Type["RDV_REPARATION"])}}
           className={`${
-            path === "/produits/pieces" ? "shadow-xl" : ""
-          } flex justify-center items-center h-[53px] `}
+            objType==="RDV_REPARATION"  ? "shadow-xl" : ""
+          } flex justify-center items-center h-[53px] cursor-pointer `}
         >
-          Pièces
+          Videnge
         </div>
       </div>
       <div className="w-full pl-[4%] text-3xl font-medium mb-[40px] mt-[36px] ">
@@ -78,10 +83,8 @@ export interface RdvType {
   Rdv_Type: Rdv_Type;
 }
 export enum Rdv_Type {
-  RDV_VENTE = "RDV_VENTE",
+  RDV_VENTE_VOITURE = "RDV_VENTE_VOITURE",
+  RDV_VENTE_PIECE = "RDV_VENTE_PIECE",
   RDV_REPARATION = "RDV_REPARATION",
-  RDV_ENTRETIEN = "RDV_ENTRETIEN",
-  RDV_DIAGNOSTIC = "RDV_DIAGNOSTIC",
-  RDV_REMORQUAGE = "RDV_REMORQUAGE",
   RDV_AUTRE = "RDV_AUTRE",
 }

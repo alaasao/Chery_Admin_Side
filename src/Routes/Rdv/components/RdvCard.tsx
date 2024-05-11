@@ -42,7 +42,7 @@ const RdvCard: FC<RdvCardProps> = (
   
           className="  max-md:w-[100px]  max-md:mx-auto flex justify-center items-center"
         >
-          {Date_Choisie.toString().split("T")[0]}
+          {new Date( Date_Choisie).toISOString().slice(0, 10)}
         </div>
       </div>
 

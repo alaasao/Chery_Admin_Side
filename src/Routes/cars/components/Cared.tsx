@@ -11,6 +11,7 @@ import FormSec from "./FormSec.jsx";
 import ImageForm from "./ImageForm.jsx";
 import { uploadImages } from "../../../config/firebase/Upload_Images.jsx";
 import DelButt from "../../../utils/DelButt.js";
+import { useLocation, useParams } from "react-router-dom";
 
 interface CarProps {
   carDefault: CarsProps;
@@ -20,7 +21,7 @@ interface CarProps {
   setSubmit: React.Dispatch<React.SetStateAction<boolean>>
 }
 const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) => {
-
+ const {pathname} = useLocation()
   const [car] = useState<CarsProps>(carDefault);
 
   const [modele, setModele] = useState(car?.Modele || "");
@@ -242,7 +243,7 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
           )}
         </div>
 
-        <div className="w-full pl-[20px]">
+ {pathname?.toLowerCase().includes("edit") ?(   <div>  <div className="w-full pl-[20px]">
           <div className="text-3xl font-bold max-md:text-xl">Black Images</div>
           <ImageForm Images={blackImages} setImages={setBlackImages} />
         </div>
@@ -261,9 +262,23 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
         <div className="w-full pl-[20px]">
           <div className="text-3xl font-bold max-md:text-xl">blure Images</div>
           <ImageForm Images={blueImages} setImages={setBlueImages} />
-        </div>
+          </div></div>) : (
+            <div>
+              {car.Images.map(obj => {
+                return (
+                  <div>
+                    <h1 className="text-3xl font-bold capitalize mb-[20px]">{obj.Color} Images</h1>
+                   <div className="flex flex-wrap items-center justify-center gap-[20px] mb-[20px]"> {obj.Images.map(image => {
+                      return <img src={image} alt=""  className="h-[200px] w-[200px]"/>
+                    })}</div>
+                  </div>
+                )
+              })}
+          </div>
+          
+          )}
         <div className="flex items-end justify-center gap-[20px] " >
-        <DelButt id={car._id||""} deleteRoute="car"/>
+          <DelButt id={car._id || ""} deleteRoute="car" back="/produits/cars" icon={false} name={modele} />
         <div
      onClick={createData}
         className="w-[140px] cursor-pointer bg-green-600 flex justify-center items-center h-[50px] text-white  gap-[10px] rounded-xl"
