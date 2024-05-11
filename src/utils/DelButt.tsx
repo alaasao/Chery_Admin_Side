@@ -12,13 +12,14 @@ const DelButt: FC<DelButtProps> = ({
   id,
 }: DelButtProps) => {
   function deleteObj() {
+    console.log(import.meta.env.VITE_Main_ENDPOINT + deleteRoute + "/" + id)
     axios.delete(import.meta.env.VITE_Main_ENDPOINT + deleteRoute + "/" + id, {
       headers: {
         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTQ3ODE1MTUsImV4cCI6MTcxNzM3MzUxNX0.oRfHgjt6CNRIakX_ysrd20tvoZYf4RWvCTAbR_uh4bM`,
       }
     
     })
-    window.location.href = deleteRoute;
+  
   }
   return (
     

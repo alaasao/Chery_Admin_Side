@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import Main from "../../utils/Main.tsx";
 import axios from "axios";
+import { div } from "react-router-dom";
 
 const Rdv = () => {
   const [data, setData] = useState([])
+  const [objType,setObjType] = useState<Rdv_Type>(Rdv_Type.RDV_VENTE)
+  const path = window.location.pathname;
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "rdv", {
       headers: {
@@ -13,7 +16,7 @@ const Rdv = () => {
     })
     res.then((response) => {
     
-      setData(response.data)
+      setData(response.data.filter((obj: RdvType) => obj.Rdv_Type === objType))
      
     })
 
@@ -21,6 +24,32 @@ const Rdv = () => {
   
   return (
     <div>
+       <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] grid grid-cols-3 ">
+        <div
+          
+          className={`${
+            objType ? "shadow-xl" : ""
+          } flex justify-center items-center h-[53px]`}
+        >
+          Véhicules
+        </div>
+        <div
+ 
+          className={`${
+            path === "/produits/pieces" ? "shadow-xl" : ""
+          } flex justify-center items-center h-[53px] `}
+        >
+          Pièces
+        </div>
+        <div
+      
+          className={`${
+            path === "/produits/pieces" ? "shadow-xl" : ""
+          } flex justify-center items-center h-[53px] `}
+        >
+          Pièces
+        </div>
+      </div>
       <div className="w-full pl-[4%] text-3xl font-medium mb-[40px] mt-[36px] ">
       Liste des demandes
       </div>

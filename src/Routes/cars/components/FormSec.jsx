@@ -13,6 +13,7 @@ return (
       <div className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
         {Object.entries(list).map(([key, value], index) => {
           return typeof value == "boolean" ? (
+            
             <div
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
@@ -36,10 +37,12 @@ return (
               </div>
             </div>
           ) : typeof value == "number" ? (
+             
             <div
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
-            >
+              >
+                 
               <div className="text-3xl font-bold max-md:text-xl">{titles[key]}</div>
               <input
                 type={"number"}
@@ -100,9 +103,10 @@ return (
 export default FormSec;
 const titles = {
   Energie: "Energie",
+  Discount_Percentage:"Discount Percentage",
   Motricite: "Motricite",
   Type_Moteur: "Type De Moteur",
-  Cylidree: "Cylidree",
+  Cylindree: "Cylidree",
   Boite: "Boite",
   Consomation: "Consomation",
   Puissance: "Puissance",
@@ -111,6 +115,8 @@ const titles = {
   Accelaration: "Accelaration de 0 à 100",
   Puissance_Tr: "Puissance Tr",
   Turbo: "Turbo",
+  Nombre_de_Places: "Nombre de Places",
+  Nombre_de_Portes:"Nombre de Portes",
   Nombre_Rapport_Boite: "Nombre De Rapport Boite",
   Vitesse_Max: "Vitesse Max",
   Couple: "Couple",
@@ -123,26 +129,27 @@ const titles = {
   Ordinateur_De__Bord: "Ordinateur De Bord",
   Radar_De_Recul: "Radar De Recul",
   Autoradio: "Autoradio",
-  bluetooth: "bluetooth",
+  Bluetooth: "bluetooth",
   Airbag: "Airbag",
   Regulateur_Limiteur_de_Vitesse: "Regulateur Limiteur de Vitesse",
   Abs: "Abs",
   Keyless: "Keyless",
   Esp: "Esp",
   Détecteur_Angle_Mort: "Détecteur Angle Mort",
-  Aide_Demarrage_Cote: "Aide Demarrage Cote",
+  Aide_demarrage_en_Cote: "Aide Demarrage Cote",
   Anti_Demarrage: "AntiDemarrage",
-  Verrouillage_Centralise: "VerrouillageCentralise",
+  Verrouillage_Centralisé: "Verrouillage Centralisé",
   Alarme: "Alarme",
   Feux_Anti_Arouillard: "Feux Anti Arouillard",
   Feux_Avant: "Feux Avant",
   Peinture_Metalisee: "Peinture Metalisee",
   Toit: "Toit",
-  Vitres_Teintees: "Vitres Teintees",
-  Feux_Jour: "Feux Jour",
+  "Detecteur_d'Angle_Mort":"Detecteur d'Angle Mort",
+  Vitres_Teintées: "Vitres Teintees",
+  Feux_de_Jour: "Feux  de Jour",
   Feux_Arriere: "Feux Arriere",
   Jantes: "Jantes",
-  Couleur_Poignees: "Couleur Poignees",
+  Couleur_Poignées: "Couleur Poignees",
   Dimension_Pneumatique: "Dimension Pneumatiqueing",
   Volume_Coffre: "Volume Coffre",
   Longueur: "Longueur",
@@ -154,4 +161,9 @@ const titles = {
   Nombre_Places: "Nombre Places",
   Nombre_Portes: "Nombre Portes",
   Reservoir: "Reservoir",
+  Boite_a_Gants_Refrigerante: "Boite a Gants de Refrigerante ",
+  Radar_de_Recul: "Radar de Recul",
+  Description: "Description",
+  Start: 'Start',
+  End: 'End',
 };

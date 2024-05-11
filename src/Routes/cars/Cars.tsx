@@ -12,7 +12,6 @@ const Cars = () => {
   const path = useLocation().pathname;
   useEffect(() => {
     axios.get("https://axeiny.tech:4004/car/").then((response) => {
-      response.data;
       setData(response.data);
       // console.log(data, response.data, "mm");
     });

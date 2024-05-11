@@ -48,9 +48,41 @@ const authSlice = createSlice({
   
   },
   extraReducers: (builder) => {
-    builder.addCase(Login.pending, (state) => {
-      state.pendingAuth = true;
-    });
+    builder
+      .addCase(Login.pending, (state) => {
+        state.pendingAuth = true;
+      })
+      .addCase(Login.fulfilled, (state, action) => {
+        state.pendingAuth = false;
+        console.log(action.payload);
+        if (action.payload.status === 201) {
+          toastFNC('Login Success', 'success');
+          state.authenticated = true;
+          localStorage.setItem('token', action.payload.data.Token);
+        } else if (action.payload.status === 400) {
+          toastFNC(action.payload.data.message[0], 'error');
+        } else if (action.payload.status === 401) {
+          toastFNC(action.payload.data.message, 'error');
+        }
+      })
+      .addCase(Login.rejected, (state) => {
+        state.pendingAuth = false;
+        toastFNC('Login Failed', 'error');
+      })
+      .addCase(Signup.pending, (state) => {
+        state.pendingAuth = true;
+      })
+      .addCase(Signup.fulfilled, (state, action) => {
+        state.pendingAuth = false;
+        console.log(action.payload);
+        if (action.payload.status === 201) {
+          toastFNC('Signup Success', 'success');
+        } else if (action.payload.status === 400) {
+          toastFNC(action.payload.data.message[0], 'error');
+        } else {
+          toastFNC(action.payload.data.message, 'error');
+        }
+      });
   },
 });
 export default authSlice.reducer;
