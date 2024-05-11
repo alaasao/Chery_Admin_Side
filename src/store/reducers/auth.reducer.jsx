@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toastFNC } from "../../config/toast";
-const api = ""
+const api = "http://localhost:4004/"
+
+
+// login thunk
 export const Login = createAsyncThunk("auth/login", async (data) => {
   try {
     const res = await axios.post(api + "auth/login", data);
@@ -9,7 +12,9 @@ export const Login = createAsyncThunk("auth/login", async (data) => {
   } catch (err) {
     return err.response;
   }
-});
+}); 
+
+// signup thunk
 export const Signup = createAsyncThunk("auth/signup", async (data) => {
   try {
     const res = await axios.post(api + "auth/signup", data);
@@ -18,11 +23,13 @@ export const Signup = createAsyncThunk("auth/signup", async (data) => {
     return err.response;
   }
 });
+
+// get user thunk
 export const getUser = createAsyncThunk("auth/getUser", async (data) => {
   try {
-    const res = await axios.get(api + "auth/user", {
+    const res = await axios.get(api + "auth/get/user", {
       headers: {
-        Authorization: `Bearer ${data}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     return res;
@@ -30,9 +37,13 @@ export const getUser = createAsyncThunk("auth/getUser", async (data) => {
     return err.response;
   }
 });
+
+// initial state
 const initialState = {
   authenticated: localStorage.getItem("token") ? true : false,
   user: null,
+  loading : false , 
+  pendingUser : false , 
   pendingAuth: false,
 };
 const authSlice = createSlice({
@@ -69,20 +80,21 @@ const authSlice = createSlice({
         state.pendingAuth = false;
         toastFNC('Login Failed', 'error');
       })
-      .addCase(Signup.pending, (state) => {
-        state.pendingAuth = true;
+      .addCase(getUser.pending, (state) => {
+        state.pendingUser = true;
       })
-      .addCase(Signup.fulfilled, (state, action) => {
-        state.pendingAuth = false;
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.pendingUser = false;
         console.log(action.payload);
-        if (action.payload.status === 201) {
-          toastFNC('Signup Success', 'success');
-        } else if (action.payload.status === 400) {
-          toastFNC(action.payload.data.message[0], 'error');
+        if (action.payload.status === 200) {
+          state.user = action.payload.data;
         } else {
+          state.authenticated = false;
+          localStorage.removeItem('token');
           toastFNC(action.payload.data.message, 'error');
         }
-      });
+      })
+      ;
   },
 });
 export default authSlice.reducer;
