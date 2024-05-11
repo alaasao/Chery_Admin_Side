@@ -12,12 +12,13 @@ import ImageForm from "./ImageForm.jsx";
 import { uploadImages } from "../../../config/firebase/Upload_Images.jsx";
 interface CarProps {
   carDefault: CarsProps;
+  setCar: React.Dispatch<React.SetStateAction<CarsProps>>;
   readOnly: boolean;
+  submit: boolean;
+  setSubmit: React.Dispatch<React.SetStateAction<boolean>>
 }
-const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
-  console.log("########");
-  console.log(carDefault);
-  console.log("########");
+const Car: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) => {
+
   const [car] = useState<CarsProps>(carDefault);
 
   const [modele, setModele] = useState(car?.Modele || "");
@@ -64,54 +65,30 @@ const Car: FC<CarProps> = ({ carDefault, readOnly }: CarProps) => {
     e.preventDefault();
     console.log(await uploadImages(blackImages))
   }
-  function submit() {
-    const form = new FormData();
-    form.append("MoteurObj", JSON.stringify(moteurObj));
-    form.append("ConfortObj", JSON.stringify(ConfortObj));
-    form.append("SecurityObj", JSON.stringify(SecurityObj));
-    form.append("LookObj", JSON.stringify(LookObj));
-    form.append("PromoObj", JSON.stringify(promoObj));
-    form.append("VehiculeObj", JSON.stringify(vehiculeObj));
-    if (blackImages.length > 0) {
-      setImages([...Images, { Images: blackImages, Color: "Noir" }]);
-    }
-    if (whiteImages.length > 0) {
-      setImages([...Images, { Images: whiteImages, Color: "blanc" }]);
-    }
-    if (redImages.length > 0) {
-      setImages([...Images, { Images: redImages, Color: "rouge" }]);
-    }
-    if (grisImages.length > 0) {
-      setImages([...Images, { Images: grisImages, Color: "gris" }]);
-    }
-    if (blueImages.length > 0) {
-      setImages([...Images, { Images: blueImages, Color: "blue" }]);
-    }
-
-    form.append("Images", JSON.stringify(Images));
-    form.append("Modele", JSON.stringify(modele));
-    form.append("Moteur", JSON.stringify(moteur));
-    form.append("Garentie", JSON.stringify(Garentie));
-    form.append("Prix_TTC", JSON.stringify(Prix_TTC));
-    form.append("Disponabilite", JSON.stringify(Disponabilite));
-    // form.append("createdAt", JSON.stringify("kk"));
-    // form.append("updatedAt", JSON.stringify("kk"));
-    // form.append("__v", JSON.stringify(0));
-
-    axios
-      .post(`https://axeiny.tech:4004/car`, form)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  function submit(e: any) { 
+    e.preventDefault();
+    console.log("submit");
+    const data = {
+      Modele: modele,
+      Moteur: moteur,
+      Garentie: Garentie,
+      Prix_TTC: Prix_TTC,
+      Disponabilite: Disponabilite,
+      MoteurObj: moteurObj,
+      VehiculeObj: vehiculeObj,
+      LookObj: LookObj,
+      ConfortObj: ConfortObj,
+      SecurityObj: SecurityObj,
+      PromoObj: promoObj,
+      Images: Images,
+    };
+setCar(data)
   }
 
   return (
     <div>
     
-      <form action="" className="flex flex-col w-full">
+      <form onSubmit={submit} className="flex flex-col w-full">
         <div className=" py-[50px] rounded-2xl flex flex-col">
           <div className=" py-[50px] rounded-2xl flex flex-col">
             <div className="  text-4xl max-md:text-xl pl-[20px] text-[#494545] mb-[40px]">

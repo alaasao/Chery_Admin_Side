@@ -8,6 +8,7 @@ const ImageForm = ({ Images, setImages }) => {
     const selectedFiles = event.target.files;
 
     setImages(Array.from(event.target.files));
+    
     const selectedFilesArray = Array.from(selectedFiles);
 
     const imagesArray = selectedFilesArray.map((file) => {
@@ -18,7 +19,7 @@ const ImageForm = ({ Images, setImages }) => {
 
     // FOR BUG IN CHROME
     event.target.value = "";
-    console.log(selectedFilesArray);
+    console.log("hh",selectedFilesArray);
   };
 
   function deleteHandler(image) {

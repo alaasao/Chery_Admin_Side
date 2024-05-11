@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 import Car from './Car';
 import {CarModel} from './data';
 import axios from 'axios';
+import { CarsProps } from '../Cars';
 
 const ShowCar = () => {
     const { id } = useParams();
-    const [car, setCar] = useState(CarModel);
+    const [car, setCar] = useState<CarsProps>(CarModel);
     const [loading, setLoading] = useState(true);
-
+    const [sub, setSub] = useState(false);
     useEffect(() => {
         async function fetchData() {
           const response = await axios.get(`https://axeiny.tech:4004/car/${id}`);
@@ -24,7 +25,7 @@ const ShowCar = () => {
 
     return (
         <div>
-            <Car carDefault={car} readOnly={true} />
+              <Car carDefault={car} readOnly={true}/>
         </div>
     )
 }
