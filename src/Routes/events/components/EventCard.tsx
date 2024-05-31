@@ -1,19 +1,19 @@
 import React from "react";
 import { FC } from "react";
-import { IoTrashOutline } from "react-icons/io5";
+
 import { LuPencil } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import DelButt from "../../../utils/DelButt";
 interface EventCardProps {
   Title: string;
   Description: string;
   Event_Date: Date;
   id: string;
 }
-const EventCard: FC<EventCardProps> = ({ Title, Description, Event_Date,id }) => {
+const EventCard: FC<EventCardProps> = ({ Title, Event_Date,id }) => {
 
 
-  console.log("event card", Title, Description);
-  return (
+ return (
     <div
       className={`w-full h-[83px]  grid grid-cols-10 items-center text-2xl font-semibold `}
     >
@@ -30,8 +30,9 @@ const EventCard: FC<EventCardProps> = ({ Title, Description, Event_Date,id }) =>
         </Link>
       </div>
       <div className="flex gap-[5px] md:gap-[15px] ">
-        <LuPencil className="text-[#494545]" />
-        <IoTrashOutline className="text-[#D12621]" />
+      <Link to={`/events/editevent/${id}`}>  <LuPencil className="text-[#494545] cursor-pointer"   /></Link>
+      <DelButt id={id || ""} deleteRoute="event" icon={true} back="/events" name="question" />
+   
       </div>
     </div>
   );

@@ -26,12 +26,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./store/reducers/auth.reducer";
 import AuthWrapper from "./config/auth/wrapper";
 import EventDetails from "./Routes/events/components/EventDetails";
+import EditEvent from "./Routes/events/components/EditEvent";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
   useEffect(() => {
     if (!user && localStorage.getItem("token")) {
-      console.log("get user")
+   
       dispatch(getUser());
     }
   }, []);
@@ -107,6 +108,11 @@ function App() {
       name: "events",
       link: "/events/addevent",
       component: AddEvent,
+    },
+    {
+      name: "events",
+      link: "/events/editevent/:id",
+      component: EditEvent,
     },
     {
       name: "rdv",

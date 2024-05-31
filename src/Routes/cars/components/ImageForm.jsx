@@ -19,11 +19,10 @@ const ImageForm = ({ Images, setImages }) => {
 
     // FOR BUG IN CHROME
     event.target.value = "";
-    console.log("hh",selectedFilesArray);
+  
   };
 
   function deleteHandler(image) {
-    // console.log(selectedImages.findIndex(image))
     let a = 0;
     setSelectedImages(
       selectedImages.filter((e, index) => {
@@ -37,7 +36,7 @@ const ImageForm = ({ Images, setImages }) => {
 
     Images.splice(a, 1);
     setImages(Images);
-    console.log(Images);
+
     URL.revokeObjectURL(image);
   }
 

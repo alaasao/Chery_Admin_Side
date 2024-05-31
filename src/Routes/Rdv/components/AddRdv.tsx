@@ -150,6 +150,7 @@ console.log(JSON.stringify(rdv))
           <div className="text-3xl font-bold max-sm:text-xl"> la Date</div>
           <input
             type={"date"}
+            min={new Date().toISOString().split('T')[0]}
             placeholder={`  `}
             value={rdv.Date_Choisie.toISOString().slice(0, 10)}
             onChange={(e) => {

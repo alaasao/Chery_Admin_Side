@@ -10,6 +10,7 @@ import axios from "axios";
 import DelButt from "../../../utils/DelButt";
 
 import { CarsProps } from "../../cars/Cars";
+import toast from "react-hot-toast";
 
 const EditRdv = () => {
   const [models, setModels] = useState([
@@ -36,7 +37,9 @@ const EditRdv = () => {
     });
     console.log(models);
   }, []);
+  
   const [selectedModel, setSelectedModel] = useState({ id: 1, name: "", unavailable: false });
+  
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
   const { id } = useParams();
   const [rdvtype,setRdvtype]=useState(Rdv_Type.RDV_VENTE_VOITURE)
@@ -57,6 +60,7 @@ const EditRdv = () => {
     Etat: RdvEtat.EN_ATTENTE,
     Reponse: "",
   });
+ 
   useEffect(() => {
     setRdv({ ...rdv, Etat: etat });
   }, [etat]);
@@ -97,7 +101,9 @@ const EditRdv = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
        },
       }
-    );
+  ).catch(err => {
+    toast.error(err.response.data.message[0])
+    });
     window.location.href = "/rdv/"+id;
 
 
@@ -176,6 +182,7 @@ const EditRdv = () => {
    
           <input
             type={"date"}
+            min={ new Date().toISOString().split('T')[0]}
             placeholder={`  `}
             value={new Date( rdv.Date_Choisie).toISOString().slice(0, 10)}
             onChange={(e) => {

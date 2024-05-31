@@ -58,6 +58,8 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               ? "/produits/AddCar"
               : pathname.toLocaleLowerCase().includes("rdv")
               ? "/rdv/addrdv"
+              : pathname.toLocaleLowerCase().includes("event")
+              ? "/events/addevent"
               : ""
           }
           className="flex w-[214px] max-sm:w-[50px] justify-center gap-[30px] bg-green-600 text-white items-center rounded-lg py-[6px] font-medium"
@@ -91,7 +93,7 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               Title={e.Title}
               Description={e.Description}
               Event_Date={e.Event_Date}
-                    id={e._id}
+              id={e._id}
               key={i + e.Title}
             />
           ) : "Name" in e ? (
