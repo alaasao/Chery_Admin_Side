@@ -175,7 +175,7 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
                       Disponabilite === "Disponible" ? true : false
                     }
                     onChange={(e) => {
-                      console.log(e.target.checked);
+        
                       if (readOnly) {
                         return;
                       } else {

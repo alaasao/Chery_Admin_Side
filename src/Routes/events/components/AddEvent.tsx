@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, {   useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
 import axios from "axios";
+import toast from "react-hot-toast";
 export interface EventType {
   Images: string[];
   Title: string;
@@ -17,26 +18,38 @@ const AddEvent = () => {
    Event_Date: new Date(),
     Description: "",
   });
+  
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const images = await uploadImages(event.Images)
-    console.log(images)
-    axios.post("https://axeiny.tech:4004/event", {
+
+
+    axios.post(import.meta.env.VITE_Main_ENDPOINT+"event", {
       Images: images,
       Title: event.title,
      Event_Date: event.Event_Date,
       Description:event.Description
-    }).then(res => {
-      console.log(res)
+    },  {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+     },
+    }).then(() => {
+
+      window.location.href = "/events"
+    }).catch((err) => {
+      toast.error(err.response.data.message[0])
     })
     
   }
-  function handleImages(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleImages(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       setImages(filesArray.map(file => URL.createObjectURL(file)));
+
+      setImages(await uploadImages(filesArray))
+
     }
   }
+ 
   return (
     <div>
       <div className="w-full my-[60px] text-[#49454] text-2xl pl-[40px]">
@@ -78,7 +91,7 @@ const AddEvent = () => {
             onChange={(e) => {
               setEvent({ ...event, Description: e.target.value });
             }}
-            className="w-full flex items-center justify-center border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
+            className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
             placeholder="Entrez l’adresse mail du event"
           />
         </div>
@@ -94,13 +107,13 @@ const AddEvent = () => {
         </div>
 
         <button
-          type="submit"
-          className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
-        >
-          {" "}
-          envoyer
-          <FaArrowRight />
-        </button>
+        type="submit"
+        className="w-[180px] col-span-2 cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+      >
+        {" "}
+        envoyer
+        <FaArrowRight />
+      </button>
       </form>
     
     </div>

@@ -29,7 +29,7 @@ const SideBar = () => {
       }
     });
   }, []);
-  console.log(pathname);
+
   return (
     <div className={`${pathname === "/signin" ? "hidden" : ""}`}>
       {" "}
