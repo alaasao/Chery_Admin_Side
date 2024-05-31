@@ -19,7 +19,7 @@ const RdvCard: FC<RdvCardProps> = (
    
      }: RdvCardProps
 ) => {
-  console.log(Name)
+
   return (
     <div
       className={`w-full h-[83px]  items-center text-2xl font-semibold  grid grid-cols-10 gap-[10px] `}

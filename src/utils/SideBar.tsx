@@ -4,15 +4,15 @@ import React, { useEffect } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 
 const pages: Array<{ to: string; title: string; img: string }> = [
-  { to: "/dashboard", title: "Tableau de bord", img: "home" },
+
   { to: "/clients", title: "Clients", img: "users" },
   { to: "/produits/cars", title: "Produits", img: "produit" },
   { to: "/events", title: "Evenements", img: "events" },
-  { to: "/offres", title: "Offres", img: "offers" },
+
   { to: "/faq", title: "FAQ", img: "faq" },
-  { to: "/messagerie", title: "Messagerie", img: "message" },
+
   { to: "/RDV", title: "RDV", img: "rdv" },
-  { to: "statistiques", title: "Statistiques", img: "stats" },
+
 ];
 const SideBar = () => {
   const location = useLocation();

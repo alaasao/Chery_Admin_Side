@@ -67,13 +67,13 @@ const Car: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) 
       images.push({ Images: blackImagesUploaded, Color: "noir" })
     }
     if (blueImagesUploaded) {
-      images.push({ Images: blueImagesUploaded, Color: "noir" })
+      images.push({ Images: blueImagesUploaded, Color: "bleu" })
     }
     if (grisImagesUploaded) {
-      images.push({ Images: grisImagesUploaded, Color: "noir" })
+      images.push({ Images: grisImagesUploaded, Color: "gris" })
     }
     if (whiteImagesUploaded) {
-      images.push({ Images: whiteImagesUploaded, Color: "noir" })
+      images.push({ Images: whiteImagesUploaded, Color: "blanc" })
     }
     
     const data = {
