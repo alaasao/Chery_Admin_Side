@@ -47,7 +47,7 @@ const EditEvent = () => {
             type={"date"}
                       value={event.Event_Date.toString().split("T")[0]}
                       onChange={(e) => {
-                        setEvent({...event,Event_Date:e.target.value})
+                        setEvent({ ...event, Event_Date: new Date(e.target.value) })
                     }}
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
              

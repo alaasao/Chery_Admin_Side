@@ -31,10 +31,11 @@ const AddEvent = () => {
     })
     
   }
-  function handleImages(e:React.FormEvent) {
+  function handleImages(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       setImages(filesArray.map(file => URL.createObjectURL(file)));
-
+    }
   }
   return (
     <div>
