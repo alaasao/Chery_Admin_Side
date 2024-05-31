@@ -90,7 +90,8 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
             <EventCard
               Title={e.Title}
               Description={e.Description}
-              Date={e.Date}
+              Event_Date={e.Event_Date}
+                    id={e._id}
               key={i + e.Title}
             />
           ) : "Name" in e ? (

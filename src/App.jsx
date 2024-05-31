@@ -7,7 +7,7 @@ import AddClient from "./Routes/clients/components/AddClient";
 import Cars from "./Routes/cars/Cars";
 import Events from "./Routes/events/Events";
 import Faq from "./Routes/faq/Faq";
-import SignIn from "./Routes/signin/SignIn";
+
 import AddCar from "./Routes/cars/components/AddCar";
 import ShowCar from "./Routes/cars/components/ShowCar";
 import EditCar from "./Routes/cars/components/EditCar";
@@ -25,6 +25,7 @@ import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./store/reducers/auth.reducer";
 import AuthWrapper from "./config/auth/wrapper";
+import EventDetails from "./Routes/events/components/EventDetails";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
@@ -99,6 +100,11 @@ function App() {
     },
     {
       name: "events",
+      link: "/events/:id",
+      component: EventDetails,
+    },
+    {
+      name: "events",
       link: "/events/addevent",
       component: AddEvent,
     },
@@ -146,7 +152,9 @@ function App() {
 
   return (
     <>
-      <Toaster />
+      <Toaster
+        position="bottom_center"
+      />
     <AuthWrapper>
       <Routes>
         {routes.map((route, index) => (

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { uploadImages } from "../../../config/firebase/Upload_Images";
+import axios from "axios";
 export interface EventType {
   Images: string[];
   Title: string;
   Description: string;
-  Date: Date;
+ Event_Date: Date;
 }
 
 const AddEvent = () => {
@@ -12,18 +14,28 @@ const AddEvent = () => {
   const [event, setEvent] = useState({
     Images: [""],
     title: "",
-    Date: new Date(),
+   Event_Date: new Date(),
     Description: "",
   });
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setImages([""]);
+    const images = await uploadImages(event.Images)
+    console.log(images)
+    axios.post("https://axeiny.tech:4004/event", {
+      Images: images,
+      Title: event.title,
+     Event_Date: event.Event_Date,
+      Description:event.Description
+    }).then(res => {
+      console.log(res)
+    })
+    
   }
-  // function handleImages(e:React.FormEvent) {
-  //     const filesArray = Array.from(e.target.files);
-  //     setImages(filesArray.map(file => URL.createObjectURL(file)));
+  function handleImages(e:React.FormEvent) {
+      const filesArray = Array.from(e.target.files);
+      setImages(filesArray.map(file => URL.createObjectURL(file)));
 
-  // }
+  }
   return (
     <div>
       <div className="w-full my-[60px] text-[#49454] text-2xl pl-[40px]">
@@ -50,9 +62,9 @@ const AddEvent = () => {
           <div className="text-xl font-bold pl-[16px]">Date</div>
           <input
             type="date"
-            value={event.Date.toISOString().slice(0, 10)}
+            value={event.Event_Date.toISOString().slice(0, 10)}
             onChange={(e) => {
-              setEvent({ ...event, Date: new Date(e.target.value) });
+              setEvent({ ...event,Event_Date: new Date(e.target.value) });
             }}
             className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
             placeholder="Entrez le numéro du event"
@@ -71,7 +83,13 @@ const AddEvent = () => {
         </div>
         <div className="flex flex-col w-full ">
           <div className="text-xl font-bold pl-[16px]">Images </div>
-          <input type="file" multiple />
+          <input type="file" onChange={handleImages} />
+          <div className="flex gap-10">
+        {" "}
+        {images.map((img) => (
+          <img src={img} className="w-[300px] h-[300px]" />
+        ))}
+      </div>
         </div>
 
         <button
@@ -83,12 +101,7 @@ const AddEvent = () => {
           <FaArrowRight />
         </button>
       </form>
-      <div className="flex gap-10">
-        {" "}
-        {images.map((img) => (
-          <img src={img} className="w-[300px] h-[300px]" />
-        ))}
-      </div>
+    
     </div>
   );
 };

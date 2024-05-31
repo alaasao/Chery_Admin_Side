@@ -6,25 +6,21 @@ import { Link } from "react-router-dom";
 interface EventCardProps {
   Title: string;
   Description: string;
-  Date: Date;
+  Event_Date: Date;
+  id: string;
 }
-const EventCard: FC<EventCardProps> = ({ Title, Description, Date }) => {
-  const formattedDate = Date.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+const EventCard: FC<EventCardProps> = ({ Title, Description, Event_Date,id }) => {
+
 
   console.log("event card", Title, Description);
   return (
     <div
       className={`w-full h-[83px]  grid grid-cols-10 items-center text-2xl font-semibold `}
     >
-      <Link to={`/events/${Title}`} className="col-span-3 truncate max-md:col-span-4 pl-[10px]">
+      <Link to={`/events/${id}`} className="col-span-3 truncate max-md:col-span-4 pl-[10px]">
         {Title}
       </Link>
-      <div className="col-span-3 truncate max-md:hidden">{formattedDate}</div>
+      <div className="col-span-3 truncate max-md:hidden">      {new Date( Event_Date).toISOString().slice(0, 10)}</div>
       <div className="flex justify-center col-span-3 truncate max-md:col-span-4 ">
         <Link
           to={`/clients/`}
