@@ -2,26 +2,30 @@ import { FC, useEffect, useState } from "react";
 
 import React from "react";
 
-
-
 import { CarsProps } from "../Cars.js";
 import { FaArrowRight } from "react-icons/fa";
 import FormSec from "./FormSec.jsx";
-// import Title from "../../clients/components/Title.js";
+
 import ImageForm from "./ImageForm.jsx";
 import { uploadImages } from "../../../config/firebase/Upload_Images.jsx";
 import DelButt from "../../../utils/DelButt.js";
 import { useLocation } from "react-router-dom";
+import EditButt from "../../../utils/EditButt.js";
 
 interface CarProps {
   carDefault: CarsProps;
   setCar: React.Dispatch<React.SetStateAction<CarsProps>>;
   readOnly: boolean;
   submit: boolean;
-  setSubmit: React.Dispatch<React.SetStateAction<boolean>>
+  setSubmit: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) => {
- const {pathname} = useLocation()
+const Cared: FC<CarProps> = ({
+  carDefault,
+  readOnly,
+  setCar,
+  setSubmit,
+}: CarProps) => {
+  const { pathname } = useLocation();
   const [car] = useState<CarsProps>(carDefault);
 
   const [modele, setModele] = useState(car?.Modele || "");
@@ -38,12 +42,40 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
   const [ConfortObj, setConfortObj] = useState(car?.ConfortObj);
   const [SecurityObj, setSecurityObj] = useState(car?.SecurityObj);
   const [promoObj, setPromoObj] = useState(car?.PromoObj);
- 
   const [redImages, setRedImages] = useState<string[]>([]);
   const [blackImages, setBlackImages] = useState<string[]>([]);
   const [blueImages, setBlueImages] = useState<string[]>([]);
   const [grisImages, setGrisImages] = useState<string[]>([]);
   const [whiteImages, setWhiteImages] = useState<string[]>([]);
+  const [redImagesOriginal, setRedImagesOriginal] = useState<string[]>([]);
+  const [blackImagesOriginal, setBlackImagesOriginal] = useState<string[]>([]);
+  const [blueImagesOriginal, setBlueImagesOriginal] = useState<string[]>([]);
+  const [grisImagesOriginal, setGrisImagesOriginal] = useState<string[]>([]);
+  const [whiteImagesOriginal, setWhiteImagesOriginal] = useState<string[]>([]);
+
+  const [track, setTrack] = useState(0);
+  useEffect(() => {
+    if (track === 0) {
+      setTrack(1);
+    }
+  }, [track]);
+  useEffect(() => {
+    setRedImages(
+      car?.Images.filter((e) => e.Color === "rouge")[0]?.Images || []
+    );
+    setBlackImages(
+      car?.Images.filter((e) => e.Color === "noir")[0]?.Images || []
+    );
+    setBlueImages(
+      car?.Images.filter((e) => e.Color === "bleu")[0]?.Images || []
+    );
+    setGrisImages(
+      car?.Images.filter((e) => e.Color === "gris")[0]?.Images || []
+    );
+    setWhiteImages(
+      car?.Images.filter((e) => e.Color === "blanc")[0]?.Images || []
+    );
+  }, [track]);
   useEffect(() => {
     setModele(car?.Modele || "");
     setMoteur(car?.Moteur || "");
@@ -53,31 +85,113 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
     setMoteurObj(car?.MoteurObj);
     setVehiculeObj(car?.VehiculeObj);
     setLookObj(car?.LookObj);
+
+    setTrack(1);
+    setRedImagesOriginal(
+      car?.Images.filter((e) => e.Color === "rouge")[0]?.Images || []
+    );
+    setBlackImagesOriginal(
+      car?.Images.filter((e) => e.Color === "noir")[0]?.Images || []
+    );
+    setBlueImagesOriginal(
+      car?.Images.filter((e) => e.Color === "bleu")[0]?.Images || []
+    );
+    setGrisImagesOriginal(
+      car?.Images.filter((e) => e.Color === "gris")[0]?.Images || []
+    );
+    setWhiteImagesOriginal(
+      car?.Images.filter((e) => e.Color === "blanc")[0]?.Images || []
+    );
   }, [car]);
 
   async function createData() {
-    const redImagesUploaded = redImages.length>0? await uploadImages(redImages):null;
-    const blackImagesUploaded = blackImages.length>0? await uploadImages(blackImages):null;
-    const blueImagesUploaded = blueImages.length>0?await uploadImages(blueImages):null;
-    const grisImagesUploaded = grisImages.length>0?await  uploadImages(grisImages):null;
-    const whiteImagesUploaded = whiteImages.length > 0 ? await uploadImages(whiteImages) : null;
-    const images = []
-    if (redImagesUploaded) {
-      images.push({ Images: redImagesUploaded, Color: "rouge" })
+    console.log(redImagesOriginal);
+
+    const finalRed: string[] = [];
+    if (redImages.length > 0 && redImagesOriginal !== redImages) {
+      Array.from(await uploadImages(redImages)).map((e) => {
+        finalRed.push(e);
+      });
     }
-    if (blackImagesUploaded) {
-      images.push({ Images: blackImagesUploaded, Color: "noir" })
+    if (redImagesOriginal.length > 0) {
+      Array.from(redImagesOriginal).map((e) => {
+        finalRed.push(e);
+
+        console.log(finalRed);
+      });
     }
-    if (blueImagesUploaded) {
-      images.push({ Images: blueImagesUploaded, Color: "noir" })
+
+    const finalBlack: string[] = [];
+    if (blackImages.length > 0 && blackImagesOriginal !== blackImages) {
+      Array.from(await uploadImages(blackImages)).map((e) => {
+        finalBlack.push(e);
+      });
     }
-    if (grisImagesUploaded) {
-      images.push({ Images: grisImagesUploaded, Color: "noir" })
+    if (blackImagesOriginal.length > 0) {
+      Array.from(blackImagesOriginal).map((e) => {
+        finalBlack.push(e);
+      });
     }
-    if (whiteImagesUploaded) {
-      images.push({ Images: whiteImagesUploaded, Color: "noir" })
+
+    const finalBlue: string[] = [];
+    if (blueImages.length > 0 && blueImagesOriginal !== blueImages) {
+      Array.from(await uploadImages(blueImages)).map((e) => {
+        finalBlue.push(e);
+      });
     }
-    
+    if (blueImagesOriginal.length > 0) {
+      Array.from(blueImagesOriginal).map((e) => {
+        finalBlue.push(e);
+
+        console.log(finalBlue);
+      });
+    }
+
+    const finalGris: string[] = [];
+    if (grisImages.length > 0 && grisImagesOriginal !== grisImages) {
+      Array.from(await uploadImages(grisImages)).map((e) => {
+        finalGris.push(e);
+      });
+    }
+    if (grisImagesOriginal.length > 0) {
+      Array.from(grisImagesOriginal).map((e) => {
+        finalGris.push(e);
+      });
+    }
+
+    const finalWhite: string[] = [];
+    if (whiteImages.length > 0 && whiteImagesOriginal !== whiteImages) {
+      Array.from(await uploadImages(whiteImages)).map((e) => {
+        finalWhite.push(e);
+      });
+    }
+    if (whiteImagesOriginal.length > 0) {
+      Array.from(whiteImagesOriginal).map((e) => {
+        finalWhite.push(e);
+      });
+    }
+
+    const images = [];
+    if (finalRed.length > 0) {
+      images.push({ Images: finalRed, Color: "rouge" });
+    }
+
+    if (finalBlack.length > 0) {
+      images.push({ Images: finalBlack, Color: "noir" });
+    }
+
+    if (finalBlue.length > 0) {
+      images.push({ Images: finalBlue, Color: "bleu" });
+    }
+
+    if (finalGris.length > 0) {
+      images.push({ Images: finalGris, Color: "gris" });
+    }
+
+    if (finalWhite.length > 0) {
+      images.push({ Images: finalWhite, Color: "blanc" });
+    }
+
     const data = {
       Modele: modele,
       Moteur: moteur,
@@ -94,20 +208,15 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
       _id: car._id,
       createdAt: car.createdAt,
       updatedAt: car.updatedAt,
-      __v:car.__v
-      
+      __v: car.__v,
     };
-  
+
     setCar(data);
-    setSubmit(prev => !prev);
+    setSubmit((prev) => !prev);
   }
-  
-  // Call createData when needed
-  
 
   return (
     <div>
-    
       <form onSubmit={createData} className="flex flex-col w-full">
         <div className=" py-[50px] rounded-2xl flex flex-col">
           <div className=" py-[50px] rounded-2xl flex flex-col">
@@ -139,7 +248,9 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
                 />
               </div>
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
-                <div className="text-3xl font-bold max-md:text-xl">Garentie</div>
+                <div className="text-3xl font-bold max-md:text-xl">
+                  Garentie
+                </div>
                 <input
                   type="string"
                   placeholder="Nom de modele"
@@ -150,7 +261,9 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
                 />
               </div>
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
-                <div className="text-3xl font-bold max-md:text-xl">Prix_TTC</div>
+                <div className="text-3xl font-bold max-md:text-xl">
+                  Prix_TTC
+                </div>
                 <input
                   type="number"
                   placeholder="Prix_TTC"
@@ -166,7 +279,10 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
                 />
               </div>
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
-                <div className="text-3xl font-bold max-md:text-xl"> Disponabilite</div>
+                <div className="text-3xl font-bold max-md:text-xl">
+                  {" "}
+                  Disponabilite
+                </div>
                 <div className="flex h-[56px]  gap-[10] items-center pl-[30px] mt-[16px] text-2xl ">
                   <input
                     type="checkbox"
@@ -175,7 +291,6 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
                       Disponabilite === "Disponible" ? true : false
                     }
                     onChange={(e) => {
-        
                       if (readOnly) {
                         return;
                       } else {
@@ -243,51 +358,96 @@ const Cared: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps
           )}
         </div>
 
- {pathname?.toLowerCase().includes("edit") ?(   <div>  <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">Black Images</div>
-          <ImageForm Images={blackImages} setImages={setBlackImages} />
-        </div>
-        <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">white Images</div>
-          <ImageForm Images={whiteImages} setImages={setWhiteImages} />
-        </div>
-        <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">red Images</div>
-          <ImageForm Images={redImages} setImages={setRedImages} />
-        </div>
-        <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">gray Images</div>
-          <ImageForm Images={grisImages} setImages={setGrisImages} />
-        </div>
-        <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">blure Images</div>
-          <ImageForm Images={blueImages} setImages={setBlueImages} />
-          </div></div>) : (
-            <div>
-              {car.Images.map(obj => {
-                return (
-                  <div>
-                    <h1 className="text-3xl font-bold capitalize mb-[20px]">{obj.Color} Images</h1>
-                   <div className="flex flex-wrap items-center justify-center gap-[20px] mb-[20px]"> {obj.Images.map(image => {
-                      return <img src={image} alt=""  className="h-[200px] w-[200px]"/>
-                    })}</div>
+        {pathname?.toLowerCase().includes("edit") ? (
+          <div>
+            {" "}
+            <div className="w-full pl-[20px]">
+              <div className="text-3xl font-bold max-md:text-xl">
+                Black Images
+              </div>
+              <ImageForm Images={blackImages} setImages={setBlackImages} />
+            </div>
+            <div className="w-full pl-[20px]">
+              <div className="text-3xl font-bold max-md:text-xl">
+                white Images
+              </div>
+              <ImageForm Images={whiteImages} setImages={setWhiteImages} />
+            </div>
+            <div className="w-full pl-[20px]">
+              <div className="text-3xl font-bold max-md:text-xl">
+                red Images
+              </div>
+              <ImageForm Images={redImages} setImages={setRedImages} />
+            </div>
+            <div className="w-full pl-[20px]">
+              <div className="text-3xl font-bold max-md:text-xl">
+                gray Images
+              </div>
+              <ImageForm Images={grisImages} setImages={setGrisImages} />
+            </div>
+            <div className="w-full pl-[20px]">
+              <div className="text-3xl font-bold max-md:text-xl">
+                blue Images
+              </div>
+              <ImageForm Images={blueImages} setImages={setBlueImages} />
+            </div>
+          </div>
+        ) : (
+          <div>
+            {car.Images.map((obj) => {
+              return (
+                <div>
+                  <h1 className="text-3xl font-bold capitalize mb-[20px]">
+                    {obj.Color} Images
+                  </h1>
+                  <div className="flex flex-wrap items-center justify-center gap-[20px] mb-[20px]">
+                    {" "}
+                    {obj.Images.map((image) => {
+                      return (
+                        <img
+                          src={image}
+                          alt=""
+                          className="h-[200px] w-[200px]"
+                        />
+                      );
+                    })}
                   </div>
-                )
-              })}
+                </div>
+              );
+            })}
           </div>
-          
-          )}
-        <div className="flex items-end justify-center gap-[20px] " >
-          <DelButt id={car._id || ""} deleteRoute="car" back="/produits/cars" icon={false} name={modele} />
-        <div
-     onClick={createData}
-        className="w-[140px] cursor-pointer bg-green-600 flex justify-center items-center h-[50px] text-white  gap-[10px] rounded-xl"
-      >
-        {" "}
-        envoyer
-        <FaArrowRight />
+        )}
+        {pathname?.toLowerCase().includes("edit") ? (
+          <div className="flex items-end justify-center gap-[20px] ">
+            <DelButt
+              id={car._id || ""}
+              deleteRoute="car"
+              back="/produits/cars"
+              icon={false}
+              name={modele}
+            />
+            <div
+              onClick={createData}
+              className="w-[140px] cursor-pointer bg-green-600 flex justify-center items-center h-[50px] text-white  gap-[10px] rounded-xl"
+            >
+              {" "}
+              envoyer
+              <FaArrowRight />
+            </div>
           </div>
+        ) : (
+          <div className="flex justify-center w-full gap-[20px] col-span-2 ">
+            <DelButt
+              id={car._id || ""}
+              deleteRoute="car"
+              icon={false}
+              back="/produits/cars"
+              name="event"
+            />
+
+            <EditButt id={car._id || ""} editRoute="/produits/editcar" />
           </div>
+        )}
       </form>
     </div>
   );

@@ -32,7 +32,7 @@ const EventDetails = () => {
 
       <div className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
    
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2  ">
           <div className="text-3xl font-bold max-md:text-xl">Title</div>
           <input
             type="string"
@@ -42,7 +42,7 @@ const EventDetails = () => {
             className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] px-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
           />
         </div>
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2  ">
                   <div className="text-3xl font-bold max-sm:text-xl">Date</div>
            
           <input

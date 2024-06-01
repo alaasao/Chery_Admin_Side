@@ -21,9 +21,11 @@ const AddCar = () => {
         },
       }
     ).then(() => {
-toast.success("Automobile Ajouté")
-      // window.location.href = "/produits/cars"
-    }).catch((err) => { 
+      toast.success("Automobile Ajouté")
+      
+      setTimeout(() => {
+        window.location.href = "/produits/cars";
+      }, 1000);     }).catch((err) => { 
  
       toast.error(err.response.data.message[0])
     })

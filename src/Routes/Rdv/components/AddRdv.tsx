@@ -88,7 +88,7 @@ console.log(JSON.stringify(rdv))
         onSubmit={submit}
         className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] "
       >
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl">
             {" "}
             Nom et prénom
@@ -104,7 +104,7 @@ console.log(JSON.stringify(rdv))
           />
         </div>
 
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl">
             Adresse du client{" "}
           </div>
@@ -119,7 +119,7 @@ console.log(JSON.stringify(rdv))
           />
         </div>
 
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl">
             {" "}
             Numero de téléphone
@@ -134,7 +134,7 @@ console.log(JSON.stringify(rdv))
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
           />
         </div>
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Email</div>
           <input
             type={"email"}
@@ -146,7 +146,7 @@ console.log(JSON.stringify(rdv))
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
           />
         </div>
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> la Date</div>
           <input
             type={"date"}
@@ -163,7 +163,7 @@ console.log(JSON.stringify(rdv))
           />
         </div>
 
-        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl "> Model</div>
           <Listbox value={selectedModel} onChange={setSelectedModel}>
             <Listbox.Button
@@ -193,7 +193,7 @@ console.log(JSON.stringify(rdv))
           </Listbox>
        
         </div>
-        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Etat</div>
           <Listbox value={etat} onChange={setEtat}>
             <Listbox.Button
@@ -229,7 +229,7 @@ console.log(JSON.stringify(rdv))
           </Listbox>
         
         </div>
-        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Type</div>
           <Listbox value={rdvtype} onChange={setRdvtype}>
             <Listbox.Button
@@ -257,10 +257,10 @@ console.log(JSON.stringify(rdv))
           </Listbox>
         
         </div>
-        <div className="w-full col-span-2">
+        <div className="justify-center w-full col-span-2 mb-[50px]">
           <button
             type="submit"
-            className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] mx-auto flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+            className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] mx-auto flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px]  rounded-xl"
           >
             {" "}
             envoyer
