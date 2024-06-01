@@ -14,6 +14,7 @@ import FaqCard from "../Routes/faq/components/FaqCard";
 import { Link } from "react-router-dom";
 import { RdvType } from "../Routes/Rdv/Rdv";
 import RdvCard from "../Routes/Rdv/components/RdvCard";
+import { userType } from "../Routes/clients/components/AddClient";
 
 interface MainProps {
   data: (userType | CarsProps | EventType | FaqType | RdvType)[];
@@ -101,8 +102,8 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               Name={e.Name}
               Email={e.Email}
               searchKey={searchKey}
-              id={e.id}
-              key={e.id + i}
+              id={e._id}
+              key={e._id + i}
             />
           ) : null;
         })}
@@ -121,16 +122,4 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
 };
 
 export default Main;
-export interface userType {
-  Name: string;
-  Phone: string;
-  Email: string;
-  Model: string;
-  Vin: string;
-  Prix_Vente: number;
-  Adresse: string;
-  Data_Achat: string;
-  Documents: string[];
-  img: string;
-  id: string;
-}
+

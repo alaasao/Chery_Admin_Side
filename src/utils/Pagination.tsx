@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import { useEffect, Dispatch, SetStateAction } from "react";
-import { userType } from "./Main";
+
 import { CarsProps } from "../Routes/cars/Cars";
 import { EventType } from "../Routes/events/Events";
 import { FaqType } from "../Routes/faq/Faq";
 import {  RdvType } from "../Routes/Rdv/Rdv";
+import { userType } from "../Routes/clients/components/AddClient";
 interface PaginationProps {
   article_per_page: number;
   arr: (userType | CarsProps | EventType |FaqType |RdvType)[];

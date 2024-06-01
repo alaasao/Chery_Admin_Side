@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
-import data from "./data";
-export interface userType {
-  Name: string;
-  Phone: string;
-  Email: string;
-  Model: string;
-  Vin: string;
-  Prix_Vente: number;
-  Adresse: string;
-  Data_Achat: string;
-  Documents: string[];
-  img: string;
-  id: string;
-}
+
+import { userType } from "./AddClient";
+import axios from "axios";
+import DelButt from "../../../utils/DelButt";
+import EditButt from "../../../utils/EditButt";
+
 const ClientDetails = () => {
+  
     const {id}=useParams()
-    const [client, setClient] = useState({ Name: "", Phone: "", Email: "", Adresse: "" ,id:""})
-    useEffect(() => {
-        setClient(data.filter((e) => e.id === id)[0])
-    })
+  const [client, setClient] = useState<userType>({ Name: "", Phone: "", Email: "", Address: "", _id: "", createdAt: "", updatedAt: "", __v: 0, Contrat_De_Vente: "",  Facture: "", Garantie: "", Car: "", Piece: ""})
+  useEffect(() => {
+    axios.get(import.meta.env.VITE_Main_ENDPOINT + "client/" + id,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    ).then((response) => response.data)
+      .then((data) => setClient(data));
+  })
 
 
   return (
@@ -31,8 +31,8 @@ const ClientDetails = () => {
       </div>
       <form className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]">
      
-          <div className="flex flex-col w-full ">
-            <div className="text-xl font-bold pl-[16px]">Nom et prénom*</div>
+          <div className="flex flex-col w-full mx-auto max-md:col-span-2">
+            <div className="text-xl font-bold pl-[16px]">Nom et prénom</div>
             <input
               type="text"
              
@@ -41,11 +41,11 @@ const ClientDetails = () => {
               setClient({...client,Name:e.target.value})
             }} readOnly
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-              placeholder="Entrez le nom et prénom du client"
+     
             />
           </div>
-          <div className="flex flex-col w-full ">
-            <div className="text-xl font-bold pl-[16px]">Num de téléphone*</div>
+          <div className="flex flex-col w-full mx-auto max-md:col-span-2">
+            <div className="text-xl font-bold pl-[16px]">Num de téléphone</div>
             <input
               type="text"
              
@@ -54,35 +54,35 @@ const ClientDetails = () => {
               setClient({...client,Phone:e.target.value})
             }} readOnly
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-              placeholder="Entrez le numéro du client"
+
             />
           </div>
-          <div className="flex flex-col w-full ">
-            <div className="text-xl font-bold pl-[16px]">Adresse </div>
+          <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
+            <div className="text-xl font-bold pl-[16px]">Address </div>
             <input
               type="text"
              
-            value={client.Adresse}
+            value={client.Address}
             onChange={(e) => {
-              setClient({...client,Adresse:e.target.value})
+              setClient({...client,Address:e.target.value})
             }} readOnly
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-              placeholder="Entrez l’adresse mail du client"
+
             />
           </div>
-          <div className="flex flex-col w-full ">
+          <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
             <div className="text-xl font-bold pl-[16px]">Id</div>
             <input
-            type="email"
-            value={client.id}
+            type="string"
+            value={client._id}
             onChange={(e) => {
               setClient({...client,Email:e.target.value})
             }} readOnly
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-              placeholder="Entrez l'email de client"
+     
             />
           </div>
-          <div className="flex flex-col w-full ">
+          <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
             <div className="text-xl font-bold pl-[16px]">Email</div>
             <input
             type="email"
@@ -90,13 +90,18 @@ const ClientDetails = () => {
             onChange={(e) => {
               setClient({...client,Email:e.target.value})
             }}
-               
+               readOnly
               className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-              placeholder="Entrez l'email de client"
+         
             />
           </div>
        
-       
+          <div className="flex justify-center w-full my-[50px] gap-[20px] col-span-2 ">
+        <DelButt id={id || ""} deleteRoute="client" icon={false} back="/clients" name="client" />
+   
+        <EditButt id={id || ""} editRoute="/clients/editclient" />
+        
+    </div>
       </form>
     </div>
   );
