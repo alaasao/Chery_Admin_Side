@@ -52,7 +52,7 @@ if (track===0){setTrack(1)}
       <label>
         + Add Images
         <br />
-        <span>up to 10 images</span>
+       
         <input
           type="file"
           name="images"
@@ -66,25 +66,7 @@ if (track===0){setTrack(1)}
 
       <input type="file" multiple className="hidden" />
 
-      {/* {selectedImages.length > 0 &&
-        (selectedImages.length > 10 ? (
-          <p className="error">
-            You can't upload more than 10 images! <br />
-            <span>
-              please delete <b> {selectedImages.length - 10} </b> of them{" "}
-            </span>
-          </p>
-        ) : (
-          <button
-            className="upload-btn"
-            onClick={() => {
-              console.log(selectedImages);
-            }}
-          >
-            UPLOAD {selectedImages.length} IMAGE
-            {selectedImages.length === 1 ? "" : "S"}
-          </button>
-        ))} */}
+    
 
       <div className="images">
         {selectedImages &&
@@ -92,27 +74,14 @@ if (track===0){setTrack(1)}
             return (
               <div key={image+index} className="image">
                 <img src={image} className="h-[300px] w-[300px]" alt="upload" />
-                <button onClick={() => deleteHandler(image)}>
+                <button onClick={() => deleteHandler(image)} className="">
                   delete image
                 </button>
                 <p>{index + 1}</p>
               </div>
             );
           })}
-        {
-          !selectedImages && (
-            Images.map((image, index) => {
-              return (
-                <div key={image+index*2} className="image">
-                  <img src={image} className="h-[300px] w-[300px]" alt="upload" />
-                  <button onClick={() => deleteHandler(image)}>
-                    delete image
-                  </button>
-                  <p>{index + 1}</p>
-                </div>
-              );
-            }))
-          }
+  
         
       </div>
     </section>

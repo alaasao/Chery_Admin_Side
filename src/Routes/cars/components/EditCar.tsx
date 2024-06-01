@@ -14,7 +14,7 @@ const EditCar = () => {
   const [submit, setSubmit] = useState(false);
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(import.meta.env.VITE_Main_ENDPOINT + id );
+      const response = await axios.get(import.meta.env.VITE_Main_ENDPOINT+"car/" + id );
       setCar(response.data);
       setLoading(false);
     }
@@ -24,10 +24,9 @@ const EditCar = () => {
     update();
   }, [submit]);
     function update() {
-      localStorage.setItem("car", JSON.stringify(car));
-      console.log(car)
-    axios
-      .put(import.meta.env.VITE_Main_ENDPOINT +  car._id, car, {
+  
+  car._id &&  axios
+      .put(import.meta.env.VITE_Main_ENDPOINT+"car/" +  car._id, car, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
        },
