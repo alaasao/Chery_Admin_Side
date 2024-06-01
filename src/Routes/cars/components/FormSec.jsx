@@ -19,7 +19,7 @@ return (
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
             >
-              <div className="text-3xl font-bold max-md:text-xl"> {titles[key]}</div>
+              <div className="text-3xl font-bold max-md:text-xl"> {titles[key]||key}</div>
               <div className="flex h-[56px]  gap-[10] items-center pl-[30px] mt-[16px] text-2xl ">
                 <input
                   type="checkbox"
@@ -44,7 +44,7 @@ return (
               key={index + key}
               >
                  
-              <div className="text-3xl font-bold max-md:text-xl">{titles[key]}</div>
+              <div className="text-3xl font-bold max-md:text-xl">{titles[key]||key}</div>
               <input
                 type={"number"}
                 placeholder={`Entre le ${key}`}
@@ -65,7 +65,7 @@ return (
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
             >
-              <div className="text-3xl font-bold max-md:text-xl">{titles[key]}</div>
+              <div className="text-3xl font-bold max-md:text-xl">{titles[key]||key}</div>
               <input
                 type={"text"}
                 placeholder={`Entre le ${key}`}
@@ -82,7 +82,7 @@ return (
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
             >
-              <div className="text-3xl font-bold max-md:text-xl">{titles[key]}</div>
+              <div className="text-3xl font-bold max-md:text-xl">{titles[key]||key}</div>
               <input
                 type={"text"}
                 placeholder={`Entre le ${key}`}

@@ -25,13 +25,13 @@ const EditCar = () => {
   }, [submit]);
     function update() {
   
-  car._id &&  axios
-      .put(import.meta.env.VITE_Main_ENDPOINT+"car/" +  car._id, car, {
+id &&axios.put(import.meta.env.VITE_Main_ENDPOINT + "car/" + id, car, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
        },
       })
-      .then(() => {
+  .then(() => {
+        
         toast.success("Automobile mise a jour")
         setTimeout(() => {
           window.location.href = "/produits/cars/"+car._id;
