@@ -11,12 +11,12 @@ const Cars = () => {
   const [data, setData] = useState<(userType | CarsProps | EventType)[]>([]);
   const path = useLocation().pathname;
   useEffect(() => {
-    axios.get("https://axeiny.tech:4004/car/").then((response) => {
+    axios.get(import.meta.env.VITE_Main_ENDPOINT).then((response) => {
       setData(response.data);
-      // console.log(data, response.data, "mm");
+
     });
 
-    // console.log(data, "sdfsqffq");
+  
   }, []);
   return (
     <div className="w-full ">

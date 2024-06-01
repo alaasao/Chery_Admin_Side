@@ -60,8 +60,8 @@ const AddEvent = () => {
         onSubmit={submit}
         className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]"
       >
-        <div className="flex flex-col w-full ">
-          <div className="text-xl font-bold pl-[16px]">Nom et prénom*</div>
+        <div className="flex flex-col w-full max-md:col-span-2">
+          <div className="text-xl font-bold pl-[16px]">Title</div>
           <input
             type="text"
             value={event.title}
@@ -72,7 +72,7 @@ const AddEvent = () => {
             placeholder="Entrez le nom et prénom du event"
           />
         </div>
-        <div className="flex flex-col w-full ">
+        <div className="flex flex-col w-full max-md:col-span-2 ">
           <div className="text-xl font-bold pl-[16px]">Date</div>
           <input
             type="date"
@@ -84,7 +84,7 @@ const AddEvent = () => {
             placeholder="Entrez le numéro du event"
           />
         </div>
-        <div className="flex flex-col w-full ">
+        <div className="flex flex-col w-full max-md:col-span-2 ">
           <div className="text-xl font-bold pl-[16px]">Description </div>
           <textarea
             value={event.Description}
@@ -95,7 +95,7 @@ const AddEvent = () => {
             placeholder="Entrez l’adresse mail du event"
           />
         </div>
-        <div className="flex flex-col w-full ">
+        <div className="flex flex-col items-center max-md:col-span-2 ">
           <div className="text-xl font-bold pl-[16px]">Images </div>
           <input type="file" onChange={handleImages} />
           <div className="flex gap-10">
@@ -105,15 +105,15 @@ const AddEvent = () => {
         ))}
       </div>
         </div>
-
-        <button
+<div className="flex justify-center col-span-2">        <button
         type="submit"
-        className="w-[180px] col-span-2 cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+        className="w-[180px] col-span-2 cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end rounded-xl"
       >
         {" "}
         envoyer
         <FaArrowRight />
-      </button>
+      </button></div>
+
       </form>
     
     </div>

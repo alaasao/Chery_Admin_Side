@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ImageForm.css";
 
 const ImageForm = ({ Images, setImages }) => {
-  const [selectedImages, setSelectedImages] = useState([]);
-
+  const [selectedImages, setSelectedImages] = useState();
+  const [track,setTrack]=useState(0)
+  useEffect(() => {
+if (track===0){setTrack(1)}
+  }, [Images])
+  useEffect(() => {
+    setSelectedImages(Images)
+  },[track])
   const onSelectFile = (event) => {
     const selectedFiles = event.target.files;
 
@@ -19,10 +25,11 @@ const ImageForm = ({ Images, setImages }) => {
 
     // FOR BUG IN CHROME
     event.target.value = "";
-  
+    console.log("hh",selectedFilesArray);
   };
 
   function deleteHandler(image) {
+    // console.log(selectedImages.findIndex(image))
     let a = 0;
     setSelectedImages(
       selectedImages.filter((e, index) => {
@@ -36,7 +43,7 @@ const ImageForm = ({ Images, setImages }) => {
 
     Images.splice(a, 1);
     setImages(Images);
-
+    console.log(Images);
     URL.revokeObjectURL(image);
   }
 
@@ -83,7 +90,7 @@ const ImageForm = ({ Images, setImages }) => {
         {selectedImages &&
           selectedImages.map((image, index) => {
             return (
-              <div key={image} className="image">
+              <div key={image+index} className="image">
                 <img src={image} className="h-[300px] w-[300px]" alt="upload" />
                 <button onClick={() => deleteHandler(image)}>
                   delete image
@@ -96,7 +103,7 @@ const ImageForm = ({ Images, setImages }) => {
           !selectedImages && (
             Images.map((image, index) => {
               return (
-                <div key={image} className="image">
+                <div key={image+index*2} className="image">
                   <img src={image} className="h-[300px] w-[300px]" alt="upload" />
                   <button onClick={() => deleteHandler(image)}>
                     delete image

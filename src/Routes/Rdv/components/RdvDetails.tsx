@@ -48,7 +48,7 @@ const RdvDetails = () => {
         Les informations de la demande
       </div>
       <form className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Nom et prénom</div>
           <input
             type={"text"}
@@ -61,7 +61,7 @@ const RdvDetails = () => {
                   />
         </div>
 
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl">Adresse du client </div>
           <input
             type={"text"}
@@ -72,7 +72,7 @@ const RdvDetails = () => {
    readOnly       />
         </div>
 
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Numero de téléphone</div>
           <input
             type={"text"}
@@ -82,7 +82,7 @@ const RdvDetails = () => {
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
             readOnly    />
         </div>
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Email</div>
           <input
             type={"email"}
@@ -92,7 +92,7 @@ const RdvDetails = () => {
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
             readOnly   />
         </div>
-        <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> la Date</div>
           <input
             type={"date"}
@@ -103,7 +103,7 @@ const RdvDetails = () => {
             readOnly  />
         </div>
 
-        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Model</div>
         <input  type={"text"}
             placeholder={`Entre l'email  `}
@@ -111,7 +111,7 @@ const RdvDetails = () => {
          className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
             readOnly   />
         </div>
-        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Etat</div>
           <input  type={"text"}
             placeholder={`Entre l'email  `}
@@ -119,7 +119,7 @@ const RdvDetails = () => {
          className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
             readOnly   />
         </div>
-        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto ">
+        <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> Type</div>
           <input  type={"text"}
             placeholder={`Entre l'email  `}
@@ -127,7 +127,7 @@ const RdvDetails = () => {
          className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
             readOnly   />
         </div>
-        <div className="flex justify-center w-full mt-[50px] gap-[20px]  col-span-2">
+        <div className="flex justify-center w-full mt-[50px] gap-[20px]  col-span-2 my-[50px]">
         <DelButt id={rdv._id} deleteRoute="rdv" back="/rdv" name="rdv" icon={false} />
         <EditButt id={rdv._id} editRoute="/rdv/editrdv" />
     </div>

@@ -11,7 +11,8 @@ return (
     <div className=" py-[50px] rounded-2xl flex flex-col">
       <div className="font-bold   text-4xl pl-[20px] mb-[20px]">{title}</div>
       <div className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
-        {Object.entries(list).map(([key, value], index) => {
+      {Object.entries(list).map(([key, value], index) => {
+          
           return typeof value == "boolean" ? (
             
             <div
