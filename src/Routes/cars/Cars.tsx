@@ -11,7 +11,7 @@ const Cars = () => {
   const [data, setData] = useState<(userType | CarsProps | EventType)[]>([]);
   const path = useLocation().pathname;
   useEffect(() => {
-    axios.get(import.meta.env.VITE_Main_ENDPOINT).then((response) => {
+    axios.get(import.meta.env.VITE_Main_ENDPOINT+"car").then((response) => {
       setData(response.data);
 
     });
