@@ -14,16 +14,13 @@ import toast from "react-hot-toast";
 
 const EditRdv = () => {
   const [models, setModels] = useState([
-    { id: 1, name: "arrizo 8", unavailable: false },
-    { id: 2, name: "tiggo 8 pro", unavailable: false },
-    { id: 3, name: "tiggo 6 pro", unavailable: false },
-    { id: 4, name: "Benedict Kessler", unavailable: true },
-    { id: 5, name: "Katelyn Rohan", unavailable: false },
+    { id: "", name: "", unavailable: false },
+ 
   ]);
 
   useEffect(() => {
 
-    const res = axios.get(`https://axeiny.tech:4004/car`);
+    const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "car");
     res.then((res) => {
       setModels(
         res.data.map((e:CarsProps) => {
@@ -38,7 +35,7 @@ const EditRdv = () => {
     console.log(models);
   }, []);
   
-  const [selectedModel, setSelectedModel] = useState({ id: 1, name: "", unavailable: false });
+  const [selectedModel, setSelectedModel] = useState({ id: "", name: "", unavailable: false });
   
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
   const { id } = useParams();
@@ -94,14 +91,17 @@ const EditRdv = () => {
     e.preventDefault();
 
   await axios.put(
-      `https://axeiny.tech:4004/rdv/${id}`,
+      import.meta.env.VITE_Main_ENDPOINT + "rdv/"+id,
     rdv,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
        },
       }
-  ).catch(err => {
+  ).then(() => {
+    toast.success("Rdv updated")
+  })
+    .catch(err => {
     toast.error(err.response.data.message[0])
     });
     window.location.href = "/rdv/"+id;

@@ -4,14 +4,17 @@ import { useEffect, Dispatch, SetStateAction } from "react";
 import { CarsProps } from "../Routes/cars/Cars";
 import { EventType } from "../Routes/events/Events";
 import { FaqType } from "../Routes/faq/Faq";
-import {  RdvType } from "../Routes/Rdv/Rdv";
+import { RdvType } from "../Routes/Rdv/Rdv";
 import { userType } from "../Routes/clients/components/AddClient";
+import { PieceType } from "../Routes/piece/Piece";
 interface PaginationProps {
   article_per_page: number;
-  arr: (userType | CarsProps | EventType |FaqType |RdvType)[];
+  arr: (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[];
 
   setShowList: Dispatch<
-    SetStateAction<(userType | CarsProps | EventType |FaqType |RdvType)[]>
+    SetStateAction<
+      (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[]
+    >
   >;
   searchKey: string;
 }
@@ -33,7 +36,9 @@ const Pagination: FC<PaginationProps> = ({
   );
 
   const [filteredArr, setFilteredArr] =
-    React.useState<(userType | CarsProps | EventType |FaqType |RdvType)[]>(arr);
+    React.useState<
+      (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[]
+    >(arr);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredArr.length / article_per_page);
@@ -51,7 +56,9 @@ const Pagination: FC<PaginationProps> = ({
     const filteredData = arr.filter((e) => {
       if ("Etat" in e) {
         return e.Name.toLowerCase().includes(searchKey);
-      }else  if ("Name" in e) {
+      } else if ("Quantity" in e) {
+        return e.Name.toLowerCase().includes(searchKey);
+      } else if ("Name" in e) {
         return e.Name.toLowerCase().includes(searchKey);
       } else if ("Modele" in e) {
         return e.Modele.toLowerCase().includes(searchKey);

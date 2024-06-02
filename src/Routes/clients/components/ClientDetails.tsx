@@ -39,9 +39,10 @@ const ClientDetails = () => {
             value={client.Name}
             onChange={(e) => {
               setClient({...client,Name:e.target.value})
-            }} readOnly
-              className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-     
+            }} readOnly placeholder="Not provided" 
+            
+            className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+          
             />
           </div>
           <div className="flex flex-col w-full mx-auto max-md:col-span-2">
@@ -52,9 +53,9 @@ const ClientDetails = () => {
             value={client.Phone}
             onChange={(e) => {
               setClient({...client,Phone:e.target.value})
-            }} readOnly
-              className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-
+            }} readOnly placeholder="Not provided" 
+            className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+          
             />
           </div>
           <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
@@ -65,9 +66,9 @@ const ClientDetails = () => {
             value={client.Address}
             onChange={(e) => {
               setClient({...client,Address:e.target.value})
-            }} readOnly
-              className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-
+            }} readOnly placeholder="Not provided"
+            className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+          
             />
           </div>
           <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
@@ -77,9 +78,9 @@ const ClientDetails = () => {
             value={client._id}
             onChange={(e) => {
               setClient({...client,Email:e.target.value})
-            }} readOnly
-              className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-     
+            }} readOnly placeholder="Not provided"
+            className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+          
             />
           </div>
           <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
@@ -90,9 +91,9 @@ const ClientDetails = () => {
             onChange={(e) => {
               setClient({...client,Email:e.target.value})
             }}
-               readOnly
-              className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-         
+               readOnly placeholder="Not provided"
+               className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+          
             />
           </div>
        

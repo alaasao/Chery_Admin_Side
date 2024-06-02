@@ -9,7 +9,8 @@ if (track===0){setTrack(1)}
   }, [Images])
   useEffect(() => {
     setSelectedImages(Images)
-  },[track])
+  }, [track])
+
   const onSelectFile = (event) => {
     const selectedFiles = event.target.files;
 
