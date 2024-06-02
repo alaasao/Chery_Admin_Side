@@ -32,7 +32,7 @@ const AddPiece = () => {
       .then(() => {
         toast.success("Piece added");
         setTimeout(() => {
-          window.location.href = "/pieces";
+          window.location.href = "/produits/pieces";
         }, 1000);
       })
       .catch((err) => {

@@ -71,7 +71,7 @@ const AddRdv = () => {
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
 console.log(JSON.stringify(rdv))
-   await axios.post(`https://axeiny.tech:4004/rdv/`, rdv, {
+   await axios.post(import.meta.env.VITE_MAIN_ENDPOINT+"rdv", rdv, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
      },
