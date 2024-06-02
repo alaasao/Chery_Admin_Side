@@ -43,9 +43,9 @@ const EditClient = () => {
       .then((res) => {
         console.log(res);
         toast.success("Client updated");
-        // setTimeout(() => {
-        //   window.location.href = "/clients";
-        // }, 1000);
+        setTimeout(() => {
+          window.location.href = "/clients/"+id;
+        }, 1000);
       })
       .catch((err) => {
         toast.error(err.response.data.message[0]);

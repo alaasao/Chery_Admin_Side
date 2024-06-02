@@ -13,6 +13,7 @@ const pages: Array<{ to: string; title: string; img: string }> = [
 
   { to: "/RDV", title: "RDV", img: "rdv" },
 
+
 ];
 const SideBar = () => {
   const location = useLocation();

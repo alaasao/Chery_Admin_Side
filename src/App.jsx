@@ -27,6 +27,10 @@ import { getUser } from "./store/reducers/auth.reducer";
 import AuthWrapper from "./config/auth/wrapper";
 import EventDetails from "./Routes/events/components/EventDetails";
 import EditEvent from "./Routes/events/components/EditEvent";
+import Piece from "./Routes/piece/Piece";
+import AddPiece from "./Routes/piece/components/AddPiece";
+import PieceDetails from "./Routes/piece/components/PieceDetails";
+import EditPiece from "./Routes/piece/components/EditPiece";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
@@ -154,6 +158,26 @@ function App() {
       link: "/faq/editFaq/:id",
       component: EditFaq,
     },
+    {
+      name: "piece",
+      link: "/produits/pieces",
+      component: Piece
+    },
+    {
+      name: "piece",
+      link: "/produits/pieces/addpiece",
+      component: AddPiece
+    },
+    {
+      name: "piece",
+      link: "/produits/pieces/:id",
+      component: PieceDetails
+    },
+    {
+      name: "piece",
+      link: "/produits/pieces/editpiece/:id",
+      component: EditPiece
+    }
   ];
 
   return (

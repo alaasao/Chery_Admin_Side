@@ -15,19 +15,21 @@ import { Link } from "react-router-dom";
 import { RdvType } from "../Routes/Rdv/Rdv";
 import RdvCard from "../Routes/Rdv/components/RdvCard";
 import { userType } from "../Routes/clients/components/AddClient";
+import { PieceType } from "../Routes/piece/Piece";
+import PieceCard from "../Routes/piece/components/PieceCard";
 
 interface MainProps {
-  data: (userType | CarsProps | EventType | FaqType | RdvType)[];
+  data: (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[];
 }
 const Main: FC<MainProps> = ({ data }: MainProps) => {
   const [searchKey, setSearchKey] = React.useState("");
   const [showList, setShowList] = React.useState<
-    (userType | CarsProps | EventType | FaqType | RdvType)[]
+    (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[]
   >([]);
   const [usersList, setUsersList] =
-    React.useState<(userType | CarsProps | EventType | FaqType | RdvType)[]>(
-      data
-    );
+    React.useState<
+      (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[]
+    >(data);
   useEffect(() => {
     setUsersList(data);
     console.log(data);
@@ -61,6 +63,10 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               ? "/rdv/addrdv"
               : pathname.toLocaleLowerCase().includes("event")
               ? "/events/addevent"
+              : pathname.toLocaleLowerCase().includes("clients")
+              ? "/clients/addclient"
+              : pathname.toLocaleLowerCase().includes("piece")
+              ? "/pieces/addpiece"
               : ""
           }
           className="flex w-[214px] max-sm:w-[50px] justify-center gap-[30px] bg-green-600 text-white items-center rounded-lg py-[6px] font-medium"
@@ -97,6 +103,13 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               id={e._id}
               key={i + e.Title}
             />
+          ) : "Quantity" in e ? (
+            <PieceCard
+              id={e._id}
+              Name={e.Name}
+              Quantity={e.Quantity}
+              key={e._id + i}
+            />
           ) : "Name" in e ? (
             <UserCard
               Name={e.Name}
@@ -122,4 +135,3 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
 };
 
 export default Main;
-

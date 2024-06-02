@@ -7,6 +7,10 @@ const FormSec = ({ data, setData, readonly, title }) => {
   useEffect(() => {
     setData(list);
   }, [list, setData]);
+  useEffect(() => {
+    setList(data);
+  },[data])
+  
 return (
     <div className=" py-[50px] rounded-2xl flex flex-col">
       <div className="font-bold   text-4xl pl-[20px] mb-[20px]">{title}</div>

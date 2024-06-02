@@ -40,7 +40,18 @@ const AddClient = () => {
   const [modelOpen, setModelOpen] = useState(false);
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
-
+    if (selectedModel.id === "") { 
+      toast.error("Veuillez choisir un model de voiture");
+      return;
+    }
+    if (contrat === null || facture === null) {
+      toast.error("Veuillez ajouter un contrat de vente et une facture");
+      return;
+    }
+    if ( client.Prix_Vente === 0) {
+      toast.error("Veuillez remplir le prix");
+      return;
+    }
     axios
       .post(import.meta.env.VITE_Main_ENDPOINT + "client", {...client,Contrat_De_Vente:[... await uploadImages([contrat])][0],Facture:[... await uploadImages([facture])][0]}, {
         headers: {
@@ -59,11 +70,7 @@ const AddClient = () => {
   }
  
   const [models, setModels] = useState([
-    { id: "1", name: "arrizo 8", unavailable: false },
-    { id: "2", name: "tiggo 8 pro", unavailable: false },
-    { id: "3", name: "tiggo 6 pro", unavailable: false },
-    { id: "4", name: "Benedict Kessler", unavailable: true },
-    { id: "5", name: "Katelyn Rohan", unavailable: false },
+    { id: "", name: "Veuillez choisir un model", unavailable: false },
   ]);
 
   useEffect(() => {
@@ -81,12 +88,7 @@ const AddClient = () => {
     });
     console.log(models);
   }, []);
-  useEffect(() => {
-    setSelectedModel(models[0]);
-  }, [models]);
-  useEffect(() => {
-    setSelectedModel(models[0]);
-  }, []);
+
   function selectfac(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
@@ -119,8 +121,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Name: e.target.value });
             }}
-            className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-            placeholder="Entrez le nom et prénom du client"
+              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+           placeholder="Entrez le nom et prénom du client"
           />
         </div>
         <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
@@ -133,8 +135,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Phone: e.target.value });
             }}
-            className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-            placeholder="Entrez le numéro du client"
+              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+           placeholder="Entrez le numéro du client"
           />
         </div>
         <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
@@ -145,8 +147,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Address: e.target.value });
             }}
-            className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-            placeholder="Entrez l’adresse mail du client"
+              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+           placeholder="Entrez l’adresse mail du client"
           />
         </div>
         <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
@@ -157,8 +159,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Prix_Vente: parseInt(e.target.value) });
             }}
-            className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-            placeholder="Entrez le prix de vente"
+              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+           placeholder="Entrez le prix de vente"
           />
         </div>
         <div className="flex flex-col w-full mx-auto max-md:col-span-2">
@@ -169,25 +171,25 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Email: e.target.value });
             }}
-            className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
-            placeholder="Entrez l'email de client"
+              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+           placeholder="Entrez l'email de client"
           />
         </div>
         <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
-          <div className="text-xl font-bold "> Model</div>
+          <div className="text-xl font-bold mb-[16px] "> Model</div>
           <Listbox value={selectedModel} onChange={setSelectedModel}>
             <Listbox.Button
               onClick={() => setModelOpen((prev) => !prev)}
-              className=" flex outline-none justify-between bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px]"
+              className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${selectedModel.name===""?"justify-end":"justify-between"}`}
             >
               {selectedModel.name}{" "}
               {modelOpen ? (
-                <FaAngleDown className="text-2xl" />
+                <FaAngleDown className="text-2xl " />
               ) : (
-                <FaAngleUp className="text-2xl" />
+                <FaAngleUp className="text-2xl " />
               )}
             </Listbox.Button>
-            <Listbox.Options className={""}>
+            <Listbox.Options className={" "}>
               {models.map((model) => (
                 <Listbox.Option
                   key={model.id}
