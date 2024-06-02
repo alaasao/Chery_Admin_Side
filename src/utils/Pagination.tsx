@@ -7,13 +7,31 @@ import { FaqType } from "../Routes/faq/Faq";
 import { RdvType } from "../Routes/Rdv/Rdv";
 import { userType } from "../Routes/clients/components/AddClient";
 import { PieceType } from "../Routes/piece/Piece";
+import { BonType } from "../Routes/bon/Bon";
+
 interface PaginationProps {
   article_per_page: number;
-  arr: (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[];
+  arr: (
+    | userType
+    | CarsProps
+    | EventType
+    | FaqType
+    | RdvType
+    | PieceType
+    | BonType
+  )[];
 
   setShowList: Dispatch<
     SetStateAction<
-      (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[]
+      (
+        | userType
+        | CarsProps
+        | EventType
+        | FaqType
+        | RdvType
+        | PieceType
+        | BonType
+      )[]
     >
   >;
   searchKey: string;
@@ -37,7 +55,15 @@ const Pagination: FC<PaginationProps> = ({
 
   const [filteredArr, setFilteredArr] =
     React.useState<
-      (userType | CarsProps | EventType | FaqType | RdvType | PieceType)[]
+      (
+        | userType
+        | CarsProps
+        | EventType
+        | FaqType
+        | RdvType
+        | PieceType
+        | BonType
+      )[]
     >(arr);
 
   useEffect(() => {
@@ -56,6 +82,12 @@ const Pagination: FC<PaginationProps> = ({
     const filteredData = arr.filter((e) => {
       if ("Etat" in e) {
         return e.Name.toLowerCase().includes(searchKey);
+      } else if ("Client" in e) {
+   
+        return (
+          e.Client && e.Client?.Name?.toLowerCase().includes(searchKey) ||
+         e.Car && e.Car?.name?.toLocaleLowerCase().includes(searchKey)
+        );
       } else if ("Quantity" in e) {
         return e.Name.toLowerCase().includes(searchKey);
       } else if ("Name" in e) {

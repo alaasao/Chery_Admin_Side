@@ -31,6 +31,9 @@ import Piece from "./Routes/piece/Piece";
 import AddPiece from "./Routes/piece/components/AddPiece";
 import PieceDetails from "./Routes/piece/components/PieceDetails";
 import EditPiece from "./Routes/piece/components/EditPiece";
+import Bon from "./Routes/bon/Bon";
+import AddBon from "./Routes/bon/components/AddBon";
+import BonDetails from "./Routes/bon/components/BonDetails";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
@@ -177,6 +180,21 @@ function App() {
       name: "piece",
       link: "/produits/pieces/editpiece/:id",
       component: EditPiece
+    },
+    {
+      name: "bon",
+      link: "/bon",
+      component: Bon
+    },
+    {
+      name: "bon",
+      link: "/bon/addbon",
+      component: AddBon
+    },
+    {
+      name: "bon",
+      link: "/bon/:id",
+      component:BonDetails
     }
   ];
 

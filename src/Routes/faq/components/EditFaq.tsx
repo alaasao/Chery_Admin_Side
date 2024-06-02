@@ -26,7 +26,7 @@ const EditFaq = () => {
     e.preventDefault();
 
      await axios.put(
-      `https://axeiny.tech:4004/faq/${id}`,
+      import.meta.env.VITE_Main_ENDPOINT + "faq/"+id,
       { Question: question, Answer: answer },
       {
         headers: {
