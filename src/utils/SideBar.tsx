@@ -9,7 +9,7 @@ const pages: Array<{ to: string; title: string; img: string }> = [
   { to: "/clients", title: "Clients", img: "users" },
   { to: "/produits/cars", title: "Produits", img: "produit" },
   { to: "/events", title: "Evenements", img: "events" },
-
+  { to: "/Statistiques", title: "Statistiques", img: "rdv" },
   { to: "/faq", title: "FAQ", img: "faq" },
 
   { to: "/RDV", title: "RDV", img: "rdv" },

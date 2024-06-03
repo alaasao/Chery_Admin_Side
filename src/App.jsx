@@ -34,7 +34,7 @@ import EditPiece from "./Routes/piece/components/EditPiece";
 import Bon from "./Routes/bon/Bon";
 import AddBon from "./Routes/bon/components/AddBon";
 import BonDetails from "./Routes/bon/components/BonDetails";
-
+import { Statistiques } from "./Routes/Statistiques/Statistiques";
 import EditBon from "./Routes/bon/components/EditBon";
 function App() {
   const dispatch = useDispatch();
@@ -202,7 +202,12 @@ function App() {
       name: "bon",
       link: "/bon/editbon/:id",
       component: EditBon
-    }
+    },
+    {
+    name: "Statistiques",
+    link: "/Statistiques",
+    component: Statistiques,
+  },
   ];
 
   return (
