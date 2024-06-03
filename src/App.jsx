@@ -36,6 +36,9 @@ import AddBon from "./Routes/bon/components/AddBon";
 import BonDetails from "./Routes/bon/components/BonDetails";
 import { Statistiques } from "./Routes/Statistiques/Statistiques";
 import EditBon from "./Routes/bon/components/EditBon";
+import Ticket from "./Routes/ticket/Ticket";
+import TicketDetails from "./Routes/ticket/components/TicketDetails";
+import EditTicket from "./Routes/ticket/components/EditTicket";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
@@ -207,7 +210,26 @@ function App() {
     name: "Statistiques",
     link: "/Statistiques",
     component: Statistiques,
-  },
+    },
+    {
+      name: "ticket",
+      link: "/ticket",
+      component: Ticket
+    }, {
+      name: "ticket",
+      link: "/ticket/:id",
+      component: TicketDetails
+    },
+    {
+      name: "ticket",
+      link: "/ticket/editTicket/:id",
+      component: EditTicket
+    },
+    {
+      name: "ticket",
+      link: "/ticket/addTicket",
+      component: EditTicket
+    }
   ];
 
   return (
