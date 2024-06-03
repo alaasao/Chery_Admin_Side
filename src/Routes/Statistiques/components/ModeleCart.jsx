@@ -73,7 +73,7 @@ console.log(result)
   return (
     <ScatterChart
     className="baba"
-      width={800}
+      width={700}
       height={400}
       margin={{
         top: 60,
@@ -92,6 +92,7 @@ console.log(result)
         line
         strokeWidth={6}
         shape="circle"
+        
       />
     </ScatterChart>
   );
