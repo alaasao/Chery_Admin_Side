@@ -30,4 +30,11 @@
   }
   .ha{
     gap:75px;
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
+  }
+  .ba{
+    gap:20px;
+    max-width:80%;
   }
