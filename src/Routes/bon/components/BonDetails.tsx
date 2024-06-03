@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 
 
-import {Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import DelButt from "../../../utils/DelButt";
 import EditButt from "../../../utils/EditButt";
 import axios from "axios";
@@ -46,37 +46,35 @@ const BonDetails = () => {
     <form  className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
    
           
-   <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
+   <div className="flex flex-col w-full mx-auto max-md:w-[80%] max-md:col-span-2 ">
             <div className="text-xl font-bold pl-[16px]">Client </div>
             <input
               type="text"
              
             value={bon.Client.Name}
           readOnly placeholder="Not provided"
-            className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
-          
-            />
+          className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
+          />
           </div>
           {bon.Car ?
-            ( <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
+            ( <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
              <div className="text-xl font-bold pl-[16px]">Modele </div>
              <input
                type="text"
               
              value={bon.Car.Name}
            readOnly placeholder="Not provided"
-             className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
-           
-             />
+           className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
+           />
         </div>) :
- (       <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
+ (       <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
             <div className="text-xl font-bold pl-[16px]">Nom de Piece </div>
             <input
               type="text"
              
             value={bon.Piece.Name}
           readOnly placeholder="Not provided"
-            className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+          className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
           
             />
           </div>)}
@@ -96,7 +94,7 @@ const BonDetails = () => {
               }));
             }}
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
-          />
+            />
         </div>
           <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-xl font-bold max-sm:text-xl"> Prix</div>
@@ -112,20 +110,20 @@ const BonDetails = () => {
               }));
             }}
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
-          />
+            />
           </div>
           <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
           <div className="text-xl font-bold pl-[16px] ">Contrat De Vente</div>
               <div className="flex items-center justify-center w-full gap-[20px]">
-                <a href={bon.Contrat_De_Vente} download={true} className="flex items-center justify-center font-bold underline rounded-lg">click to download</a>
-                  <a href={bon.Contrat_De_Vente} target="_blanck" className="font-bold ">click to see</a>
+                <a href={bon.Contrat_De_Vente} target="_blank" className="flex items-center justify-center font-bold underline rounded-lg">previous version</a>
+     
          </div>
         </div>
         <div className="flex flex-col w-full mx-auto max-md:col-span-2">
           <div className="text-xl font-bold pl-[16px]">Facture</div>
           <div className="flex items-center justify-center gap-[20px]">
-          <Link to={bon.Facture} download={bon.Facture} target="_blank" className="flex items-center justify-center font-bold underline rounded-lg">click to download</Link>
-                  <a href={bon.Facture} target="_blanck" className="font-bold ">click to see</a>  </div>
+          <a href={bon.Facture} download target="_blank" className="flex items-center justify-center font-bold underline rounded-lg">previous version</a>
+       </div>
           </div>
           <div className="flex justify-center w-full my-[50px] gap-[20px] col-span-2 ">
         <DelButt id={id || ""} deleteRoute="bon" icon={false} back="/bon" name="bon" />

@@ -6,7 +6,7 @@ import DelButt from '../../../utils/DelButt';
 interface BonCardProps {
     id: string;
     Name: string;
-    object: string;
+    object: string|undefined;
 }
 const BonCard: FC<BonCardProps> = ({ id, Name, object }) => {
     console.log(id, Name, object+"dddddddd")

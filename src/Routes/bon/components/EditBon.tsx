@@ -8,7 +8,7 @@ import { PieceType } from "../../piece/Piece";
 import { userType } from "../../clients/components/AddClient";
 import toast from "react-hot-toast";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import DelButt from "../../../utils/DelButt";
 
 
@@ -165,8 +165,8 @@ const EditBon = () => {
                 Facture: [
                     ...(facture?[...await uploadImages([facture])]:[bon.Facture]),
                 ][0],
-                Car: selectedModel._id === "" ? null : selectedModel,
-                Piece: selectedPiece._id === "" ? null : selectedPiece,
+                Car: selectedModel._id === "" ? null : {Name:selectedModel.Name,"_id":selectedModel._id,Garentie:selectedModel.Garentie},
+                Piece: selectedPiece._id === "" ? null : {Name:selectedPiece.Name,"_id":selectedPiece._id },
                 Client: selectedClient,
             }, {
                 headers: {
@@ -314,11 +314,11 @@ const EditBon = () => {
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
           />
           </div>
-          <div className="flex flex-col w-full mx-auto max-md:col-span-2  ">
+          <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
         <div className="text-xl font-bold pl-[16px] ">Contrat De Vente</div>
         <div className="flex items-center justify-center w-full gap-[20px]">
-                <a href={bon.Contrat_De_Vente} download={true} className="flex items-center justify-center font-bold  rounded-lg">download previous</a>
-                  <a href={bon.Contrat_De_Vente} target="_blanck" className="font-bold ">click to see previous</a>
+                <a href={bon.Contrat_De_Vente} download={true} className="flex items-center justify-center font-bold rounded-lg"> previous version</a>
+                
          </div>
           <input
             type="file"
@@ -330,8 +330,8 @@ const EditBon = () => {
         <div className="text-xl font-bold pl-[16px]">Facture</div>
       
         <div className="flex items-center justify-center gap-[20px]">
-          <a  href={bon.Facture} download={bon.Facture} target="_blank" className="flex items-center justify-center font-bold underline rounded-lg">download previous</a>
-                  <a href={bon.Facture} target="_blanck" className="font-bold ">click to see previous</a>  </div>
+          <a  href={bon.Facture} download={bon.Facture} target="_blank" className="flex items-center justify-center font-bold underline rounded-lg"> previous version</a>
+      </div>
      
           <input
             type="file"
