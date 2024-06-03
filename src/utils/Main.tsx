@@ -123,9 +123,10 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
             <BonCard
               id={e._id}
               Name={e.Client?.Name}
-              object={e.Car?.name || e.Piece?.Name || ""}
+              object={e.Car?(e.Car?.Name):e.Piece?.Name}
               key={e._id + 66}
-            />
+                />
+       
           ) : "Modele" in e ? (
             <CarCard
               _id={e._id}
