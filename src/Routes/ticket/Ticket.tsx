@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import Main from '../../utils/Main';
+import Loading from '../../utils/Loading';
 export enum TicketEtat {
     OPEN =  "OPEN" ,
     IN_PROGRESS =  "IN_PROGRESS" ,
@@ -21,6 +22,7 @@ export interface TicketType {
 
 const Ticket = () => {
     const [data, setData] = useState<TicketType[]>([]);
+    const [loading,setLoading]=useState(true)
     React.useEffect(() => {
       axios.get(import.meta.env.VITE_Main_ENDPOINT + "ticket",
         {
@@ -32,11 +34,15 @@ const Ticket = () => {
           .then((response) =>
           {
               console.log(response.data)
+              setLoading(false)
               return response.data
           }
              )
         .then((data) => setData(data));
     }, []);
+    if (loading) {
+        return <Loading/>
+      }
     return (
       <div className="w-full ">
         <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] ">

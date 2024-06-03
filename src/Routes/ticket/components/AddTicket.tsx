@@ -8,6 +8,7 @@ import axios from "axios";
 
 import toast from "react-hot-toast";
 import { TicketEtat } from "../Ticket";
+import Loading from "../../../utils/Loading";
 
 const AddTicket = () => {
   const [etat, setEtat] = useState(TicketEtat.IN_PROGRESS);
@@ -17,7 +18,7 @@ const AddTicket = () => {
   const [ticket, setTicket] = useState({
     Name: "",
 
-    Subject: "",
+    Sujet: "",
     Description: "",
     Phone: "",
     Etat: TicketEtat.OPEN,
@@ -29,7 +30,28 @@ const AddTicket = () => {
   }, [ticket]);
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
-    console.log({ ...ticket, Etat: etat });
+    if (ticket.Name === "") {
+      toast.error("Veuillez remplir le nom");
+      setLoading(false);
+      return;
+    }
+    if (ticket.Description === "") {
+      toast.error("Veuillez remplir la description");
+      setLoading(false);
+      return;
+    }
+
+    if (ticket.Sujet === "") {
+      toast.error("Veuillez remplir le sujet");
+      setLoading(false);
+      return;
+    }
+    if (ticket.Phone === "") {
+      toast.error("Veuillez remplir le numéro de téléphone");
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     await axios
       .post(
         import.meta.env.VITE_Main_ENDPOINT + "ticket/",
@@ -41,13 +63,20 @@ const AddTicket = () => {
         }
       )
       .then(() => {
-        toast.success("Ticket created");
+        toast.success("Ticket Ajouté");
+        setTimeout(() => {
+          window.location.href = "/ticket/";
+        }, 1000);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
+        setLoading(false);
       });
   }
-
+  const [loading, setLoading] = useState(false);
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <div className="my-[50px] text-3xl ml-[20px]">
@@ -74,13 +103,13 @@ const AddTicket = () => {
         </div>
 
         <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
-          <div className="text-3xl font-bold max-sm:text-xl">Subject</div>
+          <div className="text-3xl font-bold max-sm:text-xl">Sujet</div>
           <input
             type={"text"}
             placeholder={`Entre l'dresse de Client `}
-            value={ticket.Subject}
+            value={ticket.Sujet}
             onChange={(e) => {
-              setTicket((prev) => ({ ...prev, Subject: e.target.value }));
+              setTicket((prev) => ({ ...prev, Sujet: e.target.value }));
             }}
             className=" flex outline-none justify-between text-2xl max-sm:text-[16px] bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
           />

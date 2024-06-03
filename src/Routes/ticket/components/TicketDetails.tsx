@@ -10,6 +10,7 @@ import axios from "axios";
 
 import DelButt from "../../../utils/DelButt";
 import EditButt from "../../../utils/EditButt";
+import Loading from "../../../utils/Loading";
 
 const TicketDetails = () => {
   const [loading,setLoading]=useState(true)
@@ -42,7 +43,7 @@ const TicketDetails = () => {
     })
   }, []);
   if (loading) {
-    return <div>... loading</div>
+    return <Loading/>
   }
   return (
     <div>
