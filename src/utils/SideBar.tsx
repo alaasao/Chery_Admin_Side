@@ -2,6 +2,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 import React, { useEffect } from "react";
 import { CiMenuBurger } from "react-icons/ci";
+import { FaReceipt } from "react-icons/fa";
 
 const pages: Array<{ to: string; title: string; img: string }> = [
 
@@ -12,7 +13,11 @@ const pages: Array<{ to: string; title: string; img: string }> = [
   { to: "/faq", title: "FAQ", img: "faq" },
 
   { to: "/RDV", title: "RDV", img: "rdv" },
+<<<<<<< HEAD
   { to: "/Statistiques", title: "Statistiques", img: "rdv" },
+=======
+{ to: "/bon", title: "Bon", img: "bon"}
+>>>>>>> b7dfed88278c4ddaf7c563568a4f74a86c391f45
 
 ];
 const SideBar = () => {
@@ -71,7 +76,9 @@ const SideBar = () => {
               >
                 <div className="flex items-center pl-[30px]  gap-[15px] h-[63px] w-[300px]">
                   {" "}
-                  <img src={`../assets/sideBar/${e.img}.png`} alt="" />
+                  {e.img === "bon" ?
+                    <FaReceipt className="text-4xl" />
+                    : <img src={`../assets/sideBar/${e.img}.png`} alt="" />} 
                   <div>{e.title}</div>
                 </div>
               </NavLink>

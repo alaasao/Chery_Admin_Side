@@ -253,12 +253,12 @@ const Car: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) 
           <ImageForm Images={grisImages} setImages={setGrisImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">blure Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">blue Images</div>
           <ImageForm Images={blueImages} setImages={setBlueImages} />
         </div>
         <div
           onClick={createData}
-          className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
+          className="w-[180px] cursor-pointer bg-[#DB2719] mb-[50px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
         >
           {" "}
           envoyer

@@ -418,7 +418,7 @@ const Cared: FC<CarProps> = ({
           </div>
         )}
         {pathname?.toLowerCase().includes("edit") ? (
-          <div className="flex items-end justify-center gap-[20px] ">
+          <div className="flex items-end justify-center gap-[20px]  mb-[50px]">
             <DelButt
               id={car._id || ""}
               deleteRoute="car"
@@ -436,7 +436,7 @@ const Cared: FC<CarProps> = ({
             </div>
           </div>
         ) : (
-          <div className="flex justify-center w-full gap-[20px] col-span-2 ">
+          <div className="flex justify-center w-full gap-[20px] col-span-2  mb-[50px]">
             <DelButt
               id={car._id || ""}
               deleteRoute="car"
