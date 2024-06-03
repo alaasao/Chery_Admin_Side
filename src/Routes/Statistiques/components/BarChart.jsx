@@ -36,61 +36,76 @@ export default function BarChartss() {
     });
   }, []);
 
-  const formattedData = data.map(item => ({
-    ...item,
-    Date_Achat: new Date(item.Date_Achat).toISOString().slice(0, 7), // YYYY-MM
-    Prix_Vente: Number(item.Prix_Vente),
-  }));
+  const getMonthNameInFrench = (monthNumber) => {
+    const monthNames = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+    return monthNames[monthNumber];
+  };
   
-  // Filter data for the last six months
-  const today = new Date();
-  const sixMonthsAgo = new Date(today);
-  sixMonthsAgo.setMonth(today.getMonth() - 6);
+  // Function to calculate monthly revenue
+  const calculateMonthlyRevenue = (data) => {
+    const revenueMap = new Map();
   
-  const filteredData = formattedData.filter(item => {
-    const itemDate = new Date(item.Date_Achat);
-    return itemDate >= sixMonthsAgo;
-  });
+    data.forEach(item => {
+      const date = new Date(item.Date_Achat);
+      const year = date.getFullYear();
+      const month = date.getMonth(); // 0 is January, 11 is December
+      const key = `${year}-${month}`;
   
-  // Calculate the sum of prices per month
-  const sumPerMonth = {};
-  filteredData.forEach(item => {
-    const month = item.Date_Achat;
-    sumPerMonth[month] = (sumPerMonth[month] || 0) + item.Prix_Vente;
-  });
-  const result = Object.keys(sumPerMonth).map(month => ({
-    month,
-    price: sumPerMonth[month],
-  }));
-  const monthNames = [
-    "January", "February", "March", "April",
-    "May", "June", "July", "August",
-    "September", "October", "November", "December"
-  ];
-  result.map((item)=>{
-    item.month = monthNames[new Date(item.month).getMonth()];
-  })
-
+      if (!revenueMap.has(key)) {
+        revenueMap.set(key, 0);
+      }
+      revenueMap.set(key, revenueMap.get(key) + item.Prix_Vente);
+    });
+  
+    const revenueArray = [];
+    revenueMap.forEach((price, key) => {
+      const [year, month] = key.split('-');
+      revenueArray.push({
+        month: getMonthNameInFrench(parseInt(month)), // Only month name
+        price: price
+      });
+    });
+  
+    // Sort the array by year and month
+    revenueArray.sort((a, b) => {
+      const aMonth = a.month;
+      const bMonth = b.month;
+      const aYear = a.year;
+      const bYear = b.year;
+      
+      const monthNames = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+      const aMonthIndex = monthNames.indexOf(aMonth);
+      const bMonthIndex = monthNames.indexOf(bMonth);
+  
+      if (aYear === bYear) {
+        return aMonthIndex - bMonthIndex;
+      }
+      return aYear - bYear;
+    });
+  
+    return revenueArray;
+  };
+  const result=calculateMonthlyRevenue(data);
   return (
     <BarChart
     className="baba"
       isAnimationActive={true}  
       animationEasing={easeInOut}
       animationDuration={3000}
-        width={400}
-        height={400}
+        width={370}
+        height={360}
         data={result}
         margin={{
-          top: 60,
+          top: 20,
           right: 10,
           left: 15,
-          bottom: 15,
+          bottom: 30,
         }}
       
     >
       <CartesianGrid strokeDasharray="3 3" stroke={false} />
-      <XAxis dataKey="month" tickMargin={15} viewBox="0 0 700 700" angle={340}/>
-      <YAxis />
+      <XAxis dataKey="month" padding={{}} axisLine={false} tickSize={0}  tickMargin={15} viewBox="0 0 700 700" angle={320}/>
+      <YAxis axisLine={false} />
       <legend/>
       <Bar dataKey="price" barSize={10}  fill="#D12621" />
     </BarChart>
