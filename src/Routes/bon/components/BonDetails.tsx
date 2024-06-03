@@ -14,7 +14,7 @@ const BonDetails = () => {
     Garentie: "",
     Facture: "",
     Contrat_De_Vente: "",
-    Car: { __id: "", name: "", Garentie: "" },
+    Car: { __id: "", Name: "", Garentie: "" },
     Piece: { __id: "", Name: "" },
       Client: { __id: "", Name: "", Phone: "" },
     
@@ -57,18 +57,19 @@ const BonDetails = () => {
           
             />
           </div>
-          {bon.Car.name ?
-             <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
+          {bon.Car ?
+            ( <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
              <div className="text-xl font-bold pl-[16px]">Modele </div>
              <input
                type="text"
               
-             value={bon.Car.name}
+             value={bon.Car.Name}
            readOnly placeholder="Not provided"
              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
            
              />
-           </div>:   <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
+        </div>) :
+ (       <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
             <div className="text-xl font-bold pl-[16px]">Nom de Piece </div>
             <input
               type="text"
@@ -78,7 +79,7 @@ const BonDetails = () => {
             className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
           
             />
-          </div>}
+          </div>)}
 
           <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
               
@@ -129,7 +130,7 @@ const BonDetails = () => {
           <div className="flex justify-center w-full my-[50px] gap-[20px] col-span-2 ">
         <DelButt id={id || ""} deleteRoute="bon" icon={false} back="/bon" name="bon" />
    
-        <EditButt id={id || ""} editRoute="/bon/addbon" />
+        <EditButt id={id || ""} editRoute="/bon/editbon" />
         
     </div>
     </form>

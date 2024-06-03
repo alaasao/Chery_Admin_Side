@@ -12,7 +12,7 @@ export interface BonType{
     Garentie: string;
     createdAt: string;
     updatedAt: string;
-    Car: { __id: string, name: string, Garentie: string } | null;
+    Car: { __id: string, Name: string, Garentie: string } | null;
     Piece: { __id: string, Name: string } | null
     Client: { __id: string, Name: string, Phone: string};
     __v: number;

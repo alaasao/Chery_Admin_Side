@@ -27,9 +27,6 @@ import { getUser } from "./store/reducers/auth.reducer";
 import AuthWrapper from "./config/auth/wrapper";
 import EventDetails from "./Routes/events/components/EventDetails";
 import EditEvent from "./Routes/events/components/EditEvent";
-<<<<<<< HEAD
-import { Statistiques } from "./Routes/Statistiques/Statistiques";
-=======
 import Piece from "./Routes/piece/Piece";
 import AddPiece from "./Routes/piece/components/AddPiece";
 import PieceDetails from "./Routes/piece/components/PieceDetails";
@@ -37,7 +34,8 @@ import EditPiece from "./Routes/piece/components/EditPiece";
 import Bon from "./Routes/bon/Bon";
 import AddBon from "./Routes/bon/components/AddBon";
 import BonDetails from "./Routes/bon/components/BonDetails";
->>>>>>> b7dfed88278c4ddaf7c563568a4f74a86c391f45
+
+import EditBon from "./Routes/bon/components/EditBon";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
@@ -166,12 +164,7 @@ function App() {
       component: EditFaq,
     },
     {
-<<<<<<< HEAD
-      name: "Statistiques",
-      link: "/Statistiques",
-      component: Statistiques,
-    },
-=======
+
       name: "piece",
       link: "/produits/pieces",
       component: Piece
@@ -205,8 +198,11 @@ function App() {
       name: "bon",
       link: "/bon/:id",
       component:BonDetails
+    }, {
+      name: "bon",
+      link: "/bon/editbon/:id",
+      component: EditBon
     }
->>>>>>> b7dfed88278c4ddaf7c563568a4f74a86c391f45
   ];
 
   return (
