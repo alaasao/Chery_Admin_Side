@@ -40,26 +40,54 @@ export default function ModeleCart() {
       setData(res.data);
     });
   }, []);  
+  const calculateRevenueByModel = (data) => {
+    const revenueMap = new Map();
+  
+    data.forEach(item => {
+      if (!item.Car) return; // Skip entries without a car model
+      const carModel = item.Car.Name;
+  
+      if (!revenueMap.has(carModel)) {
+        revenueMap.set(carModel, 0);
+      }
+      revenueMap.set(carModel, revenueMap.get(carModel) + item.Prix_Vente);
+    });
+  
+    const revenueArray = [];
+    revenueMap.forEach((price, carModel) => {
+      revenueArray.push({
+        model: carModel,
+        price: price
+      });
+    });
+  
+    // Sort the array by car model
+    revenueArray.sort((a, b) => a.model.localeCompare(b.model));
+  
+    return revenueArray;
+  };
+
+const result =calculateRevenueByModel(data);
+console.log(result)
+
   return (
     <ScatterChart
     className="baba"
-      width={900}
+      width={800}
       height={400}
       margin={{
         top: 60,
         right: 10,
-        bottom: 15,
-        left: 15,
+        bottom: 30,
+        left: 60,
       }}
     >
       <CartesianGrid stroke={false}  />
-      <XAxis  dataKey="Car.Modele"   tickMargin={15}  angle={340}/>
-      <YAxis  type="number" dataKey="Prix_Vente"  />
+      <XAxis  dataKey="model"   tickMargin={15}  angle={340}/>
+      <YAxis  type="number" dataKey="price"  />
       <ZAxis type="number" range={[100]} />
       <Scatter
-      
-        name="A school"
-        data={data}
+        data={result}
         fill="#D12621"
         line
         strokeWidth={6}
