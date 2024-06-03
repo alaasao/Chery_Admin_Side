@@ -32,16 +32,22 @@ const AddBon = () => {
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "car");
     res.then((res) => {
-      setModels(
- [ ...      res.data.map((e: CarsProps) => {
+      setModels([
+        ...res.data.map((e: CarsProps) => {
           return {
             _id: e._id,
             Name: e.Modele,
             Garentie: e.Garentie,
             unavailable: e.Disponabilite === "Disponible",
           };
-        }),{_id:"",Name:"le bon n'est pas pour une voiture",unavailable:true,Garentie:""}]
-      );
+        }),
+        {
+          _id: "",
+          Name: "le bon n'est pas pour une voiture",
+          unavailable: true,
+          Garentie: "",
+        },
+      ]);
     });
   }, []);
   const [selectedModel, setSelectedModel] = useState(models[0]);
@@ -52,15 +58,16 @@ const AddBon = () => {
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "piece");
     res.then((res) => {
-      setPieces(
-   [...     res.data.map((e: PieceType) => {
+      setPieces([
+        ...res.data.map((e: PieceType) => {
           return {
             _id: e._id,
             Name: e.Name,
             unavailable: e.Quantity > 0,
           };
-        }),{_id:"",Name:"le bon n'est pas pour une piece",unavailable:true}]
-      );
+        }),
+        { _id: "", Name: "le bon n'est pas pour une piece", unavailable: true },
+      ]);
     });
   }, []);
   const [selectedPiece, setSelectedPiece] = useState(pieces[0]);
@@ -69,15 +76,12 @@ const AddBon = () => {
   ]);
   const [clientOpen, setClientOpen] = useState(false);
   useEffect(() => {
-      const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "client",
-          {
-              headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-          }
-    );
+    const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "client", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     res.then((res) => {
-   
       setClients(
         res.data.map((e: userType) => {
           return {
@@ -88,8 +92,8 @@ const AddBon = () => {
         })
       );
     });
-  
-  }, []);  const [contrat, setContrat] = useState<File|null>(null);
+  }, []);
+  const [contrat, setContrat] = useState<File | null>(null);
   const [facture, setFacture] = useState<File | null>(null);
 
   function selectfac(e: React.ChangeEvent<HTMLInputElement>) {
@@ -104,65 +108,79 @@ const AddBon = () => {
       setContrat(filesArray[0]);
     }
   }
-    const [selectedClient, setSelectedClient] = useState(clients[0]);
-    async function submit(e: { preventDefault: () => void }) { 
-        e.preventDefault();
-        if (selectedClient._id === "") {
-            toast.error("Veuillez choisir un client");
-            return;
-        }
-        if (selectedModel._id === "" && selectedPiece._id === "") {
-            toast.error("Veuillez choisir un model de voiture ou une pièce");
-            return;
-        }
-      if (selectedModel._id !== "" && selectedPiece._id !== "") {
-        toast.error("you choose between a car and a piece")
-        return
+  const [selectedClient, setSelectedClient] = useState(clients[0]);
+  async function submit(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (selectedClient._id === "") {
+      toast.error("Veuillez choisir un client");
+      return;
     }
-     
-        if (facture === null ) {
-            toast.error("Veuillez ajouter une facture");
-            return;
-        }
-        if (contrat === null ) {
-            toast.error("Veuillez ajouter un contrat de vente");
-            return;
-        }
-        if (bon.Prix_Vente === 0) {
-            toast.error("Veuillez remplir le prix");
-            return;
-        }
-        console.log(import.meta.env.VITE_Main_ENDPOINT + "bon/" + selectedClient._id)
-        axios
-            .post(import.meta.env.VITE_Main_ENDPOINT + "bon/"+ selectedClient._id, {
-                ...bon,
-                Contrat_De_Vente: [
-                    ...(await uploadImages([contrat])),
-                ][0],
-                Facture: [
-                    ...(await uploadImages([facture])),
-                ][0],
-                Car: selectedModel._id === "" ? null : {Name:selectedModel.Name,"_id":selectedModel._id,Garentie:selectedModel.Garentie},
-              Piece: selectedPiece._id === "" ? null : { Name: selectedPiece.Name, "_id": selectedPiece._id },
-              Client: selectedClient,
-            }, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then(() => {
-                toast.success("Bon ajouté");
-                setTimeout(() => {
-                    window.location.href = "/bon";
-                }, 1000);
-            })
-            .catch((err) => {
-                toast.error(err.response.data.message[0]);
-            });
+    if (selectedModel._id === "" && selectedPiece._id === "") {
+      toast.error("Veuillez choisir un model de voiture ou une pièce");
+      return;
+    }
+    if (selectedModel._id !== "" && selectedPiece._id !== "") {
+      toast.error("you choose between a car and a piece");
+      return;
+    }
 
+    if (facture === null) {
+      toast.error("Veuillez ajouter une facture");
+      return;
     }
+    if (contrat === null) {
+      toast.error("Veuillez ajouter un contrat de vente");
+      return;
+    }
+    if (bon.Prix_Vente === 0) {
+      toast.error("Veuillez remplir le prix");
+      return;
+    }
+    console.log(
+      import.meta.env.VITE_Main_ENDPOINT + "bon/" + selectedClient._id
+    );
+    axios
+      .post(
+        import.meta.env.VITE_Main_ENDPOINT + "bon/" + selectedClient._id,
+        {
+          ...bon,
+          Contrat_De_Vente: [...(await uploadImages([contrat]))][0],
+          Facture: [...(await uploadImages([facture]))][0],
+          Car:
+            selectedModel._id === ""
+              ? null
+              : {
+                  Name: selectedModel.Name,
+                  _id: selectedModel._id,
+                  Garentie: selectedModel.Garentie,
+                },
+          Piece:
+            selectedPiece._id === ""
+              ? null
+              : { Name: selectedPiece.Name, _id: selectedPiece._id },
+          Client: selectedClient,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then(() => {
+        toast.success("Bon ajouté");
+        setTimeout(() => {
+          window.location.href = "/bon";
+        }, 1000);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message[0]);
+      });
+  }
   return (
-    <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
+    <form
+      onSubmit={submit}
+      className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] "
+    >
       <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
         <div className="text-xl font-bold mb-[16px] "> Client</div>
         <Listbox value={selectedClient} onChange={setSelectedClient}>
@@ -197,7 +215,9 @@ const AddBon = () => {
         <div className="text-xl font-bold mb-[16px] "> Model</div>
         <Listbox value={selectedModel} onChange={setSelectedModel}>
           <Listbox.Button
-            onClick={() => setModelOpen((prev) => selectedPiece._id===""?!prev:false)}
+            onClick={() =>
+              setModelOpen((prev) => (selectedPiece._id === "" ? !prev : false))
+            }
             className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${
               selectedModel.Name === "" ? "justify-end" : "justify-between"
             }`}
@@ -228,7 +248,9 @@ const AddBon = () => {
         <div className="text-xl font-bold mb-[16px] "> Piece</div>
         <Listbox value={selectedPiece} onChange={setSelectedPiece}>
           <Listbox.Button
-            onClick={() => setPieceOpen((prev) => selectedModel._id===""?!prev:false)}
+            onClick={() =>
+              setPieceOpen((prev) => (selectedModel._id === "" ? !prev : false))
+            }
             className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${
               selectedPiece.Name === "" ? "justify-end" : "justify-between"
             }`}
@@ -253,64 +275,64 @@ const AddBon = () => {
             ))}
           </Listbox.Options>
         </Listbox>
-          </div>
-          <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
-          <div className="text-xl font-bold max-sm:text-xl"> la Date</div>
-          <input
-            type={"date"}
-            min={new Date().toISOString().split('T')[0]}
-            placeholder={`  `}
-
-            onChange={(e) => {
-              setbon((prev) => ({
-                ...prev,
-                Date_Achat: e.target.value,
-              }));
-            }}
-            className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
-          />
-        </div>
-          <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
-          <div className="text-xl font-bold max-sm:text-xl"> Prix</div>
-          <input
-            type={"number"}
-            min={0}
+      </div>
+      <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
+        <div className="text-xl font-bold max-sm:text-xl"> la Date</div>
+        <input
+          type={"date"}
+          min={new Date().toISOString().split("T")[0]}
+          placeholder={`  `}
+          value={new Date().toISOString().split("T")[0]}
+          onChange={(e) => {
+            setbon((prev) => ({
+              ...prev,
+              Date_Achat: e.target.value,
+            }));
+          }}
+          className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
+        />
+      </div>
+      <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
+        <div className="text-xl font-bold max-sm:text-xl"> Prix</div>
+        <input
+          type={"number"}
+          min={0}
           placeholder={`Prix final`}
-    
-            onChange={(e) => {
-              setbon((prev) => ({
-                ...prev,
-                Prix_Vente: Number( e.target.value),
-              }));
-            }}
-            className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
-          />
-          </div>
-          <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
-          <div className="text-xl font-bold pl-[16px] ">Contrat De Vente</div>
-          <input
-            type="file"
-      onChange={selectCon}
-       className="ml-[16px] mt-[30px]"
-          />
-        </div>
-        <div className="flex flex-col w-full mx-auto max-md:col-span-2">
-          <div className="text-xl font-bold pl-[16px]">Facture</div>
-          <input
-            type="file"
-            className="ml-[16px] mt-[30px]"
-            onChange={selectfac}
-          />
-          </div>
-          <div className="flex justify-center col-span-2">
-          <button
+          onChange={(e) => {
+            setbon((prev) => ({
+              ...prev,
+              Prix_Vente: Number(e.target.value),
+            }));
+          }}
+          className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
+        />
+      </div>
+      <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
+        <div className="text-xl font-bold pl-[16px] ">Contrat De Vente</div>
+        <input
+          type="file"
+          onChange={selectCon}
+          className="ml-[16px] mt-[30px]"
+        />
+      </div>
+      <div className="flex flex-col w-full mx-auto max-md:col-span-2">
+        <div className="text-xl font-bold pl-[16px]">Facture</div>
+        <input
+          type="file"
+          className="ml-[16px] mt-[30px]"
+          onChange={selectfac}
+        />
+      </div>
+      <div className="flex justify-center col-span-2">
+        <button
           type="submit"
           className="w-[180px]  cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
         >
           {" "}
           envoyer
           <FaArrowRight />
-        </button></div>
+        </button>
+      </div>
     </form>
   );
 };

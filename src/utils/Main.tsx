@@ -19,7 +19,8 @@ import { PieceType } from "../Routes/piece/Piece";
 import PieceCard from "../Routes/piece/components/PieceCard";
 import { BonType } from "../Routes/bon/Bon";
 import BonCard from "../Routes/bon/components/BonCard";
-
+import  { TicketType } from "../Routes/ticket/Ticket";
+import TicketCard from "../Routes/ticket/components/TicketCard";
 
 interface MainProps {
   data: (
@@ -30,6 +31,7 @@ interface MainProps {
     | RdvType
     | PieceType
     | BonType
+    | TicketType
   )[];
 }
 const Main: FC<MainProps> = ({ data }: MainProps) => {
@@ -43,6 +45,7 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
       | RdvType
       | PieceType
       | BonType
+      | TicketType
     )[]
   >([]);
   const [usersList, setUsersList] =
@@ -55,11 +58,11 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
         | RdvType
         | PieceType
         | BonType
+        | TicketType
       )[]
     >(data);
   useEffect(() => {
     setUsersList(data);
-   
   }, [data]);
   const { pathname } = location;
   return (
@@ -94,10 +97,9 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               ? "/clients/addclient"
               : pathname.toLocaleLowerCase().includes("piece")
               ? "/produits/pieces/addpiece"
-                        : pathname.toLocaleLowerCase().includes("bon")
-            
-                          ? "/bon/addbon"
-                          :""
+              : pathname.toLocaleLowerCase().includes("bon")
+              ? "/bon/addbon"
+              : ""
           }
           className="flex w-[214px] max-sm:w-[50px] justify-center gap-[30px] bg-green-600 text-white items-center rounded-lg py-[6px] font-medium"
         >
@@ -110,6 +112,8 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
           console.log(e);
           return "Answer" in e ? (
             <FaqCard id={e._id} question={e.Question} key={e._id + 66} />
+          ) : "Subject" in e ? (
+            <TicketCard id={e._id} Name={e.Name} Subject={e.Subject} />
           ) : "Etat" in e ? (
             <RdvCard
               _id={e._id}
@@ -123,10 +127,9 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
             <BonCard
               id={e._id}
               Name={e.Client?.Name}
-              object={e.Car!==null?(e.Car?.Name):e.Piece?.Name}
+              object={e.Car !== null ? e.Car?.Name : e.Piece?.Name}
               key={e._id + 66}
-                />
-       
+            />
           ) : "Modele" in e ? (
             <CarCard
               _id={e._id}

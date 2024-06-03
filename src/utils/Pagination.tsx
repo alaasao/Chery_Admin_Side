@@ -8,6 +8,7 @@ import { RdvType } from "../Routes/Rdv/Rdv";
 import { userType } from "../Routes/clients/components/AddClient";
 import { PieceType } from "../Routes/piece/Piece";
 import { BonType } from "../Routes/bon/Bon";
+import { TicketType } from "../Routes/ticket/Ticket";
 
 interface PaginationProps {
   article_per_page: number;
@@ -19,6 +20,7 @@ interface PaginationProps {
     | RdvType
     | PieceType
     | BonType
+    | TicketType
   )[];
 
   setShowList: Dispatch<
@@ -31,6 +33,7 @@ interface PaginationProps {
         | RdvType
         | PieceType
         | BonType
+        | TicketType
       )[]
     >
   >;
@@ -63,6 +66,7 @@ const Pagination: FC<PaginationProps> = ({
         | RdvType
         | PieceType
         | BonType
+        | TicketType
       )[]
     >(arr);
 
@@ -80,14 +84,16 @@ const Pagination: FC<PaginationProps> = ({
 
   useEffect(() => {
     const filteredData = arr.filter((e) => {
-      if ("Etat" in e) {
+      if ("Subject" in e) {
+        return e.Name.toLowerCase().includes(searchKey);
+      }
+      else if ("Etat" in e) {
         return e.Name.toLowerCase().includes(searchKey);
       } else if ("Client" in e) {
-   
         return (
-          e.Client && e.Client?.Name?.toLowerCase().includes(searchKey) ||
-          e.Car && e.Car?.Name?.toLocaleLowerCase().includes(searchKey) ||
-          e.Piece && e.Piece?.Name?.toLocaleLowerCase().includes(searchKey)
+          (e.Client && e.Client?.Name?.toLowerCase().includes(searchKey)) ||
+          (e.Car && e.Car?.Name?.toLocaleLowerCase().includes(searchKey)) ||
+          (e.Piece && e.Piece?.Name?.toLocaleLowerCase().includes(searchKey))
         );
       } else if ("Quantity" in e) {
         return e.Name.toLowerCase().includes(searchKey);
