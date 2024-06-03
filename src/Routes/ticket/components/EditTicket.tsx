@@ -10,6 +10,7 @@ import DelButt from "../../../utils/DelButt";
 
 import toast from "react-hot-toast";
 import { TicketEtat, TicketType } from "../Ticket";
+import Loading from "../../../utils/Loading";
 
 const EditTicket = () => {
   const [etat, setEtat] = useState(TicketEtat.IN_PROGRESS);
@@ -33,9 +34,8 @@ const EditTicket = () => {
     __v: 0,
   });
 
-
-  
-  useEffect(() => {
+    useEffect(() => {
+      setLoading(true)
     axios
       .get(import.meta.env.VITE_Main_ENDPOINT + "ticket/" + id, {
         headers: {
@@ -52,25 +52,60 @@ const EditTicket = () => {
     setEtat(ticket.Etat);
   }, [ticket]);
   async function submit(e: { preventDefault: () => void }) {
+    setLoading(true);
     e.preventDefault();
-
+if (ticket.Name === "" ) {
+    toast.error("Veuillez remplir le nom");
+    setLoading(false)
+      return;
+      }
+      if (ticket.Description === "" ) {
+        toast.error("Veuillez remplir la description");
+        setLoading(false);
+        return;
+    }
+    
+    if (ticket.Subject === "" ) {
+        toast.error("Veuillez remplir le sujet");
+        setLoading(false);
+        return;
+      }
+        if (ticket.Phone === "" ) {
+            toast.error("Veuillez remplir le numéro de téléphone");
+            setLoading(false);
+            return;
+        }
     await axios
-      .put(import.meta.env.VITE_Main_ENDPOINT + "ticket/" + id, {...ticket,Etat:etat}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        import.meta.env.VITE_Main_ENDPOINT + "ticket/" + id,
+        { ...ticket, Etat: etat },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then(() => {
-        toast.success("Ticket updated");
+          toast.success("Ticket mis à jour");
+          setTimeout(() => {
+             
+              window.location.href = "/ticket/" + id;
+          }, 1000);
+
+      
       })
-      .catch((err) => {
+        .catch((err) => {
+            setTimeout(() => {
+             
+               setLoading(false)
+            }, 1000);
         toast.error(err.response.data.message[0]);
       });
-    window.location.href = "/ticket/" + id;
+    
   }
 
   if (loading) {
-    return <div>... loading</div>;
+    return <Loading />;
   }
 
   return (
@@ -99,7 +134,7 @@ const EditTicket = () => {
         </div>
 
         <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
-          <div className="text-3xl font-bold max-sm:text-xl">Subject</div>
+          <div className="text-3xl font-bold max-sm:text-xl">Sujet</div>
           <input
             type={"text"}
             placeholder={`Entre l'dresse de Client `}

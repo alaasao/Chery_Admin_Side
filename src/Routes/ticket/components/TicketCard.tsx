@@ -6,7 +6,8 @@ import React from "react";
 import DelButt from "../../../utils/DelButt";
 
 const TicketCard: FC<TicketCardProps> = ({ id, Name,Subject }: TicketCardProps) => {
-  console.log(id);  
+    console.log(id);  
+    
   return (
     <div
     className={`w-full h-[83px]  items-center text-2xl font-semibold  grid grid-cols-10 gap-[10px] `}
