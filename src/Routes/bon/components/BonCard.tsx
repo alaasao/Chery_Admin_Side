@@ -36,7 +36,7 @@ const BonCard: FC<BonCardProps> = ({ id, Name, object }) => {
             </Link>
           </div>
           <div className="flex gap-[5px] md:gap-[15px] ">
-          <Link to={`/bon/editpiece/${id}`}>  <LuPencil className="text-[#494545] cursor-pointer"   /></Link>
+          <Link to={`/bon/editbon/${id}`}>  <LuPencil className="text-[#494545] cursor-pointer"   /></Link>
           <DelButt id={id || ""} deleteRoute="bon" icon={true} back="/bon" name="bon" />
        
           </div>
