@@ -13,7 +13,7 @@ const ShowCar = () => {
     const [sub, setSub] = useState(false);
     useEffect(() => {
         async function fetchData() {
-          const response = await axios.get(`https://axeiny.tech:4004/car/${id}`);
+          const response = await axios.get(import.meta.env.VITE_Main_ENDPOINT + "car/"+id);
           setCar(response.data);
           setLoading(false);
         }

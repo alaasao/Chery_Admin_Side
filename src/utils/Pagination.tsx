@@ -1,16 +1,38 @@
 import React, { FC } from "react";
 import { useEffect, Dispatch, SetStateAction } from "react";
-import { userType } from "./Main";
+
 import { CarsProps } from "../Routes/cars/Cars";
 import { EventType } from "../Routes/events/Events";
 import { FaqType } from "../Routes/faq/Faq";
-import {  RdvType } from "../Routes/Rdv/Rdv";
+import { RdvType } from "../Routes/Rdv/Rdv";
+import { userType } from "../Routes/clients/components/AddClient";
+import { PieceType } from "../Routes/piece/Piece";
+import { BonType } from "../Routes/bon/Bon";
+
 interface PaginationProps {
   article_per_page: number;
-  arr: (userType | CarsProps | EventType |FaqType |RdvType)[];
+  arr: (
+    | userType
+    | CarsProps
+    | EventType
+    | FaqType
+    | RdvType
+    | PieceType
+    | BonType
+  )[];
 
   setShowList: Dispatch<
-    SetStateAction<(userType | CarsProps | EventType |FaqType |RdvType)[]>
+    SetStateAction<
+      (
+        | userType
+        | CarsProps
+        | EventType
+        | FaqType
+        | RdvType
+        | PieceType
+        | BonType
+      )[]
+    >
   >;
   searchKey: string;
 }
@@ -32,7 +54,17 @@ const Pagination: FC<PaginationProps> = ({
   );
 
   const [filteredArr, setFilteredArr] =
-    React.useState<(userType | CarsProps | EventType |FaqType |RdvType)[]>(arr);
+    React.useState<
+      (
+        | userType
+        | CarsProps
+        | EventType
+        | FaqType
+        | RdvType
+        | PieceType
+        | BonType
+      )[]
+    >(arr);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredArr.length / article_per_page);
@@ -50,7 +82,15 @@ const Pagination: FC<PaginationProps> = ({
     const filteredData = arr.filter((e) => {
       if ("Etat" in e) {
         return e.Name.toLowerCase().includes(searchKey);
-      }else  if ("Name" in e) {
+      } else if ("Client" in e) {
+   
+        return (
+          e.Client && e.Client?.Name?.toLowerCase().includes(searchKey) ||
+         e.Car && e.Car?.name?.toLocaleLowerCase().includes(searchKey)
+        );
+      } else if ("Quantity" in e) {
+        return e.Name.toLowerCase().includes(searchKey);
+      } else if ("Name" in e) {
         return e.Name.toLowerCase().includes(searchKey);
       } else if ("Modele" in e) {
         return e.Modele.toLowerCase().includes(searchKey);

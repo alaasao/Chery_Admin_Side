@@ -14,22 +14,52 @@ import FaqCard from "../Routes/faq/components/FaqCard";
 import { Link } from "react-router-dom";
 import { RdvType } from "../Routes/Rdv/Rdv";
 import RdvCard from "../Routes/Rdv/components/RdvCard";
+import { userType } from "../Routes/clients/components/AddClient";
+import { PieceType } from "../Routes/piece/Piece";
+import PieceCard from "../Routes/piece/components/PieceCard";
+import { BonType } from "../Routes/bon/Bon";
+import BonCard from "../Routes/bon/components/BonCard";
+
 
 interface MainProps {
-  data: (userType | CarsProps | EventType | FaqType | RdvType)[];
+  data: (
+    | userType
+    | CarsProps
+    | EventType
+    | FaqType
+    | RdvType
+    | PieceType
+    | BonType
+  )[];
 }
 const Main: FC<MainProps> = ({ data }: MainProps) => {
   const [searchKey, setSearchKey] = React.useState("");
   const [showList, setShowList] = React.useState<
-    (userType | CarsProps | EventType | FaqType | RdvType)[]
+    (
+      | userType
+      | CarsProps
+      | EventType
+      | FaqType
+      | RdvType
+      | PieceType
+      | BonType
+    )[]
   >([]);
   const [usersList, setUsersList] =
-    React.useState<(userType | CarsProps | EventType | FaqType | RdvType)[]>(
-      data
-    );
+    React.useState<
+      (
+        | userType
+        | CarsProps
+        | EventType
+        | FaqType
+        | RdvType
+        | PieceType
+        | BonType
+      )[]
+    >(data);
   useEffect(() => {
     setUsersList(data);
-    console.log(data);
+   
   }, [data]);
   const { pathname } = location;
   return (
@@ -60,7 +90,14 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               ? "/rdv/addrdv"
               : pathname.toLocaleLowerCase().includes("event")
               ? "/events/addevent"
-              : ""
+              : pathname.toLocaleLowerCase().includes("clients")
+              ? "/clients/addclient"
+              : pathname.toLocaleLowerCase().includes("piece")
+              ? "/produits/pieces/addpiece"
+                        : pathname.toLocaleLowerCase().includes("bon")
+            
+                          ? "/bon/addbon"
+                          :""
           }
           className="flex w-[214px] max-sm:w-[50px] justify-center gap-[30px] bg-green-600 text-white items-center rounded-lg py-[6px] font-medium"
         >
@@ -70,6 +107,7 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
       </div>
       <div className="flex flex-col gap-y-[20px] pt-[20px]">
         {showList.map((e, i) => {
+          console.log(e);
           return "Answer" in e ? (
             <FaqCard id={e._id} question={e.Question} key={e._id + 66} />
           ) : "Etat" in e ? (
@@ -79,6 +117,13 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               Name={e.Name}
               Etat={e.Etat}
               Phone={e.Phone}
+              key={e._id + 66}
+            />
+          ) : "Client" in e ? (
+            <BonCard
+              id={e._id}
+              Name={e.Client?.Name}
+              object={e.Car?.name || e.Piece?.Name || ""}
               key={e._id + 66}
             />
           ) : "Modele" in e ? (
@@ -96,13 +141,20 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
               id={e._id}
               key={i + e.Title}
             />
+          ) : "Quantity" in e ? (
+            <PieceCard
+              id={e._id}
+              Name={e.Name}
+              Quantity={e.Quantity}
+              key={e._id + i}
+            />
           ) : "Name" in e ? (
             <UserCard
               Name={e.Name}
               Email={e.Email}
               searchKey={searchKey}
-              id={e.id}
-              key={e.id + i}
+              id={e._id}
+              key={e._id + i}
             />
           ) : null;
         })}
@@ -110,7 +162,7 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
       <div className="flex items-center justify-center w-full ">
         {" "}
         <Pagination
-          article_per_page={8}
+          article_per_page={6}
           arr={usersList}
           setShowList={setShowList}
           searchKey={searchKey}
@@ -121,16 +173,3 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
 };
 
 export default Main;
-export interface userType {
-  Name: string;
-  Phone: string;
-  Email: string;
-  Model: string;
-  Vin: string;
-  Prix_Vente: number;
-  Adresse: string;
-  Data_Achat: string;
-  Documents: string[];
-  img: string;
-  id: string;
-}

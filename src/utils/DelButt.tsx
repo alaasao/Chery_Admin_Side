@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { FC } from "react";
+import toast from "react-hot-toast";
 import { IoTrashOutline } from "react-icons/io5";
 
 interface DelButtProps {
@@ -27,7 +28,11 @@ const DelButt: FC<DelButtProps> = ({
         },
       })
       .then(() => {
-        window.location.href = back;
+        toast.success(name + " deleted");
+        setTimeout(() => {
+          window.location.href = back;
+        }, 1000);
+      
       });
   }
   return (
