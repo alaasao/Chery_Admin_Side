@@ -39,12 +39,12 @@ import EditBon from "./Routes/bon/components/EditBon";
 import Ticket from "./Routes/ticket/Ticket";
 import TicketDetails from "./Routes/ticket/components/TicketDetails";
 import EditTicket from "./Routes/ticket/components/EditTicket";
+import AddTicket from "./Routes/ticket/components/AddTicket";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
   useEffect(() => {
     if (!user && localStorage.getItem("token")) {
-   
       dispatch(getUser());
     }
   }, []);
@@ -53,7 +53,6 @@ function App() {
       name: "Dashboard",
       link: "/",
       component: Dashboard,
-
     },
     {
       name: "Clients",
@@ -167,82 +166,85 @@ function App() {
       component: EditFaq,
     },
     {
-
       name: "piece",
       link: "/produits/pieces",
-      component: Piece
+      component: Piece,
     },
     {
       name: "piece",
       link: "/produits/pieces/addpiece",
-      component: AddPiece
+      component: AddPiece,
     },
     {
       name: "piece",
       link: "/produits/pieces/:id",
-      component: PieceDetails
+      component: PieceDetails,
     },
     {
       name: "piece",
       link: "/produits/pieces/editpiece/:id",
-      component: EditPiece
+      component: EditPiece,
     },
     {
       name: "bon",
       link: "/bon",
-      component: Bon
+      component: Bon,
     },
     {
       name: "bon",
       link: "/bon/addbon",
-      component: AddBon
+      component: AddBon,
     },
     {
       name: "bon",
       link: "/bon/:id",
-      component:BonDetails
-    }, {
-      name: "bon",
-      link: "/bon/editbon/:id",
-      component: EditBon
+      component: BonDetails,
     },
     {
-    name: "Statistiques",
-    link: "/Statistiques",
-    component: Statistiques,
+      name: "bon",
+      link: "/bon/editbon/:id",
+      component: EditBon,
+    },
+    {
+      name: "Statistiques",
+      link: "/Statistiques",
+      component: Statistiques,
     },
     {
       name: "ticket",
       link: "/ticket",
-      component: Ticket
-    }, {
+      component: Ticket,
+    },
+    {
       name: "ticket",
       link: "/ticket/:id",
-      component: TicketDetails
+      component: TicketDetails,
     },
     {
       name: "ticket",
       link: "/ticket/editTicket/:id",
-      component: EditTicket
+      component: EditTicket,
     },
     {
       name: "ticket",
-      link: "/ticket/addTicket",
-      component: EditTicket
-    }
+      link: "/ticket/addticket",
+      component: AddTicket,
+    },
   ];
 
   return (
     <>
-      <Toaster
-        position="bottom_center"
-      />
-    <AuthWrapper>
-      <Routes>
-        {routes.map((route, index) => (
-          <Route path={route.link} element={<route.component />} key={index} />
-        ))}
-      </Routes>
+      <Toaster position="bottom_center" />
+      <AuthWrapper>
+        <Routes>
+          {routes.map((route, index) => (
+            <Route
+              path={route.link}
+              element={<route.component />}
+              key={index}
+            />
+          ))}
+        </Routes>
       </AuthWrapper>
     </>
   );
