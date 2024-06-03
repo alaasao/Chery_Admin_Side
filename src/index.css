@@ -11,3 +11,15 @@
     src: url('/path/to/font/Poppins-Regular.ttf') format('truetype');
     /* Add other font styles if needed (e.g., font-weight, font-style) */
   }
+  .haa{
+    margin-top:30px;
+    gap:30px;
+  }
+  .one-class{
+    margin-y:30px;
+  }
+  .baba{
+    box-shadow: 30px 35px 60px 30px rgba(0, 0, 0, 0.3);
+    margin-y:30px   ;
+    border-radius:10px;
+  }
