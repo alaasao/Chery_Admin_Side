@@ -16,14 +16,14 @@ const AddBon = () => {
     Garentie: "",
     Facture: "",
     Contrat_De_Vente: "",
-    Car: { __id: "", name: "", Garentie: "" },
+    Car: { __id: "", Name: "", Garentie: "" },
     Piece: { __id: "", Name: "" },
     Client: { __id: "", Name: "", Phone: "" },
   });
   const [models, setModels] = useState([
     {
       _id: "",
-      name: "Veuillez choisir un model",
+      Name: "Veuillez choisir un model",
       unavailable: false,
       Garentie: "",
     },
@@ -33,39 +33,39 @@ const AddBon = () => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "car");
     res.then((res) => {
       setModels(
-        res.data.map((e: CarsProps) => {
+ [ ...      res.data.map((e: CarsProps) => {
           return {
             _id: e._id,
-            name: e.Modele,
+            Name: e.Modele,
             Garentie: e.Garentie,
             unavailable: e.Disponabilite === "Disponible",
           };
-        })
+        }),{_id:"",Name:"le bon n'est pas pour une voiture",unavailable:true,Garentie:""}]
       );
     });
   }, []);
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const [pieces, setPieces] = useState([
-    { _id: "", name: "Veuillez choisir une pièce", unavailable: false },
+    { _id: "", Name: "Veuillez choisir une pièce", unavailable: false },
   ]);
   const [pieceOpen, setPieceOpen] = useState(false);
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "piece");
     res.then((res) => {
       setPieces(
-        res.data.map((e: PieceType) => {
+   [...     res.data.map((e: PieceType) => {
           return {
             _id: e._id,
-            name: e.Name,
+            Name: e.Name,
             unavailable: e.Quantity > 0,
           };
-        })
+        }),{_id:"",Name:"le bon n'est pas pour une piece",unavailable:true}]
       );
     });
   }, []);
   const [selectedPiece, setSelectedPiece] = useState(pieces[0]);
   const [clients, setClients] = useState([
-    { _id: "", name: "Veuillez choisir un client", Phone: "" },
+    { _id: "", Name: "Veuillez choisir un client", Phone: "" },
   ]);
   const [clientOpen, setClientOpen] = useState(false);
   useEffect(() => {
@@ -82,7 +82,7 @@ const AddBon = () => {
         res.data.map((e: userType) => {
           return {
             _id: e._id,
-            name: e.Name,
+            Name: e.Name,
             Phone: e.Phone,
           };
         })
@@ -169,10 +169,10 @@ const AddBon = () => {
           <Listbox.Button
             onClick={() => setClientOpen((prev) => !prev)}
             className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${
-              selectedClient.name === "" ? "justify-end" : "justify-between"
+              selectedClient.Name === "" ? "justify-end" : "justify-between"
             }`}
           >
-            {selectedClient.name}{" "}
+            {selectedClient.Name}{" "}
             {clientOpen ? (
               <FaAngleDown className="text-2xl " />
             ) : (
@@ -186,7 +186,7 @@ const AddBon = () => {
                 value={client}
                 className="cursor-pointer h-[56px]  bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
               >
-                {client.name}
+                {client.Name}
               </Listbox.Option>
             ))}
           </Listbox.Options>
@@ -197,12 +197,12 @@ const AddBon = () => {
         <div className="text-xl font-bold mb-[16px] "> Model</div>
         <Listbox value={selectedModel} onChange={setSelectedModel}>
           <Listbox.Button
-            onClick={() => setModelOpen((prev) => !prev)}
+            onClick={() => setModelOpen((prev) => selectedPiece._id===""?!prev:false)}
             className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${
-              selectedModel.name === "" ? "justify-end" : "justify-between"
+              selectedModel.Name === "" ? "justify-end" : "justify-between"
             }`}
           >
-            {selectedModel.name}{" "}
+            {selectedModel.Name}{" "}
             {modelOpen ? (
               <FaAngleDown className="text-2xl " />
             ) : (
@@ -217,7 +217,7 @@ const AddBon = () => {
                 disabled={!model.unavailable}
                 className="cursor-pointer h-[56px]  bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
               >
-                {model.name}
+                {model.Name}
               </Listbox.Option>
             ))}
           </Listbox.Options>
@@ -228,12 +228,12 @@ const AddBon = () => {
         <div className="text-xl font-bold mb-[16px] "> Piece</div>
         <Listbox value={selectedPiece} onChange={setSelectedPiece}>
           <Listbox.Button
-            onClick={() => setPieceOpen((prev) => !prev)}
+            onClick={() => setPieceOpen((prev) => selectedModel._id===""?!prev:false)}
             className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${
-              selectedPiece.name === "" ? "justify-end" : "justify-between"
+              selectedPiece.Name === "" ? "justify-end" : "justify-between"
             }`}
           >
-            {selectedPiece.name}{" "}
+            {selectedPiece.Name}{" "}
             {pieceOpen ? (
               <FaAngleDown className="text-2xl " />
             ) : (
@@ -248,7 +248,7 @@ const AddBon = () => {
                 disabled={!piece.unavailable}
                 className="cursor-pointer h-[56px]  bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
               >
-                {piece.name}
+                {piece.Name}
               </Listbox.Option>
             ))}
           </Listbox.Options>
@@ -260,7 +260,7 @@ const AddBon = () => {
             type={"date"}
             min={new Date().toISOString().split('T')[0]}
             placeholder={`  `}
-         
+
             onChange={(e) => {
               setbon((prev) => ({
                 ...prev,
@@ -275,8 +275,8 @@ const AddBon = () => {
           <input
             type={"number"}
             min={0}
-            placeholder={`Prix final`}
-         
+          placeholder={`Prix final`}
+    
             onChange={(e) => {
               setbon((prev) => ({
                 ...prev,

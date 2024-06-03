@@ -13,11 +13,7 @@ const pages: Array<{ to: string; title: string; img: string }> = [
   { to: "/faq", title: "FAQ", img: "faq" },
 
   { to: "/RDV", title: "RDV", img: "rdv" },
-<<<<<<< HEAD
-  { to: "/Statistiques", title: "Statistiques", img: "rdv" },
-=======
 { to: "/bon", title: "Bon", img: "bon"}
->>>>>>> b7dfed88278c4ddaf7c563568a4f74a86c391f45
 
 ];
 const SideBar = () => {

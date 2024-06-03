@@ -8,9 +8,13 @@ import { PieceType } from "../../piece/Piece";
 import { userType } from "../../clients/components/AddClient";
 import toast from "react-hot-toast";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
+import { Link, useParams } from "react-router-dom";
+import DelButt from "../../../utils/DelButt";
 
-const Editbon = () => {
+
+const EditBon = () => {
   const [bon, setbon] = useState({
+    _id:"",
     Date_Achat: "",
     Prix_Vente: 0,
     Garentie: "",
@@ -23,49 +27,74 @@ const Editbon = () => {
   const [models, setModels] = useState([
     {
       _id: "",
-      name: "Veuillez choisir un model",
+      Name: "Veuillez choisir un model",
       unavailable: false,
       Garentie: "",
     },
   ]);
+  const { id } = useParams();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get(
+        import.meta.env.VITE_Main_ENDPOINT + "bon/" + id
+      );
+      setbon(response.data);
+      console.log({Name: response.data.Client.Name, Phone: response.data.Client.Phone, _id: response.data.Client._id}) 
+      setSelectedClient(response.data.Client);
+      if (response.data.Car) {
+        setSelectedModel(response.data.Car);
+      } else {
+        setSelectedPiece(response.data.Piece);
+      }
+     
+      setLoading(false);
+      }
+
+    fetchData();
+  }, [id]);
+
+
   const [modelOpen, setModelOpen] = useState(false);
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "car");
     res.then((res) => {
       setModels(
-        res.data.map((e: CarsProps) => {
+        [ ...      res.data.map((e: CarsProps) => {
           return {
             _id: e._id,
-            name: e.Modele,
+            Name: e.Modele,
             Garentie: e.Garentie,
             unavailable: e.Disponabilite === "Disponible",
           };
-        })
+        }),{_id:"",Name:"le bon n'est pas pour une voiture",unavailable:true,Garentie:""}]
+       
       );
     });
   }, []);
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const [pieces, setPieces] = useState([
-    { _id: "", name: "Veuillez choisir une pièce", unavailable: false },
+    { _id: "", Name: "Veuillez choisir une pièce", unavailable: false },
   ]);
   const [pieceOpen, setPieceOpen] = useState(false);
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "piece");
     res.then((res) => {
       setPieces(
-        res.data.map((e: PieceType) => {
+        [...     res.data.map((e: PieceType) => {
           return {
             _id: e._id,
-            name: e.Name,
+            Name: e.Name,
             unavailable: e.Quantity > 0,
           };
-        })
+        }),{_id:"",Name:"le bon n'est pas pour une piece",unavailable:true}]
       );
     });
   }, []);
   const [selectedPiece, setSelectedPiece] = useState(pieces[0]);
   const [clients, setClients] = useState([
-    { _id: "", name: "Veuillez choisir un client", Phone: "" },
+    { _id: "", Name: "Veuillez choisir un client", Phone: "" },
   ]);
   const [clientOpen, setClientOpen] = useState(false);
   useEffect(() => {
@@ -82,7 +111,7 @@ const Editbon = () => {
         res.data.map((e: userType) => {
           return {
             _id: e._id,
-            name: e.Name,
+            Name: e.Name,
             Phone: e.Phone,
           };
         })
@@ -121,30 +150,23 @@ const Editbon = () => {
         }
     
      
-        if (facture === null ) {
-            toast.error("Veuillez ajouter une facture");
-            return;
-        }
-        if (contrat === null ) {
-            toast.error("Veuillez ajouter un contrat de vente");
-            return;
-        }
+  
         if (bon.Prix_Vente === 0) {
             toast.error("Veuillez remplir le prix");
             return;
         }
-        console.log(import.meta.env.VITE_Main_ENDPOINT + "bon/" + selectedClient._id)
-        axios
-            .post(import.meta.env.VITE_Main_ENDPOINT + "bon/"+ selectedClient._id, {
+      console.log(contrat?"await"+ [...await uploadImages([contrat])][0]:"def"+ bon.Contrat_De_Vente)
+      axios
+            .put(import.meta.env.VITE_Main_ENDPOINT + "bon/"+ bon._id, {
                 ...bon,
                 Contrat_De_Vente: [
-                    ...(await uploadImages([contrat])),
+                    ...(contrat? [...await uploadImages([contrat])]:[bon.Contrat_De_Vente]),
                 ][0],
                 Facture: [
-                    ...(await uploadImages([facture])),
+                    ...(facture?[...await uploadImages([facture])]:[bon.Facture]),
                 ][0],
-                Car: selectedModel,
-                Piece: selectedPiece,
+                Car: selectedModel._id === "" ? null : selectedModel,
+                Piece: selectedPiece._id === "" ? null : selectedPiece,
                 Client: selectedClient,
             }, {
                 headers: {
@@ -161,7 +183,12 @@ const Editbon = () => {
                 toast.error(err.response.data.message[0]);
             });
 
-    }
+  }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+
   return (
     <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
       <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
@@ -170,10 +197,10 @@ const Editbon = () => {
           <Listbox.Button
             onClick={() => setClientOpen((prev) => !prev)}
             className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${
-              selectedClient.name === "" ? "justify-end" : "justify-between"
+              selectedClient.Name === "" ? "justify-end" : "justify-between"
             }`}
           >
-            {selectedClient.name}{" "}
+            {selectedClient.Name}{" "}
             {clientOpen ? (
               <FaAngleDown className="text-2xl " />
             ) : (
@@ -187,7 +214,7 @@ const Editbon = () => {
                 value={client}
                 className="cursor-pointer h-[56px]  bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
               >
-                {client.name}
+                {client.Name}
               </Listbox.Option>
             ))}
           </Listbox.Options>
@@ -200,10 +227,10 @@ const Editbon = () => {
           <Listbox.Button
             onClick={() => setModelOpen((prev) => !prev)}
             className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${
-              selectedModel.name === "" ? "justify-end" : "justify-between"
+              selectedModel.Name === "" ? "justify-end" : "justify-between"
             }`}
           >
-            {selectedModel.name}{" "}
+            {selectedModel.Name}{" "}
             {modelOpen ? (
               <FaAngleDown className="text-2xl " />
             ) : (
@@ -218,7 +245,7 @@ const Editbon = () => {
                 disabled={!model.unavailable}
                 className="cursor-pointer h-[56px]  bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
               >
-                {model.name}
+                {model.Name}
               </Listbox.Option>
             ))}
           </Listbox.Options>
@@ -231,10 +258,10 @@ const Editbon = () => {
           <Listbox.Button
             onClick={() => setPieceOpen((prev) => !prev)}
             className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${
-              selectedPiece.name === "" ? "justify-end" : "justify-between"
+              selectedPiece.Name === "" ? "justify-end" : "justify-between"
             }`}
           >
-            {selectedPiece.name}{" "}
+            {selectedPiece.Name}{" "}
             {pieceOpen ? (
               <FaAngleDown className="text-2xl " />
             ) : (
@@ -249,7 +276,7 @@ const Editbon = () => {
                 disabled={!piece.unavailable}
                 className="cursor-pointer h-[56px]  bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
               >
-                {piece.name}
+                {piece.Name}
               </Listbox.Option>
             ))}
           </Listbox.Options>
@@ -261,7 +288,7 @@ const Editbon = () => {
             type={"date"}
             min={new Date().toISOString().split('T')[0]}
             placeholder={`  `}
-         
+            value={bon.Date_Achat.split('T')[0]}
             onChange={(e) => {
               setbon((prev) => ({
                 ...prev,
@@ -277,7 +304,7 @@ const Editbon = () => {
             type={"number"}
             min={0}
             placeholder={`Prix final`}
-         
+         value={bon.Prix_Vente}
             onChange={(e) => {
               setbon((prev) => ({
                 ...prev,
@@ -287,33 +314,45 @@ const Editbon = () => {
             className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
           />
           </div>
-          <div className="flex flex-col w-full mx-auto max-md:col-span-2 ">
-          <div className="text-xl font-bold pl-[16px] ">Contrat De Vente</div>
+          <div className="flex flex-col w-full mx-auto max-md:col-span-2  ">
+        <div className="text-xl font-bold pl-[16px] ">Contrat De Vente</div>
+        <div className="flex items-center justify-center w-full gap-[20px]">
+                <a href={bon.Contrat_De_Vente} download={true} className="flex items-center justify-center font-bold  rounded-lg">download previous</a>
+                  <a href={bon.Contrat_De_Vente} target="_blanck" className="font-bold ">click to see previous</a>
+         </div>
           <input
             type="file"
       onChange={selectCon}
-       className="ml-[16px] mt-[30px]"
+       className="ml-[16px] mt-[30px] "
           />
         </div>
         <div className="flex flex-col w-full mx-auto max-md:col-span-2">
-          <div className="text-xl font-bold pl-[16px]">Facture</div>
+        <div className="text-xl font-bold pl-[16px]">Facture</div>
+      
+        <div className="flex items-center justify-center gap-[20px]">
+          <a  href={bon.Facture} download={bon.Facture} target="_blank" className="flex items-center justify-center font-bold underline rounded-lg">download previous</a>
+                  <a href={bon.Facture} target="_blanck" className="font-bold ">click to see previous</a>  </div>
+     
           <input
             type="file"
             className="ml-[16px] mt-[30px]"
             onChange={selectfac}
-          />
+        />
+      
           </div>
-          <div className="flex justify-center col-span-2">
-          <button
-          type="submit"
-          className="w-[180px]  cursor-pointer bg-[#DB2719] mb-[100px] flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px] self-end mr-[40px] rounded-xl"
-        >
-          {" "}
-          envoyer
-          <FaArrowRight />
-        </button></div>
+          <div className="flex items-end justify-center gap-[20px] col-span-2  mb-[50px]" >
+          <DelButt id={bon._id} deleteRoute="bon" back="/bon" name={"bon"} icon={false} />
+        <button
+        type="submit"
+        className="w-[140px] cursor-pointer bg-green-600 flex justify-center  items-center h-[50px] text-white  gap-[10px] rounded-xl"
+      >
+        {" "}
+        envoyer
+        <FaArrowRight />
+      </button>
+        </div>
     </form>
   );
 };
 
-export default Editbon;
+export default EditBon;
