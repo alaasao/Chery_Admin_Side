@@ -27,6 +27,7 @@ import { getUser } from "./store/reducers/auth.reducer";
 import AuthWrapper from "./config/auth/wrapper";
 import EventDetails from "./Routes/events/components/EventDetails";
 import EditEvent from "./Routes/events/components/EditEvent";
+import { Statistiques } from "./Routes/Statistiques/Statistiques";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
@@ -153,6 +154,11 @@ function App() {
       name: "faq",
       link: "/faq/editFaq/:id",
       component: EditFaq,
+    },
+    {
+      name: "Statistiques",
+      link: "/Statistiques",
+      component: Statistiques,
     },
   ];
 
