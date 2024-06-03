@@ -142,9 +142,9 @@ const AddBon = () => {
                 Facture: [
                     ...(await uploadImages([facture])),
                 ][0],
-                Car: selectedModel._id===""?null:selectedModel,
-              Piece: selectedPiece._id===""?null:selectedPiece,
-                Client: selectedClient,
+                Car: selectedModel._id === "" ? null : {Name:selectedModel.Name,"_id":selectedModel._id,Garentie:selectedModel.Garentie},
+              Piece: selectedPiece._id === "" ? null : { Name: selectedPiece.Name, "_id": selectedPiece._id },
+              Client: selectedClient,
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

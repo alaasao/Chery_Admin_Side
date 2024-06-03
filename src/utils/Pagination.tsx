@@ -86,7 +86,8 @@ const Pagination: FC<PaginationProps> = ({
    
         return (
           e.Client && e.Client?.Name?.toLowerCase().includes(searchKey) ||
-         e.Car && e.Car?.name?.toLocaleLowerCase().includes(searchKey)
+          e.Car && e.Car?.Name?.toLocaleLowerCase().includes(searchKey) ||
+          e.Piece && e.Piece?.Name?.toLocaleLowerCase().includes(searchKey)
         );
       } else if ("Quantity" in e) {
         return e.Name.toLowerCase().includes(searchKey);
