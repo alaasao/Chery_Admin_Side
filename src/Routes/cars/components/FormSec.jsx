@@ -64,7 +64,7 @@ return (
                 className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
                  />
             </div>
-          ) : typeof value == "string" ? (
+          ) : ((typeof value == "string" )&& (key!=="End" && key!=="Start") )? (
             <div
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
@@ -81,7 +81,26 @@ return (
                 className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
                 />
             </div>
-          ) : (
+              ):(key === "End" || key === "Start") ? (
+                <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
+                <div className="text-3xl font-bold max-sm:text-xl"> la Date</div>
+                <input
+                  type={"date"}   readOnly={readonly}
+                  min={new Date().toISOString().split("T")[0]}
+                  placeholder={`  `}
+                  value={new Date(value).toISOString().slice(0, 10)}
+                  onChange={(e) => {
+                    setList((prev) => ({
+                      ...prev,
+                      [key]: new Date(e.target.value),
+                    }));
+                  }}
+                  className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
+                />
+              </div>
+              ):
+         
+                (
             <div
               className="flex flex-col w-full max-md:w-[80%] mx-auto "
               key={index + key}
