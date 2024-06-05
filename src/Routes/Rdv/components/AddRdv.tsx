@@ -372,14 +372,14 @@ const AddRdv = () => {
         
         </div> */}
         <div className="justify-center w-full col-span-2 mb-[50px]">
-          <bufinalTypeon
+          <button
             type="submit"
             className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] mx-auto flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px]  rounded-xl"
           >
             {" "}
             envoyer
             <FaArrowRight />
-          </bufinalTypeon>
+          </button>
         </div>
       </form>
     </div>

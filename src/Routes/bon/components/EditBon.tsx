@@ -191,7 +191,7 @@ const EditBon = () => {
 
 
   return (
-    <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] pt-[50px] ">
+    <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] p-[50px]  ">
       <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
         <div className="text-xl font-bold mb-[16px] "> Client</div>
         <Listbox value={selectedClient} onChange={setSelectedClient}>

@@ -15,7 +15,7 @@ const BonDetails = () => {
     Garentie: "",
     Facture: "",
     Contrat_De_Vente: "",
-    Car: { __id: "", Name: "", Garentie: "" },
+    Car: { __id: "", Name: "", Garentie: "",Modele:"" },
     Piece: { __id: "", Name: "" },
       Client: { __id: "", Name: "", Phone: "" },
     
@@ -29,6 +29,7 @@ const BonDetails = () => {
       const response = await axios.get(
         import.meta.env.VITE_Main_ENDPOINT + "bon/" + id
       );
+      console.log(response.data)
       setbon(response.data);
       setLoading(false);
       }
@@ -44,7 +45,7 @@ const BonDetails = () => {
   
     
   return (
-    <form  className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]pt-[50px] ">
+    <form  className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] p-[50px] ">
    
           
    <div className="flex flex-col w-full mx-auto max-md:w-[80%] max-md:col-span-2 ">
@@ -63,7 +64,7 @@ const BonDetails = () => {
              <input
                type="text"
               
-             value={bon.Car.Name}
+             value={bon.Car.Name||bon.Car.Modele}
            readOnly placeholder="Not provided"
            className=" flex outline-none bg-[#F6F7F9] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-lg border border-black text-2xl max-sm:text-[16px]"
            />
@@ -87,7 +88,7 @@ const BonDetails = () => {
             type={"date"}
             min={new Date().toISOString().split('T')[0]}
             placeholder={`  `}
-         value={bon.Date_Achat.split('T')[0]}
+         value={new Date(bon.Date_Achat).toLocaleString().split('T')[0]}
             onChange={(e) => {
               setbon((prev) => ({
                 ...prev,

@@ -101,7 +101,7 @@ const [loading,setLoading]=useState(false)
   }
  
   const [models, setModels] = useState([
-    { id: "", name: "Veuillez choisir un model", unavailable: false },
+    { id: "", Name: "Veuillez choisir un model", unavailable: false },
   ]);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const [loading,setLoading]=useState(false)
         res.data.map((e: CarsProps) => {
           return {
             id: e._id,
-            name: e.Modele,
+            Name: e.Modele,
             unavailable: e.Disponabilite === "Disponible",
           };
         })
@@ -134,6 +134,7 @@ const [loading,setLoading]=useState(false)
   } const [selectedModel, setSelectedModel] = useState(models[0]);
   useEffect(() => {
     setClient({ ...client, Car: selectedModel.id });
+    console.log(selectedModel.id )
   },[selectedModel])
  
   if (loading) {
@@ -221,9 +222,9 @@ const [loading,setLoading]=useState(false)
           <Listbox value={selectedModel} onChange={setSelectedModel}>
             <Listbox.Button
               onClick={() => setModelOpen((prev) => !prev)}
-              className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${selectedModel.name===""?"justify-end":"justify-between"}`}
+              className={`flex outline-none  bg-[#F6F7F9] h-[56px] px-[30px]  w-full cursor-pointer rounded-lg border items-center border-black text-xl max-sm:text-[16px] ${selectedModel.Name===""?"justify-end":"justify-between"}`}
             >
-              {selectedModel.name}{" "}
+              {selectedModel.Name}{" "}
               {modelOpen ? (
                 <FaAngleDown className="text-2xl " />
               ) : (
@@ -238,7 +239,7 @@ const [loading,setLoading]=useState(false)
                   disabled={!model.unavailable}
                   className="cursor-pointer h-[56px]  bg-white flex items-center justify-between px-4 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                 >
-                  {model.name}
+                  {model.Name}
                 </Listbox.Option>
               ))}
             </Listbox.Options>
