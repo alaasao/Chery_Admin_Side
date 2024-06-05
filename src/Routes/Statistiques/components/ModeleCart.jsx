@@ -33,7 +33,7 @@ export default function ModeleCart() {
   useEffect(() => {
     axios.get(`https://axeiny.tech:4004/bon`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFsYWFAZ21haWwuY29tIiwiaWQiOiI2NjMyNzM5ZGMyOGEwODViMmUzZTE1NjgiLCJSb2xlIjoiQURNSU4iLCJpYXQiOjE3MTU0Mjc0NzIsImV4cCI6MTcxODAxOTQ3Mn0.JFRwofQjkscRSU-Im7_0dH6eUlI9Uq0gHTnDb8VMNis`,
      },
     }     
     ).then((res) => {

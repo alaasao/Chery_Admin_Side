@@ -40,6 +40,7 @@ import Ticket from "./Routes/ticket/Ticket";
 import TicketDetails from "./Routes/ticket/components/TicketDetails";
 import EditTicket from "./Routes/ticket/components/EditTicket";
 import AddTicket from "./Routes/ticket/components/AddTicket";
+import { Helmet } from 'react-helmet';
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
@@ -234,7 +235,6 @@ function App() {
   return (
     <div>
       <Toaster position="bottom_center" />
- 
         <Routes >
           {routes.map((route, index) => (
             <Route
