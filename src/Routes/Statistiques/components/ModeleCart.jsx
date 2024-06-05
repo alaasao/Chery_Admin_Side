@@ -45,7 +45,7 @@ export default function ModeleCart() {
   
     data.forEach(item => {
       if (!item.Car) return; // Skip entries without a car model
-      const carModel = item.Car.Name;
+      const carModel =  item.Car?.Name || item.Car?.Modele;
   
       if (!revenueMap.has(carModel)) {
         revenueMap.set(carModel, 0);
