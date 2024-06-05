@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Main from "../../utils/Main.tsx";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
+import Loading from "../../utils/Loading.tsx";
 
 const Piece = () => {
   const [data, setData] = useState([])
@@ -14,7 +15,10 @@ const Piece = () => {
       setData(response.data)
       setLoading(false)
     })
-  },[])
+  }, [])
+  if (loading) {
+    return <Loading/>
+  }
   return (
       <div>
            <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] grid grid-cols-2 ">
@@ -36,7 +40,7 @@ const Piece = () => {
         </Link>
       </div>
       <div className="w-full pl-[4%] text-3xl font-medium mb-[40px] mt-[36px] ">
-        Liste des quetions
+        Liste des Pieces
       </div>
       {loading ?
         <div>... Loading</div> :

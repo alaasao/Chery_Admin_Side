@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { EventType } from "../Events";
 import DelButt from "../../../utils/DelButt";
 import EditButt from "../../../utils/EditButt";
+import Loading from "../../../utils/Loading";
 
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,18 +13,18 @@ const EventDetails = () => {
     Description: "",
     Event_Date: new Date() ,
     _id: "",
-    Images: [],
+    Images: [""],
   });
   const [loading, setLoading] = useState(true);
   React.useEffect(() => {
-      axios.get(`https://axeiny.tech:4004/event/${id}`).then((response) => {
+      axios.get(import.meta.env.VITE_Main_ENDPOINT+"event/"+id).then((response) => {
 
       setEvent(response.data);
       setLoading(false);
     });
   }, [id]);
   if (loading) {
-    return <div>... Loading</div>;
+    return<Loading/>
   }
 
   return (

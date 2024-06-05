@@ -34,8 +34,7 @@ const FaqDetails = () => {
   return (
   <div>     <div className="w-full px-[30px]">
       <div className="my-[50px] text-3xl max-md:text-[16px]">
-        Veuillez remplir ces champs concernant la question que vous souhaitez
-        ajouter :{" "}
+
       </div>
       <div className="w-full ">
         <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">
@@ -49,7 +48,7 @@ const FaqDetails = () => {
       </div>
       <div className="w-full">
         <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">
-          Answer :{" "}
+          Reponse :{" "}
         </div>
         <textarea
           className="w-full  outline-none  border-[0.5px] border-black rounded-lg pl-[10px] min-h-[100px]"

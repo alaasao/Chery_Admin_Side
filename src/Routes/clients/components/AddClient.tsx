@@ -5,6 +5,7 @@ import { FaAngleDown, FaAngleUp, FaArrowRight } from "react-icons/fa";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
 import { Listbox } from "@headlessui/react";
 import { CarsProps } from "../../cars/Cars";
+import Loading from "../../../utils/Loading";
 export interface userType {
   Name: string;
   Phone: string;
@@ -36,7 +37,7 @@ const AddClient = () => {
   });
   const [contrat, setContrat] = useState<File|null>(null);
   const [facture, setFacture] = useState<File | null>(null);
-
+const [loading,setLoading]=useState(false)
   const [modelOpen, setModelOpen] = useState(false);
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -52,6 +53,33 @@ const AddClient = () => {
       toast.error("Veuillez remplir le prix");
       return;
     }
+    if (client.Name === "") {
+      toast.error("Veuillez entrer le nom");
+      return;
+    }
+    if (client.Phone === "") {
+      toast.error("Veuillez entrer le numéro de téléphone");
+      return;
+    } else {
+      const phoneRegex = /^(\+213|0)(5|6|7)[0-9]{8}$/;
+      if (!phoneRegex.test(client.Phone)) {
+        toast.error("Veuillez entrer un numéro de téléphone algérien valide");
+        return;
+      }
+    }
+    if (client.Email === "") {
+      toast.error("Veuillez entrer l'email"); return
+    } else {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(client.Email)) {
+        toast.error("Veuillez entrer un email valide");return
+      }
+    }
+    if (client.Address === "") {
+      toast.error("Veuillez entrer l'addresse");
+      return;
+    }
+    setLoading(true)
     axios
       .post(import.meta.env.VITE_Main_ENDPOINT + "client", {...client,Contrat_De_Vente:[... await uploadImages([contrat])][0],Facture:[... await uploadImages([facture])][0]}, {
         headers: {
@@ -65,6 +93,7 @@ const AddClient = () => {
         }, 1000);
       })
       .catch((err) => {
+        setLoading(false)
         toast.error(err.response.data.message[0]);
       });
   }
@@ -102,10 +131,12 @@ const AddClient = () => {
     }
   }
   const [selectedModel, setSelectedModel] = useState(models[0]);
-
+  if (loading) {
+  return <Loading/>
+}
   return (
     <div>
-      <div className="w-full my-[60px] text-[#49454] text-2xl pl-[40px]">
+      <div className="w-full my-[60px] text-[#49454] text-2xl pl-[40px] max-md:text-center">
         Veuillez remplir ces champs concernant le client que vous souhaitez
         ajouter :{" "}
       </div>
@@ -121,7 +152,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Name: e.target.value });
             }}
-              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+                              className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px]  mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+
            placeholder="Entrez le nom et prénom du client"
           />
         </div>
@@ -135,7 +167,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Phone: e.target.value });
             }}
-              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+                              className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px]  mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+
            placeholder="Entrez le numéro du client"
           />
         </div>
@@ -147,7 +180,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Address: e.target.value });
             }}
-              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+                              className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px]  mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+
            placeholder="Entrez l’adresse mail du client"
           />
         </div>
@@ -159,7 +193,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Prix_Vente: parseInt(e.target.value) });
             }}
-              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+                              className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px]  mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+
            placeholder="Entrez le prix de vente"
           />
         </div>
@@ -171,7 +206,8 @@ const AddClient = () => {
             onChange={(e) => {
               setClient({ ...client, Email: e.target.value });
             }}
-              className="flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black "
+                              className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px]  mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+
            placeholder="Entrez l'email de client"
           />
         </div>

@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
 import DelButt from "../../../utils/DelButt";
 import { FaArrowRight } from "react-icons/fa";
+import Loading from "../../../utils/Loading";
 
 const EditPiece = () => {
   const { id } = useParams();
@@ -70,7 +71,7 @@ const EditPiece = () => {
 
   }, [images]);
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading/>
   }
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -86,7 +87,28 @@ const EditPiece = () => {
         Array.from(originalImages).map((e) => {
           final.push(e);
         });
-      }
+    }
+    if (pieceWithout.Name === "") {
+      toast.error("Veuillez ajouter le nom");
+      return;
+    }
+    if (pieceWithout.Description === "") {
+      toast.error("Veuillez ajouter la description");
+      return;
+    }
+    if (pieceWithout.Price === 0) {
+      toast.error("Veuillez ajouter le prix");
+      return;
+    }
+    if (pieceWithout.Quantity === 0) {
+      toast.error("Veuillez ajouter la quantité");
+      return;
+    }
+    if (final.length === 0) {
+      toast.error("Veuillez ajouté au moins une image")
+      return
+    }
+    setLoading(true)
     axios
       .put(
         import.meta.env.VITE_Main_ENDPOINT + "piece/" + id,
@@ -100,10 +122,11 @@ const EditPiece = () => {
       .then(() => {
         toast.success("Piece updated");
         setTimeout(() => {
-          window.location.href = "/pieces";
+          window.location.href = "/produits/pieces";
         }, 1000);
       })
       .catch((err) => {
+        setLoading(false)
         toast.error(err.response.data.message[0]);
       });
   }
@@ -125,10 +148,10 @@ const EditPiece = () => {
       <div className="flex items-end justify-center gap-[20px] col-span-2 my-[50px]">
         <DelButt
           id={id || ""}
-          deleteRoute="faq"
+          deleteRoute="piece"
           icon={false}
-          back="faq"
-          name="question"
+          back="/produits/piece"
+          name="piece"
         />
         <button
           type="submit"

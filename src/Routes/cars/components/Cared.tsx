@@ -221,8 +221,7 @@ const Cared: FC<CarProps> = ({
         <div className=" py-[50px] rounded-2xl flex flex-col">
           <div className=" py-[50px] rounded-2xl flex flex-col">
             <div className="  text-4xl max-md:text-xl pl-[20px] text-[#494545] mb-[40px]">
-              Veuillez remplir ces champs concernant le véhicule que vous
-              souhaitez ajouter :{" "}
+            {pathname.toLowerCase().includes("edit")&& "Veuillez remplir ces champs concernant le véhicule que vous souhaitez modifie :"}      
             </div>
             <div className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
               <div className="flex flex-col w-full max-md:w-[80%] mx-auto ">
@@ -363,31 +362,31 @@ const Cared: FC<CarProps> = ({
             {" "}
             <div className="w-full pl-[20px]">
               <div className="text-3xl font-bold max-md:text-xl">
-                Black Images
+             Les Images Noir
               </div>
               <ImageForm Images={blackImages} setImages={setBlackImages} />
             </div>
             <div className="w-full pl-[20px]">
               <div className="text-3xl font-bold max-md:text-xl">
-                white Images
+             Les Images Blanc
               </div>
               <ImageForm Images={whiteImages} setImages={setWhiteImages} />
             </div>
             <div className="w-full pl-[20px]">
               <div className="text-3xl font-bold max-md:text-xl">
-                red Images
+               Les Images Rouge
               </div>
               <ImageForm Images={redImages} setImages={setRedImages} />
             </div>
             <div className="w-full pl-[20px]">
               <div className="text-3xl font-bold max-md:text-xl">
-                gray Images
+               Les Images Gris
               </div>
               <ImageForm Images={grisImages} setImages={setGrisImages} />
             </div>
             <div className="w-full pl-[20px]">
               <div className="text-3xl font-bold max-md:text-xl">
-                blue Images
+       Les Images Blue
               </div>
               <ImageForm Images={blueImages} setImages={setBlueImages} />
             </div>
@@ -398,7 +397,7 @@ const Cared: FC<CarProps> = ({
               return (
                 <div>
                   <h1 className="text-3xl font-bold capitalize mb-[20px]">
-                    {obj.Color} Images
+                   Les  Images {obj.Color}
                   </h1>
                   <div className="flex flex-wrap items-center justify-center gap-[20px] mb-[20px]">
                     {" "}

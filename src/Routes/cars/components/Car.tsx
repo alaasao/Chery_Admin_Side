@@ -237,23 +237,23 @@ const Car: FC<CarProps> = ({ carDefault, readOnly,setCar,setSubmit }: CarProps) 
         </div>
 
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">Black Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">les Images Noir</div>
           <ImageForm Images={blackImages} setImages={setBlackImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">white Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">les Images Blanc</div>
           <ImageForm Images={whiteImages} setImages={setWhiteImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">red Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">les Images Rouge </div>
           <ImageForm Images={redImages} setImages={setRedImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">gray Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">les Images Gris</div>
           <ImageForm Images={grisImages} setImages={setGrisImages} />
         </div>
         <div className="w-full pl-[20px]">
-          <div className="text-3xl font-bold max-md:text-xl">blue Images</div>
+          <div className="text-3xl font-bold max-md:text-xl">les Images Blue</div>
           <ImageForm Images={blueImages} setImages={setBlueImages} />
         </div>
         <div

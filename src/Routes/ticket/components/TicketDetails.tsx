@@ -100,7 +100,6 @@ const TicketDetails = () => {
                   <div className="text-3xl font-bold max-sm:text-xl"> Description</div>
            
           <textarea
-           
             value={ticket.Description }
             className=" flex outline-none bg-[#F6F7F9]  px-[30px]  max-md:px-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px] h-max"
             readOnly

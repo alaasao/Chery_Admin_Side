@@ -4,6 +4,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import DelButt from "../../../utils/DelButt";
+import toast from "react-hot-toast";
+import Loading from "../../../utils/Loading";
 
 // import axios from "axios";
 const EditFaq = () => {
@@ -14,7 +16,8 @@ const EditFaq = () => {
    const [loading, setLoading] = useState(true); // set this to false
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(`https://axeiny.tech:4004/faq/${id}`);
+      const response = await axios.get(import.meta.env.VITE_Main_ENDPOINT+"faq/"+id
+      );
       setQuestion(response.data.Question);
       setAnswer(response.data.Answer);
       setLoading(false);
@@ -24,7 +27,15 @@ const EditFaq = () => {
 
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
-
+    if (question === "") {
+      toast.error("Veuillez entrer la question ")
+      return
+    }
+    if (answer === "") {
+      toast.error("Veuillez entrer la reponse")
+      return
+    }
+  setLoading(true)
      await axios.put(
       import.meta.env.VITE_Main_ENDPOINT + "faq/"+id,
       { Question: question, Answer: answer },
@@ -34,19 +45,27 @@ const EditFaq = () => {
        },
       }
    
-    );
-    window.location.href = "/faq/"+id;
+     ).then(() => {
+      toast.success("faq mis a jour")
+      setTimeout(() => {
+        window.location.href = "/faq/"+id;
+      }, 1000);
+     }).catch((err) => {
+       setLoading(false)
+       toast.error(err.response.data.message[0]);
+    })
+
    
   }
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <Loading/>
   }
   return (
     <form className="w-full px-[30px] flex flex-col" onSubmit={submit}>
       <div className="my-[50px] text-3xl max-md:text-[16px]">
         Veuillez remplir ces champs concernant la question que vous souhaitez
-        ajouter :{" "}
+        modifie :{" "}
       </div>
       <div className="w-full ">
         <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">
@@ -62,7 +81,7 @@ const EditFaq = () => {
       </div>
       <div className="w-full">
         <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">
-          Answer :{" "}
+          Response :{" "}
         </div>
         <textarea
           name="answer"

@@ -5,6 +5,7 @@ import {CarModel} from './data';
 import axios from 'axios';
 import { CarsProps } from '../Cars';
 import Cared from './Cared';
+import Loading from '../../../utils/Loading';
 
 const ShowCar = () => {
     const { id } = useParams();
@@ -21,7 +22,7 @@ const ShowCar = () => {
     }, [id]);
     
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading/>
     }
 
     return (

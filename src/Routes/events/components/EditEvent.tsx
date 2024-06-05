@@ -7,6 +7,7 @@ import DelButt from "../../../utils/DelButt";
 import { FaArrowRight } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
+import Loading from "../../../utils/Loading";
 
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,7 +17,7 @@ const EventDetails = () => {
     Description: "",
     Event_Date: new Date() ,
     _id: "",
-    Images: [],
+    Images: [""],
   });
   useEffect(() => {
   setImages(event.Images)
@@ -24,20 +25,34 @@ const EventDetails = () => {
   const [loading, setLoading] = useState(true);
   React.useEffect(() => {
      
-      axios.get(`https://axeiny.tech:4004/event/${id}`).then((response) => {
+      axios.get(import.meta.env.VITE_Main_ENDPOINT+'event/'+id).then((response) => {
 
-      setEvent(response.data);
+        setEvent(response.data);
+        console.log(response.data)
       setLoading(false);
     });
   }, [id]);
   if (loading) {
-    return <div>... Loading</div>;
+    return <Loading/>
   }
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
-  
+    
+    if (event.Title === "") {
+      toast.error("Veuillez entrer le titre")
+      return
+    }
+    if (event.Description === "") {
+      toast.error("Veuillez entrer la description")
+      return
+    }
+    if (images[0]==="") {
+      toast.error("Veuillez entrer un image")
+      return
+    }
+  setLoading(true)
   await axios.put(
-      import.meta.env.VITE_Main_ENDPOINT+"event/"+id,
+    import.meta.env.VITE_Main_ENDPOINT+"event/"+id,
       {
         Title: event.Title,
         Description: event.Description,
@@ -52,13 +67,16 @@ const EventDetails = () => {
       }
   ).then(() => {
     toast.success("Event Updated Successfully")
+    setTimeout(() => {
+      window.location.href = "/events/"+id
+    }, 1000);
   }
   ).catch((err) => {
-      
+      setLoading(false)
     toast.error(err.response.data.message[0])
     });
     
-    window.location.href = "/events/"+id;
+  
 
 
   }
@@ -79,7 +97,7 @@ const EventDetails = () => {
           <input type="file" onChange={handleImages} />
           <div className="flex gap-10">
         {" "}
-        {images.map((img) => (
+        {images && images.map((img) => (
           <img src={img} className="w-[300px] h-[300px] rounded-xl" />
         ))}
       </div>
