@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toastFNC } from "../../config/toast";
-const api = "https://axeiny.tech:4004/"
+const api = import.meta.env.VITE_Main_ENDPOINT
 
 
 // login thunk
@@ -65,12 +65,14 @@ const authSlice = createSlice({
       })
       .addCase(Login.fulfilled, (state, action) => {
         state.pendingAuth = false;
+        
 
         if (action.payload.status === 201) {
           toastFNC('Login Success', 'success');
           state.authenticated = true;
           localStorage.setItem('token', action.payload.data.Token);
         } else if (action.payload.status === 400) {
+          console.log(action.payload)
           toastFNC(action.payload.data.message[0], 'error');
         } else if (action.payload.status === 401) {
           toastFNC(action.payload.data.message, 'error');

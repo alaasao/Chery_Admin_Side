@@ -83,6 +83,7 @@ const Pagination: FC<PaginationProps> = ({
   }, [startIndex, endIndex, filteredArr, setShowList]);
 
   useEffect(() => {
+    console.log(arr)
     const filteredData = arr.filter((e) => {
       if ("Subject" in e) {
         return e.Name.toLowerCase().includes(searchKey);

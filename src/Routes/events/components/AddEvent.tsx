@@ -3,6 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Loading from "../../../utils/Loading";
 export interface EventType {
   Images: string[];
   Title: string;
@@ -14,18 +15,30 @@ const AddEvent = () => {
   const [images, setImages] = useState([""]);
   const [event, setEvent] = useState({
     Images: [""],
-    title: "",
+    Title: "",
    Event_Date: new Date(),
     Description: "",
   });
-  
+  const [loading,setLoading]=useState(false)
   async function submit(e: React.FormEvent) {
     e.preventDefault();
 
-
-    axios.post(import.meta.env.VITE_Main_ENDPOINT+"event", {
+    if (event.Title === "") {
+      toast.error("Veuillez entrer le titre")
+      return
+    }
+    if (event.Description === "") {
+      toast.error("Veuillez entrer la description")
+      return
+    }
+    if (images[0]==="") {
+      toast.error("Veuillez entrer un image")
+      return
+    }
+    setLoading(true)
+    axios.post(import.meta.env.VITEim_Main_ENDPOINT+"event", {
       Images: images,
-      Title: event.title,
+      Title: event.Title,
      Event_Date: event.Event_Date,
       Description:event.Description
     },  {
@@ -33,9 +46,13 @@ const AddEvent = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
      },
     }).then(() => {
-
-      window.location.href = "/events"
+      toast.success("event ajouté")
+      setTimeout(() => {
+        window.location.href = "/events"
+      }, 1000);
+    
     }).catch((err) => {
+      setLoading(false)
       toast.error(err.response.data.message[0])
     })
     
@@ -49,7 +66,9 @@ const AddEvent = () => {
 
     }
   }
- 
+  if (loading) {
+   return <Loading/>
+ }
   return (
     <div>
       <div className="w-full my-[60px] text-[#49454] text-2xl pl-[40px]">
@@ -64,9 +83,9 @@ const AddEvent = () => {
           <div className="text-xl font-bold pl-[16px]">Title</div>
           <input
             type="text"
-            value={event.title}
+            value={event.Title}
             onChange={(e) => {
-              setEvent({ ...event, title: e.target.value });
+              setEvent({ ...event, Title: e.target.value });
             }}
             className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
             placeholder="Entrez le nom et prénom du event"
@@ -76,6 +95,7 @@ const AddEvent = () => {
           <div className="text-xl font-bold pl-[16px]">Date</div>
           <input
             type="date"
+            min={new Date().toISOString().slice(0, 10)}
             value={event.Event_Date.toISOString().slice(0, 10)}
             onChange={(e) => {
               setEvent({ ...event,Event_Date: new Date(e.target.value) });
@@ -91,7 +111,7 @@ const AddEvent = () => {
             onChange={(e) => {
               setEvent({ ...event, Description: e.target.value });
             }}
-            className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px] "
+            className="w-full border-[1px] border-black rounded-lg outline-none h-[56px] placeholder:text-[#878181] pl-[16px]  "
             placeholder="Entrez l’adresse mail du event"
           />
         </div>

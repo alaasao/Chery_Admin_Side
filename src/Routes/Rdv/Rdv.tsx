@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import Main from "../../utils/Main.tsx";
 import axios from "axios";
+import Loading from "../../utils/Loading.tsx";
 
 const Rdv = () => {
   const [data, setData] = useState([])
   const [allData,setAllData]=useState([])
   const [objType,setObjType] = useState<Rdv_Type>(Rdv_Type.RDV_VENTE_VOITURE)
-
+const [loading,setLoading]=useState(true)
   useEffect(() => {
     const res = axios.get(import.meta.env.VITE_Main_ENDPOINT + "rdv", {
       headers: {
@@ -15,7 +16,7 @@ const Rdv = () => {
      }
     })
     res.then((response) => {
-    
+    setLoading(false)
       setAllData(response.data)
      
     })
@@ -24,8 +25,9 @@ const Rdv = () => {
   useEffect(() => {
  setData(allData.filter((el:RdvType)=>el.Rdv_Type===objType)  )
   },[allData,objType])
-  
-  return (
+  if (loading)
+{return <Loading/>
+}  return (
     <div>
        <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] grid grid-cols-3 ">
         <div

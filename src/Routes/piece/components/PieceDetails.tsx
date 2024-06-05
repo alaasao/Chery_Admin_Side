@@ -5,6 +5,7 @@ import axios from "axios";
 import FormSec from "../../cars/components/FormSec";
 import DelButt from "../../../utils/DelButt";
 import EditButt from "../../../utils/EditButt";
+import Loading from "../../../utils/Loading";
 
 const PieceDetails = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const PieceDetails = () => {
     async function fetchData() {
       const response = await axios.get(
         import.meta.env.VITE_Main_ENDPOINT + "piece/" + id
-      );
+      )
       setPiece(response.data);
       setLoading(false);
     }
@@ -23,7 +24,7 @@ const PieceDetails = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading/>
   }
 
   return (

@@ -7,18 +7,24 @@ import Main from "../../utils/Main";
 import { EventType } from "../events/Events";
 import { Link, useLocation } from "react-router-dom";
 import { userType } from "../clients/components/AddClient";
+import Loading from "../../utils/Loading";
 
 const Cars = () => {
   const [data, setData] = useState<(userType | CarsProps | EventType)[]>([]);
+  const [loading,setLoading]=useState(true)
   const path = useLocation().pathname;
   useEffect(() => {
-    axios.get(import.meta.env.VITE_Main_ENDPOINT+"car").then((response) => {
+    axios.get(import.meta.env.VITE_Main_ENDPOINT + "car").then((response) => {
+      setLoading(false)
       setData(response.data);
 
     });
 
   
   }, []);
+  if (loading) {
+    return <Loading/>
+  }
   return (
     <div className="w-full ">
       <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] grid grid-cols-2 ">

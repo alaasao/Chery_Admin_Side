@@ -6,6 +6,7 @@ import axios from "axios";
 import { CarsProps } from "../Cars";
 import Cared from "./Cared";
 import toast from "react-hot-toast";
+import Loading from "../../../utils/Loading";
 
 const EditCar = () => {
   const { id } = useParams();
@@ -24,8 +25,12 @@ const EditCar = () => {
     update();
   }, [submit]);
     function update() {
-  
-id &&axios.put(import.meta.env.VITE_Main_ENDPOINT + "car/" + id, car, {
+      if (car.Images.length === 0) {
+        toast.error("Veuillez ajouté au mois un image")
+        return
+  }
+      id && setLoading(true)
+     id && axios.put(import.meta.env.VITE_Main_ENDPOINT + "car/" + id, car, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
        },
@@ -37,12 +42,13 @@ id &&axios.put(import.meta.env.VITE_Main_ENDPOINT + "car/" + id, car, {
           window.location.href = "/produits/cars/"+car._id;
         }, 1000);
       
-      }).catch((err) => {
+  }).catch((err) => {
+        setLoading(false)
         toast.error(err.response.data.message[0])
       });
   }
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading/>
   }
 
   return (

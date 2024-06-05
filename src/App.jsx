@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import React, { useEffect } from "react";
-import Dashboard from "./Routes/Dashboard/Dashboard";
+
 import Clients from "./Routes/clients/Client";
 
 import AddClient from "./Routes/clients/components/AddClient";
@@ -49,11 +49,7 @@ function App() {
     }
   }, []);
   const routes = [
-    {
-      name: "Dashboard",
-      link: "/",
-      component: Dashboard,
-    },
+  
     {
       name: "Clients",
       link: "/clients",
@@ -231,12 +227,15 @@ function App() {
       component: AddTicket,
     },
   ];
-
+  const del = useSelector((state) => state.delete.delete)
+  useEffect(() => {
+    console.log(del)
+  },[del])
   return (
-    <>
+    <div>
       <Toaster position="bottom_center" />
-      <AuthWrapper>
-        <Routes>
+ 
+        <Routes >
           {routes.map((route, index) => (
             <Route
               path={route.link}
@@ -245,8 +244,8 @@ function App() {
             />
           ))}
         </Routes>
-      </AuthWrapper>
-    </>
+      
+    </div>
   );
 }
 

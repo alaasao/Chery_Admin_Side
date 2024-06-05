@@ -24,7 +24,7 @@ return (
               key={index + key}
             >
               <div className="text-3xl font-bold max-md:text-xl"> {titles[key]||key}</div>
-              <div className="flex h-[56px]  gap-[10] items-center pl-[30px] mt-[16px] text-2xl ">
+              <div className="flex h-[56px]  gap-[10] items-center pl-[30px] max-md:pl-[8px] mt-[16px] text-2xl ">
                 <input
                   type="checkbox"
                   placeholder="Votre nom "
@@ -36,7 +36,7 @@ return (
                       [key]: !prev[key],
                     }))
                   }
-                  className="  flex outline-none bg-[#F6F7F9] h-[30px] w-[40px] cursor-pointer rounded-xl border border-black max-md:text[16px]"
+                  className="  flex outline-none bg-[#F6F7F9] h-[30px] max-md:pl-[8px] w-[40px] cursor-pointer rounded-xl border border-black max-md:text[16px]"
                 />
                 Disponible
               </div>
@@ -61,8 +61,8 @@ return (
                   }
                   setList((prev) => ({ ...prev, [key]: inputValue }));
                 }}
-                className=" flex outline-none text-2xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:text[16px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
-              />
+                className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                 />
             </div>
           ) : typeof value == "string" ? (
             <div
@@ -78,8 +78,8 @@ return (
                 onChange={(e) =>
                   setList((prev) => ({ ...prev, [key]: e.target.value }))
                 }
-                className=" flex outline-none text-2xl bg-[#F6F7F9] max-md:text[16px] h-[56px] pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
-              />
+                className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                />
             </div>
           ) : (
             <div
@@ -95,8 +95,8 @@ return (
                 onChange={(e) =>
                   setData((prev) => ({ ...prev, [key]: e.target.value }))
                 }
-                className=" flex outline-none bg-[#F6F7F9] h-[56px]  pl-[30px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-md:text[16px]"
-              />
+                className=" flex outline-none text-2xl max-md:text-xl bg-[#F6F7F9] h-[56px] pl-[30px] max-md:pl-[8px]  mt-[16px] w-full cursor-pointer rounded-xl border border-black"
+                />
             </div>
           );
         })}

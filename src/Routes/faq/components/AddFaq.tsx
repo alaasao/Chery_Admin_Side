@@ -2,15 +2,26 @@ import { FaArrowRight } from "react-icons/fa";
 import { useState } from "react";
 import React from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
+import Loading from "../../../utils/Loading";
 // import axios from 'axios';
 const AddFaq = () => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
+const [loading,setLoading]=useState(false)
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
+    if (question === "") {
+      toast.error("Veuillez entrer la question ")
+      return
+    }
+    if (answer === "") {
+      toast.error("Veuillez entrer la reponse")
+      return
+    }
+  setLoading(true)
     axios.post(
-      "https://axeiny.tech:4004/faq",
+      import.meta.env.VITE_Main_ENDPOINT+"faq",
       { "Question": question, "Answer": answer },
       {
         headers: {
@@ -18,8 +29,18 @@ const AddFaq = () => {
        },
       }
     ).then(() => {
-      window.location.href = "/faq/"
+      toast.success("Faq ajouté")
+      setTimeout(() => {
+        window.location.href = "/faq/"
+      }, 1000);
+      
+    }).catch((err) => {
+      toast.error(err.response.data.message[0]);
+      setLoading(false)
     })
+  }
+  if (loading) {
+    <Loading/>
   }
 
   return (
@@ -42,7 +63,7 @@ const AddFaq = () => {
       </div>
       <div className="w-full">
         <div className="text-3xl mb-[20px] font-medium max-md:text-[16px]">
-          Answer :{" "}
+          Reponse :{" "}
         </div>
         <textarea
           name="answer"

@@ -2,10 +2,12 @@ import Main from "../../utils/Main";
 import React, { useState } from "react";
 import { userType } from "./components/AddClient";
 import axios from "axios";
+import Loading from "../../utils/Loading";
 
 
 const Clients = () => {
   const [data, setData] = useState<userType[]>([]);
+  const [loading,setLoading]=useState(true)
   React.useEffect(() => {
     axios.get(import.meta.env.VITE_Main_ENDPOINT + "client",
       {
@@ -14,9 +16,17 @@ const Clients = () => {
         },
       }
     )
-      .then((response) => response.data)
+      .then((response) =>
+      {
+        setLoading(false)
+        return  response.data
+        }
+      )
       .then((data) => setData(data));
   }, []);
+  if (loading) {
+    return <Loading/>
+  }
   return (
     <div className="w-full ">
       <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] ">
