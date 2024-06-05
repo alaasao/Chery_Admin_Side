@@ -9,6 +9,7 @@ import axios from "axios";
 import { CarsProps } from "../../cars/Cars";
 import { PieceType } from "../../piece/Piece";
 import toast from "react-hot-toast";
+import Loading from "../../../utils/Loading";
 
 const AddRdv = () => {
   useEffect(() => {
@@ -42,7 +43,7 @@ const AddRdv = () => {
   ]);
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
-  const [rdvtype, setRdvtype] = useState(Rdv_Type.RDV_VENTE_VOITURE);
+  const [rdvtype] = useState(Rdv_Type.RDV_VENTE_VOITURE);
   const [etatOpen, setEtatOpen] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
 
@@ -120,17 +121,20 @@ const AddRdv = () => {
       }
     }
     
-setLoading(true)
+    setLoading(true)
+    const finalType=selectedModel._id !== ""
+    ? Rdv_Type.RDV_VENTE_VOITURE
+    : selectedPiece._id !== ""
+    ? Rdv_Type.RDV_VENTE_PIECE
+        : Rdv_Type.RDV_AUTRE
+    const finalModel = selectedModel._id !== "" ? selectedModel : selectedPiece._id !== ""?selectedPiece:{_id:"",Name:"rdv de videnge"}
+    
     await axios.post(
       import.meta.env.VITE_Main_ENDPOINT + "rdv",
       {
         ...rdv,
-        rdv_type:
-          selectedModel._id !== ""
-            ? Rdv_Type.RDV_VENTE_VOITURE
-            : selectedPiece._id !== ""
-              ? Rdv_Type.RDV_VENTE_PIECE
-              : Rdv_Type.RDV_AUTRE,
+        Rdv_Type: finalType,
+      Model:finalModel
       },
       {
         headers: {
@@ -148,6 +152,9 @@ setLoading(true)
     })
 
 
+  }
+  if (loading) {
+    return <Loading/>
   }
   return (
     <div className="">
@@ -365,14 +372,14 @@ setLoading(true)
         
         </div> */}
         <div className="justify-center w-full col-span-2 mb-[50px]">
-          <button
+          <bufinalTypeon
             type="submit"
             className="w-[180px] cursor-pointer bg-[#DB2719] mb-[100px] mx-auto flex justify-center items-center h-[50px] text-white mt-[60px] gap-[10px]  rounded-xl"
           >
             {" "}
             envoyer
             <FaArrowRight />
-          </button>
+          </bufinalTypeon>
         </div>
       </form>
     </div>
@@ -381,9 +388,9 @@ setLoading(true)
 
 export default AddRdv;
 const RdvEtatList = ["EN_ATTENTE", "CONFIRMER", "ANNULE"];
-const RdvTypeList = [
-  "RDV_VENTE_VOITURE",
-  "RDV_VENTE_PIECE",
-  "RDV_REPARATION",
-  "RDV_AUTRE",
-];
+// const RdvTypeList = [
+//   "RDV_VENTE_VOITURE",
+//   "RDV_VENTE_PIECE",
+//   "RDV_REPARATION",
+//   "RDV_AUTRE",
+// ];

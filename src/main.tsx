@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <AuthWrapper>
           <div className={"grid lg:grid-cols-[320px_1fr] font-poppins"}>
             <SideBar />
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
               <NavBar />
               <App />
             </div>

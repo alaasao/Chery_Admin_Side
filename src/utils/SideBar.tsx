@@ -1,8 +1,9 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import React, { useEffect } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { FaReceipt } from "react-icons/fa";
+import { IoTicket } from "react-icons/io5";
 
 const pages: Array<{ to: string; title: string; img: string }> = [
 
@@ -18,8 +19,7 @@ const pages: Array<{ to: string; title: string; img: string }> = [
 
 ];
 const SideBar = () => {
-  const location = useLocation();
-  const { pathname } = location;
+
   const [open, setOpen] = React.useState(
     window.innerWidth > 1024 ? true : false,
   );
@@ -34,16 +34,16 @@ const SideBar = () => {
   }, []);
 
   return (
-    <div className={`${pathname === "/signin" ? "hidden" : ""}`}>
+    <div className="h-full bg-[#1E1E1E]">
       {" "}
       <div
-        className={`h-full  max-lg:w-screen max-lg:absolute min-h-screen  z-[10] bg-[#1E1E1E] py-[40px] flex flex-col items-center transition-all duration-700 origin-left ${
+        className={`h-full  max-lg:w-screen max-lg:absolute min-h-screen  z-[10] bg-[#1E1E1E] py-[40px] max-md:py-[5px] flex flex-col items-center transition-all duration-700 origin-left ${
           open ? "scale-x-1" : "scale-x-0"
         }`}
       >
         <Link
           to=""
-          className="flex flex-col  cursor-pointer items-center mb-[40px]"
+          className="flex flex-col  cursor-pointer items-center mb-[40px] max-md:mb-[10px] "
           onClick={()=>setOpen(false)}
         >
           <img src="../assets/logo.png" alt="" className="" />
@@ -73,9 +73,10 @@ const SideBar = () => {
               >
                 <div className="flex items-center pl-[30px]  gap-[15px] h-[63px] w-[300px]">
                   {" "}
-                  {e.img === "bon" ?
-                    <FaReceipt className="text-4xl" />
-                    : <img src={`../assets/sideBar/${e.img}.png`} alt="" />} 
+                  {e.img === "bon" ?    <FaReceipt className="text-4xl" />:
+                    e.img==="ticket"? <IoTicket className="text-4xl"/>:
+                
+                    <img src={`../assets/sideBar/${e.img}.png`} alt="" />} 
                   <div>{e.title}</div>
                 </div>
               </NavLink>

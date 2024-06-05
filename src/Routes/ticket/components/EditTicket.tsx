@@ -34,8 +34,8 @@ const EditTicket = () => {
     __v: 0,
   });
 
-    useEffect(() => {
-      setLoading(true)
+  useEffect(() => {
+    setLoading(true);
     axios
       .get(import.meta.env.VITE_Main_ENDPOINT + "ticket/" + id, {
         headers: {
@@ -54,27 +54,27 @@ const EditTicket = () => {
   async function submit(e: { preventDefault: () => void }) {
     setLoading(true);
     e.preventDefault();
-if (ticket.Name === "" ) {
-    toast.error("Veuillez remplir le nom");
-    setLoading(false)
+    if (ticket.Name === "") {
+      toast.error("Veuillez remplir le nom");
+      setLoading(false);
       return;
-      }
-      if (ticket.Description === "" ) {
-        toast.error("Veuillez remplir la description");
-        setLoading(false);
-        return;
     }
-    
-    if (ticket.Subject === "" ) {
-        toast.error("Veuillez remplir le sujet");
-        setLoading(false);
-        return;
-      }
-        if (ticket.Phone === "" ) {
-            toast.error("Veuillez remplir le numéro de téléphone");
-            setLoading(false);
-            return;
-        }
+    if (ticket.Description === "") {
+      toast.error("Veuillez remplir la description");
+      setLoading(false);
+      return;
+    }
+
+    if (ticket.Subject === "") {
+      toast.error("Veuillez remplir le sujet");
+      setLoading(false);
+      return;
+    }
+    if (ticket.Phone === "") {
+      toast.error("Veuillez remplir le numéro de téléphone");
+      setLoading(false);
+      return;
+    }
     await axios
       .put(
         import.meta.env.VITE_Main_ENDPOINT + "ticket/" + id,
@@ -86,22 +86,17 @@ if (ticket.Name === "" ) {
         }
       )
       .then(() => {
-          toast.success("Ticket mis à jour");
-          setTimeout(() => {
-             
-              window.location.href = "/ticket/" + id;
-          }, 1000);
-
-      
+        toast.success("Ticket mis à jour");
+        setTimeout(() => {
+          window.location.href = "/ticket/" + id;
+        }, 1000);
       })
-        .catch((err) => {
-            setTimeout(() => {
-             
-               setLoading(false)
-            }, 1000);
+      .catch((err) => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
         toast.error(err.response.data.message[0]);
       });
-    
   }
 
   if (loading) {
