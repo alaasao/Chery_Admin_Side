@@ -81,6 +81,7 @@ const [loading,setLoading]=useState(false)
       return;
     }
     setLoading(true)
+    console.log(client);
     axios
       .post(import.meta.env.VITE_Main_ENDPOINT + "client", {...client,Contrat_De_Vente:[... await uploadImages([contrat])][0],Facture:[... await uploadImages([facture])][0]}, {
         headers: {
@@ -95,7 +96,7 @@ const [loading,setLoading]=useState(false)
       })
       .catch((err) => {
         setLoading(false)
-        toast.error(err.response.data.message[0]);
+        toast.error(err.response.data.message);
       });
   }
  
@@ -130,8 +131,11 @@ const [loading,setLoading]=useState(false)
       const filesArray = Array.from(e.target.files);
       setContrat(filesArray[0]);
     }
-  }
-  const [selectedModel, setSelectedModel] = useState(models[0]);
+  } const [selectedModel, setSelectedModel] = useState(models[0]);
+  useEffect(() => {
+    setClient({ ...client, Car: selectedModel.id });
+  },[selectedModel])
+ 
   if (loading) {
   return <Loading/>
 }
