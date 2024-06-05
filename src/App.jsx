@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, redirect } from "react-router-dom";
 import React, { useEffect } from "react";
 
 import Clients from "./Routes/clients/Client";
@@ -40,7 +40,8 @@ import Ticket from "./Routes/ticket/Ticket";
 import TicketDetails from "./Routes/ticket/components/TicketDetails";
 import EditTicket from "./Routes/ticket/components/EditTicket";
 import AddTicket from "./Routes/ticket/components/AddTicket";
-import { Helmet } from 'react-helmet';
+
+import Redirect from "./utils/Redirect";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Auth.user);
@@ -50,8 +51,9 @@ function App() {
     }
   }, []);
   const routes = [
-  
+  { name: "Home", link: "/", component: Redirect},
     {
+
       name: "Clients",
       link: "/clients",
       component: Clients,
@@ -233,7 +235,7 @@ function App() {
     console.log(del)
   },[del])
   return (
-    <div>
+    <div className="overflow-hidden">
       <Toaster position="bottom_center" />
         <Routes >
           {routes.map((route, index) => (

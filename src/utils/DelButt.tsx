@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { FC } from "react";
 import toast from "react-hot-toast";
 import { IoTrashOutline } from "react-icons/io5";
-import Del from "./Del";
+
 
 interface DelButtProps {
   deleteRoute: string;

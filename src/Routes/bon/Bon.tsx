@@ -2,6 +2,7 @@ import Main from "../../utils/Main";
 import React, { useState } from "react";
 
 import axios from "axios";
+import Loading from "../../utils/Loading";
 
 export interface BonType{
     _id: string;
@@ -20,6 +21,7 @@ export interface BonType{
 }
 const Bon = () => {
   const [data, setData] = useState<BonType[]>([]);
+  const [loading,setLoading]=useState(true)
   React.useEffect(() => {
     axios.get(import.meta.env.VITE_Main_ENDPOINT + "bon",
       {
@@ -30,16 +32,19 @@ const Bon = () => {
     )
         .then((response) =>
         {
-            console.log(response.data)
+            setLoading(false)
             return response.data
         }
            )
       .then((data) => setData(data));
   }, []);
+  if (loading) {
+    return <Loading/>
+  }
   return (
     <div className="w-full ">
       <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] ">
-        Liste des clients
+        Liste des bon
       </div>
       <Main data={data} />
     </div>

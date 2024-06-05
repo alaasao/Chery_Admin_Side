@@ -10,6 +10,7 @@ import axios from "axios";
 
 import DelButt from "../../../utils/DelButt";
 import EditButt from "../../../utils/EditButt";
+import Loading from "../../../utils/Loading";
 
 const RdvDetails = () => {
   const [loading,setLoading]=useState(true)
@@ -40,7 +41,7 @@ const RdvDetails = () => {
     })
   }, []);
   if (loading) {
-    return <div>... loading</div>
+    return <Loading/>
   }
   return (
     <div>

@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
 import {  useParams } from "react-router-dom";
 import DelButt from "../../../utils/DelButt";
+import Loading from "../../../utils/Loading";
 
 
 const EditBon = () => {
@@ -33,7 +34,7 @@ const EditBon = () => {
     },
   ]);
   const { id } = useParams();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -155,7 +156,7 @@ const EditBon = () => {
             toast.error("Veuillez remplir le prix");
             return;
         }
-      console.log(contrat?"await"+ [...await uploadImages([contrat])][0]:"def"+ bon.Contrat_De_Vente)
+      setLoading(true)
       axios
             .put(import.meta.env.VITE_Main_ENDPOINT + "bon/"+ bon._id, {
                 ...bon,
@@ -185,12 +186,12 @@ const EditBon = () => {
 
   }
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading/>
   }
 
 
   return (
-    <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
+    <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] pt-[50px] ">
       <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
         <div className="text-xl font-bold mb-[16px] "> Client</div>
         <Listbox value={selectedClient} onChange={setSelectedClient}>

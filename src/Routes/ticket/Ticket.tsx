@@ -46,7 +46,7 @@ const Ticket = () => {
     return (
       <div className="w-full ">
         <div className="w-full pl-[4%] text-3xl font-medium mb-[30px] mt-[36px] ">
-          Liste des clients
+          Liste des Tickets
         </div>
         <Main data={data} />
       </div>

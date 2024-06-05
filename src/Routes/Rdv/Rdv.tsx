@@ -23,7 +23,8 @@ const [loading,setLoading]=useState(true)
 
   }, [])
   useEffect(() => {
- setData(allData.filter((el:RdvType)=>el.Rdv_Type===objType)  )
+    setData(allData.filter((el: RdvType) => el.Rdv_Type === objType))
+    
   },[allData,objType])
   if (loading)
 {return <Loading/>
@@ -48,7 +49,7 @@ const [loading,setLoading]=useState(true)
           Pièces
         </div>
         <div
-      onClick={()=>{setObjType(Rdv_Type["RDV_REPARATION"])}}
+      onClick={()=>{setObjType(Rdv_Type["RDV_AUTRE"])}}
           className={`${
             objType==="RDV_REPARATION"  ? "shadow-xl" : ""
           } flex justify-center items-center h-[53px] cursor-pointer `}

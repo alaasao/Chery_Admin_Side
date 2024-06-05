@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import DelButt from "../../../utils/DelButt";
 import EditButt from "../../../utils/EditButt";
 import axios from "axios";
+import Loading from "../../../utils/Loading";
 
 const BonDetails = () => {
   const [bon, setbon] = useState({
@@ -36,14 +37,14 @@ const BonDetails = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading/>
   }
 
 
   
     
   return (
-    <form  className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
+    <form  className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px]pt-[50px] ">
    
           
    <div className="flex flex-col w-full mx-auto max-md:w-[80%] max-md:col-span-2 ">

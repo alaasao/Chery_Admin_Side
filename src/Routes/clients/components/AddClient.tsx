@@ -41,14 +41,8 @@ const [loading,setLoading]=useState(false)
   const [modelOpen, setModelOpen] = useState(false);
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
-    if (selectedModel.id === "") { 
-      toast.error("Veuillez choisir un model de voiture");
-      return;
-    }
-    if (contrat === null || facture === null) {
-      toast.error("Veuillez ajouter un contrat de vente et une facture");
-      return;
-    }
+ 
+  
     if ( client.Prix_Vente === 0) {
       toast.error("Veuillez remplir le prix");
       return;
@@ -77,6 +71,13 @@ const [loading,setLoading]=useState(false)
     }
     if (client.Address === "") {
       toast.error("Veuillez entrer l'addresse");
+      return;
+    }
+    if (selectedModel.id === "") { 
+      toast.error("Veuillez choisir un model de voiture");
+      return;
+    }   if (contrat === null || facture === null) {
+      toast.error("Veuillez ajouter un contrat de vente et une facture");
       return;
     }
     setLoading(true)

@@ -8,6 +8,7 @@ import { PieceType } from "../../piece/Piece";
 import { userType } from "../../clients/components/AddClient";
 import toast from "react-hot-toast";
 import { uploadImages } from "../../../config/firebase/Upload_Images";
+import Loading from "../../../utils/Loading";
 
 const AddBon = () => {
   const [bon, setbon] = useState({
@@ -95,7 +96,7 @@ const AddBon = () => {
   }, []);
   const [contrat, setContrat] = useState<File | null>(null);
   const [facture, setFacture] = useState<File | null>(null);
-
+const [loading,setLoading]=useState(false)
   function selectfac(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
@@ -139,6 +140,7 @@ const AddBon = () => {
     console.log(
       import.meta.env.VITE_Main_ENDPOINT + "bon/" + selectedClient._id
     );
+    setLoading(true)
     axios
       .post(
         import.meta.env.VITE_Main_ENDPOINT + "bon/" + selectedClient._id,
@@ -174,14 +176,19 @@ const AddBon = () => {
       })
       .catch((err) => {
         toast.error(err.response.data.message[0]);
+        setLoading(false)
       });
+    
+  }
+  if (loading) {
+    return <Loading/>
   }
   return (
     <form
       onSubmit={submit}
-      className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] "
+      className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] pt-[50px] "
     >
-      <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
+      <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2  ">
         <div className="text-xl font-bold mb-[16px] "> Client</div>
         <Listbox value={selectedClient} onChange={setSelectedClient}>
           <Listbox.Button
@@ -280,7 +287,7 @@ const AddBon = () => {
         <div className="text-xl font-bold max-sm:text-xl"> la Date</div>
         <input
           type={"date"}
-          min={new Date().toISOString().split("T")[0]}
+
           placeholder={`  `}
           value={new Date().toISOString().split("T")[0]}
           onChange={(e) => {

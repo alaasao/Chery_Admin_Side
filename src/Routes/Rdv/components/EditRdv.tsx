@@ -8,22 +8,22 @@ import { Rdv_Type, RdvEtat } from "../Rdv";
 
 import { FaAngleDown, FaAngleUp, FaArrowRight } from "react-icons/fa";
 import axios from "axios";
-import DelButt from "../../../utils/DelButt";
 
 import { CarsProps } from "../../cars/Cars";
 import toast from "react-hot-toast";
 import { PieceType } from "../../piece/Piece";
+import Loading from "../../../utils/Loading";
+import DelButt from "../../../utils/DelButt";
 
-const EditRdv = () =>{
-  
+const EditRdv = () => {
   const [etat, setEtat] = useState(RdvEtat.EN_ATTENTE);
   const { id } = useParams();
-  const [rdvtype,setRdvtype]=useState(Rdv_Type.RDV_VENTE_VOITURE)
+
   const [etatOpen, setEtatOpen] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
-$
+
   const [loading, setLoading] = useState(true);
- 
+
   const [rdv, setRdv] = useState<RdvType>({
     _id: "",
     Name: "",
@@ -50,7 +50,7 @@ $
         }),
         {
           _id: "",
-          Name: "le bon n'est pas pour une voiture",
+          Name: "le rdv n'est pas pour acheter une voiture",
           unavailable: true,
           Garentie: "",
         },
@@ -66,6 +66,7 @@ $
     },
   ]);
   const [selectedModel, setSelectedModel] = useState(models[0]);
+
   const [pieces, setPieces] = useState([
     { _id: "", Name: "Veuillez choisir une pièce", unavailable: false },
   ]);
@@ -81,7 +82,7 @@ $
             unavailable: e.Quantity > 0,
           };
         }),
-        { _id: "", Name: "le bon n'est pas pour une piece", unavailable: true },
+        { _id: "", Name: "le rdv n'est pas pour acheter une piece", unavailable: true },
       ]);
     });
   }, []);
@@ -90,31 +91,30 @@ $
     setRdv({ ...rdv, Etat: etat });
   }, [etat]);
   useEffect(() => {
-    setRdv({ ...rdv, Model: selectedModel.name });
+    setRdv({ ...rdv, Model: selectedModel.Name });
   }, [selectedModel]);
   useEffect(() => {
-    axios.get(import.meta.env.VITE_Main_ENDPOINT + "rdv/" + id, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-     }
-    }).then((response) => { 
-      
-      setRdv(response.data)
-      setLoading(false)
-    })
+    axios
+      .get(import.meta.env.VITE_Main_ENDPOINT + "rdv/" + id, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        setRdv(response.data);
+        setLoading(false);
+      });
   }, []);
-  
-  useEffect(() => {
-  
-    const model = models.filter((e)=>e.name===rdv.Model)[0]
-    if (model) {
-      setSelectedModel(model)
-    }
 
-  }, [models, rdv])
   useEffect(() => {
-    setEtat(rdv.Etat)
-  },[rdv])
+    const model = models.filter((e) => e.Name === rdv.Model)[0];
+    if (model) {
+      setSelectedModel(model);
+    }
+  }, [models, rdv]);
+  useEffect(() => {
+    setEtat(rdv.Etat);
+  }, [rdv]);
   async function submit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
@@ -141,46 +141,54 @@ $
       }
     }
     if (rdv.Email === "") {
-      toast.error("Veuillez entrer l'email"); return
+      toast.error("Veuillez entrer l'email");
+      return;
     } else {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!emailRegex.test(rdv.Email)) {
-        toast.error("Veuillez entrer un email valide");return
+        toast.error("Veuillez entrer un email valide");
+        return;
       }
     }
+
+    setLoading(true);
+
+    const finaltype=selectedModel._id !== ""
+    ? Rdv_Type.RDV_VENTE_VOITURE
+    : selectedPiece._id !== ""
+    ? Rdv_Type.RDV_VENTE_PIECE
+        : Rdv_Type.RDV_AUTRE
+        const finalModel = selectedModel._id !== "" ? selectedModel.Name : selectedPiece._id !== ""?selectedPiece.Name:"rdv de videnge"
     
-setLoading(true)
-    await axios.post(
-      import.meta.env.VITE_Main_ENDPOINT + "rdv",
-      {
-        ...rdv,
-        rdv_type:
-          selectedModel._id !== ""
-            ? Rdv_Type.RDV_VENTE_VOITURE
-            : selectedPiece._id !== ""
-              ? Rdv_Type.RDV_VENTE_PIECE
-              : Rdv_Type.RDV_AUTRE,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    ).then(() => {
-      toast.success("rdv ajouté")
-      setTimeout(() => {
-        window.location.href = "/rdv";
-      }, 1000);
-    }).catch((err) => {
-      toast.error(err.response.data.message[0])
-      setLoading(false)
-    })
-
-
+    await axios
+      .put(
+        import.meta.env.VITE_Main_ENDPOINT + "rdv/" + id,
+     {
+      
+        
+       ...rdv,Rdv_Type:finaltype,Model:finalModel
+    },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then(() => {
+        toast.success("rdv mit a jour");
+        setTimeout(() => {
+          window.location.href = "/rdv";
+        }, 1000);
+        setLoading(false)
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message[0]);
+        setLoading(false);
+      });
   }
 
   if (loading) {
-    return <div>... loading</div>;
+    return <Loading/>
   }
 
   return (
@@ -188,7 +196,10 @@ setLoading(true)
       <div className="my-[50px] text-3xl ml-[20px]">
         Les informations de la demande
       </div>
-      <form onSubmit={submit} className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] ">
+      <form
+        onSubmit={submit}
+        className="w-full grid grid-cols-2 max-md:grid-cols-1 gap-x-[9vw] gap-y-[20px] px-[40px] "
+      >
         <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl">
             {" "}
@@ -249,12 +260,12 @@ setLoading(true)
         </div>
         <div className="flex flex-col w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold max-sm:text-xl"> la Date</div>
-   
+
           <input
             type={"date"}
-            min={ new Date().toISOString().split('T')[0]}
+           
             placeholder={`  `}
-            value={new Date( rdv.Date_Choisie).toISOString().slice(0, 10)}
+            value={new Date(rdv.Date_Choisie).toISOString().slice(0, 10)}
             onChange={(e) => {
               setRdv((prev) => ({
                 ...prev,
@@ -262,7 +273,7 @@ setLoading(true)
               }));
             }}
             className=" flex  justify-between outline-none bg-[#F6F7F9] h-[56px] pl-[30px]  max-md:pl-[8px] mt-[16px] w-full cursor-pointer rounded-xl border border-black text-2xl max-sm:text-[16px]"
-               />
+          />
         </div>
         <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-xl font-bold mb-[16px] "> Model</div>
@@ -312,9 +323,7 @@ setLoading(true)
                 <FaAngleUp className="text-2xl" />
               )}
             </Listbox.Button>
-            <Listbox.Options
-             
-            >
+            <Listbox.Options>
               {RdvEtatList.map((etat) => (
                 <Listbox.Option
                   value={etat}
@@ -334,8 +343,7 @@ setLoading(true)
                 </Listbox.Option>
               ))}
             </Listbox.Options>
-          </Listbox> 
-          
+          </Listbox>
         </div>
         <div className="flex flex-col relative w-full max-md:w-[80%] mx-auto max-md:col-span-2 ">
           <div className="text-3xl font-bold mb-[16px] "> Piece</div>
@@ -399,18 +407,23 @@ setLoading(true)
           </Listbox>
         
         </div> */}
-        <div className="flex items-end justify-center gap-[20px] col-span-2  mb-[50px]" >
-          <DelButt id={rdv._id} deleteRoute="rdv" back="/rdv" name={rdv.Model} icon={false} />
-        <button
-        type="submit"
-        className="w-[140px] cursor-pointer bg-green-600 flex justify-center  items-center h-[50px] text-white  gap-[10px] rounded-xl"
-      >
-        {" "}
-        envoyer
-        <FaArrowRight />
-      </button>
+        <div className="flex items-end justify-center gap-[20px] col-span-2  mb-[50px]">
+          <DelButt
+            id={rdv._id}
+            deleteRoute="rdv"
+            back="/rdv"
+            name={rdv.Model}
+            icon={false}
+          />
+          <button
+            type="submit"
+            className="w-[140px] cursor-pointer bg-green-600 flex justify-center  items-center h-[50px] text-white  gap-[10px] rounded-xl"
+          >
+            {" "}
+            envoyer
+            <FaArrowRight />
+          </button>
         </div>
-    
       </form>
     </div>
   );
@@ -419,4 +432,9 @@ setLoading(true)
 export default EditRdv;
 
 const RdvEtatList = ["EN_ATTENTE", "CONFIRMER", "ANNULE"];
-const RdvTypeList=["RDV_VENTE_VOITURE","RDV_VENTE_PIECE","RDV_REPARATION","RDV_AUTRE"]
+// const RdvTypeList = [
+//   "RDV_VENTE_VOITURE",
+//   "RDV_VENTE_PIECE",
+//   "RDV_REPARATION",
+//   "RDV_AUTRE",
+// ];
