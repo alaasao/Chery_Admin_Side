@@ -128,7 +128,7 @@ const Main: FC<MainProps> = ({ data }: MainProps) => {
             <BonCard
               id={e._id}
               Name={e.Client?.Name}
-              object={e.Car !== null ? e.Car?.Name : e.Piece?.Name}
+              object={e.Car !== null ? e.Car?.Name||e.Car.Modele : e.Piece?.Name}
               key={e._id + 66}
             />
           ) : "Modele" in e ? (
