@@ -204,7 +204,11 @@ position: relative;
 @media (max-width: 640px) {
   /* sm in Tailwind */
   .button_sign {
-    -top: 0;
+
+    font-size: 16px;
+  }
+  .input_sign,.si2{
+    font-size: 16px;
   }
 }
 .jj {
