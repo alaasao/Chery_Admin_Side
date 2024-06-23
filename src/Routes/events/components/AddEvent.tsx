@@ -61,8 +61,8 @@ const AddEvent = () => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       setImages(filesArray.map(file => URL.createObjectURL(file)));
-
-      setImages(await uploadImages(filesArray))
+const imgs=await uploadImages(filesArray)
+      setImages(imgs)
 
     }
   }

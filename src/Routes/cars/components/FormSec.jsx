@@ -88,7 +88,7 @@ return (
                   type={"date"}   readOnly={readonly}
                   min={new Date().toISOString().split("T")[0]}
                   placeholder={`  `}
-                  value={new Date(value).toISOString().slice(0, 10)}
+                  value={new Date(value)}
                   onChange={(e) => {
                     setList((prev) => ({
                       ...prev,
