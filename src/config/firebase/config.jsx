@@ -11,6 +11,14 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 }
 
+// VITE_Main_ENDPOINT=https://axeiny.tech:4004/
+// VITE_API_KEY =AIzaSyBsNCPXw5VweRsVxeOWDadp_enscirRabE 
+// VITE_AUTH_DOMAIN =cherry-36cfa.firebaseapp.com  
+// VITE_PROJECT_ID =cherry-36cfa 
+// VITE_STORAGE_BUCKET =cherry-36cfa.appspot.com  
+// VITE_MESSAGING_SENDER_ID =745386153395  
+// VITE_APP_ID =1:745386153395:web:bca2eea44ccd602fff67c6  
+// VITE_MEASUREMENT_ID=G-775BNL1NGR 
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
